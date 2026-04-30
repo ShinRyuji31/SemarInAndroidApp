@@ -10,6 +10,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -20,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import com.example.application.R
 import com.example.application.ui.component.dashboard.DashboardBottomNavBar
 import com.example.application.ui.component.global.BackButton
+import com.example.application.ui.component.profile.ProfileAlertLogut
 import com.example.application.ui.component.profile.ProfileItem
 import com.example.application.ui.theme.blueWhiteGradient
 
@@ -28,6 +33,8 @@ fun ProfileScreen(
     onBack: () -> Unit,
     onHomeClick: () -> Unit
 ) {
+
+    var showLogoutDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         bottomBar = {
@@ -39,94 +46,118 @@ fun ProfileScreen(
         }
     ) { padding ->
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(brush = blueWhiteGradient())
-                .padding(padding)
+        Box(
+            modifier = Modifier.fillMaxSize()
         ) {
 
-            Box(
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(300.dp)
+                    .fillMaxSize()
+                    .background(brush = blueWhiteGradient())
+                    .padding(padding)
             ) {
 
-                BackButton(
-                    onClick = onBack,
+                Box(
                     modifier = Modifier
-                        .padding(start = 16.dp)
-                        .align(Alignment.CenterStart)
-                )
-
-                Column(
-                    modifier = Modifier.align(Alignment.Center),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                        .fillMaxWidth()
+                        .height(300.dp)
                 ) {
 
-                    Box(
+                    BackButton(
+                        onClick = onBack,
                         modifier = Modifier
-                            .size(110.dp)
-                            .clip(CircleShape)
-                            .background(Color.White)
-                            .padding(4.dp)
+                            .padding(start = 16.dp)
+                            .align(Alignment.CenterStart)
+                    )
+
+                    Column(
+                        modifier = Modifier.align(Alignment.Center),
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_profile),
-                            contentDescription = null,
+
+                        Box(
                             modifier = Modifier
-                                .fillMaxSize()
-                                .clip(CircleShape),
-                            tint = Color.Unspecified
+                                .size(110.dp)
+                                .clip(CircleShape)
+                                .background(Color.White)
+                                .padding(4.dp)
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_profile),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .clip(CircleShape),
+                                tint = Color.Unspecified
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(12.dp))
+
+                        Text("Stan Marsh", color = Color.White, fontSize = 18.sp)
+
+                        Text(
+                            "+62-8123-4567-890",
+                            color = Color.White.copy(alpha = 0.8f),
+                            fontSize = 12.sp
+                        )
+
+                        Text(
+                            "Edit Profile",
+                            color = Color.White,
+                            fontSize = 12.sp,
+                            modifier = Modifier.clickable { }
                         )
                     }
+                }
 
-                    Spacer(modifier = Modifier.height(12.dp))
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .offset(y = (-30).dp)
+                        .padding(horizontal = 16.dp)
+                        .background(
+                            Color.White,
+                            shape = RoundedCornerShape(24.dp)
+                        )
+                        .border(
+                            1.dp,
+                            Color(0xFFE0E0E0),
+                            RoundedCornerShape(24.dp)
+                        )
+                        .padding(vertical = 16.dp)
+                ) {
 
-                    Text("Stan Marsh", color = Color.White, fontSize = 18.sp)
+                    Column {
 
+                        ProfileItem("Full Profile", R.drawable.ic_profile) {
+                        }
+                        ProfileItem("Order History", R.drawable.ic_history) {
+                        }
+                        ProfileItem("Support & Help", R.drawable.ic_help) {
+                        }
+                        ProfileItem("Privacy Policy", R.drawable.ic_privacy) {
+                        }
+                        ProfileItem("Terms of Use", R.drawable.ic_termsofuse) {
+                        }
 
-                    Text(
-                        "+62-8123-4567-890",
-                        color = Color.White.copy(alpha = 0.8f),
-                        fontSize = 12.sp
-                    )
-
-                    Text(
-                        "Edit Profile",
-                        color = Color.White,
-                        fontSize = 12.sp,
-                        modifier = Modifier.clickable { }
-                    )
+                        ProfileItem(
+                            "Log Out",
+                            R.drawable.ic_logout,
+                        ) {
+                            showLogoutDialog = true
+                        }
+                    }
                 }
             }
 
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .offset(y = (-30).dp)
-                    .padding(horizontal = 16.dp)
-                    .background(
-                        Color.White,
-                        shape = RoundedCornerShape(24.dp)
-                    )
-                    .border(
-                        1.dp,
-                        Color(0xFFE0E0E0),
-                        RoundedCornerShape(24.dp)
-                    )
-                    .padding(vertical = 16.dp)
-            ) {
-
-                Column {
-
-                    ProfileItem("Full Profile", R.drawable.ic_profile)
-                    ProfileItem("Order History", R.drawable.ic_history)
-                    ProfileItem("Support & Help", R.drawable.ic_help)
-                    ProfileItem("Privacy Policy", R.drawable.ic_privacy)
-                    ProfileItem("Terms of Use", R.drawable.ic_termsofuse)
-                    ProfileItem("Log Out", R.drawable.ic_logout)
-                }
+            if (showLogoutDialog) {
+                ProfileAlertLogut(
+                    onDismiss = { showLogoutDialog = false },
+                    onLogout = {
+                        showLogoutDialog = false
+                    }
+                )
             }
         }
     }

@@ -21,11 +21,15 @@ import com.example.application.ui.theme.BlackSoft
 import com.example.application.ui.theme.GrayMedium
 
 @Composable
-fun ProfileItem(title: String, icon: Int) {
+fun ProfileItem(
+    title: String,
+    icon: Int,
+    onClick: () -> Unit = {}
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { }
+            .clickable { onClick() }
             .padding(horizontal = 20.dp, vertical = 14.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
