@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -18,7 +19,10 @@ import androidx.compose.ui.unit.sp
 import com.example.application.ui.component.dashboard.*
 import com.example.application.ui.component.shared.AffordableRestaurant
 import com.example.application.ui.component.global.SearchBar
+import androidx.compose.material3.*
+import com.example.application.ui.theme.WhiteSoft
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashboardScreen(
     onProfileClick: () -> Unit,
@@ -30,6 +34,28 @@ fun DashboardScreen(
 
     val isScrolled = listState.firstVisibleItemIndex > 0 ||
             listState.firstVisibleItemScrollOffset > 50
+
+    var showBottomSheet by remember { mutableStateOf(false) }
+
+    if (showBottomSheet) {
+        ModalBottomSheet(
+            onDismissRequest = { showBottomSheet = false },
+            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+            containerColor = WhiteSoft
+        ) {
+            DashboardAllCategorySheet(
+                onClose = { showBottomSheet = false },
+                onAnterClick = {
+                    showBottomSheet = false
+                    onAnjeminClick()
+                },
+                onJajanClick = {
+                    showBottomSheet = false
+                    onJajaninClick()
+                }
+            )
+        }
+    }
 
     Scaffold(
         bottomBar = {
@@ -93,7 +119,8 @@ fun DashboardScreen(
 
                         DashboardServiceSection(
                             onAnjeminClick = onAnjeminClick,
-                            onJajaninClick = onJajaninClick
+                            onJajaninClick = onJajaninClick,
+                            onAllClick = { showBottomSheet = true }
                         )
 
                         DashboardLastOrder()
