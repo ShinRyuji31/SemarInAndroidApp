@@ -43,8 +43,6 @@ fun JajaninMainPage(
             }
 
             item {
-                AffordableRestaurant()
-
                 JajaninRestaurantList(
                     onRestaurantClick = onRestaurantClick
                 )
