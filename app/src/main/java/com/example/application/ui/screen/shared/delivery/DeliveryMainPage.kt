@@ -10,14 +10,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.application.ui.component.global.Header
 import com.example.application.ui.component.global.SearchBar
-import com.example.application.ui.component.jajanin.JajaninRestaurantList
+import com.example.application.ui.component.shared.delivery.DeliveryItemList
 import com.example.application.ui.theme.WhiteSoft
+import com.example.application.viewmodel.JajaninViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 
 @Composable
 fun DeliveryMainPage(
     onBack: () -> Unit,
-    onRestaurantClick: () -> Unit
+    onRestaurantClick: () -> Unit,
+    viewModel: JajaninViewModel = viewModel()
 ) {
+
+    val restaurants by viewModel.restaurants.collectAsState()
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -37,12 +44,13 @@ fun DeliveryMainPage(
                         .background(Color.Transparent)
                         .padding(vertical = 16.dp)
                 ) {
-                    SearchBar(placeholderText = "Cari Kebutuhanmu")
+                    SearchBar(placeholderText = "Cari kebutuhanmu")
                 }
             }
 
             item {
-                JajaninRestaurantList(
+                DeliveryItemList(
+                    restaurants = restaurants,
                     onRestaurantClick = onRestaurantClick
                 )
 

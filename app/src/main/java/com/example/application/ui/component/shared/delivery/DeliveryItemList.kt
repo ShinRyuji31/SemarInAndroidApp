@@ -1,4 +1,4 @@
-package com.example.application.ui.component.jajanin
+package com.example.application.ui.component.shared.delivery
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -9,13 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.application.ui.component.shared.delivery.ItemCard
+import com.example.application.data.model.Restaurant
 
 @Composable
-fun JajaninRestaurantList(
+fun DeliveryItemList(
+    restaurants: List<Restaurant>,
     onRestaurantClick: () -> Unit
 ) {
-
     Column {
 
         Text(
@@ -26,13 +26,13 @@ fun JajaninRestaurantList(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        restaurantDummy.forEach {
-            ItemCard(
-                name = it.name,
-                address = it.address,
-                promo = it.promo,
-                rating = it.rating,
-                imageRes = it.imageRes,
+        restaurants.forEach { restaurant ->
+            DeliveryItemCard(
+                name = restaurant.name,
+                address = restaurant.address,
+                rating = restaurant.rating,
+                imageRes = restaurant.imageRes,
+                promo = "diskon 5rb",
                 onClick = onRestaurantClick
             )
         }
