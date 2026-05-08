@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.application.R
 import com.example.application.ui.component.global.Header
-import com.example.application.ui.component.jajanin.JajaninInfoCard
+import com.example.application.ui.component.shared.delivery.StoreInfoCard
 import com.example.application.ui.component.jajanin.menu.JajaninMenuSection
 import com.example.application.viewmodel.JajaninViewModel
 
@@ -28,6 +28,7 @@ fun DeliveryDetailPage(
 ) {
 
     val menu by viewModel.menu.collectAsState()
+    val selectedRestaurant by viewModel.selectedRestaurant.collectAsState()
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -57,7 +58,11 @@ fun DeliveryDetailPage(
                         )
                         .padding(16.dp)
                 ) {
-                    JajaninInfoCard()
+                    selectedRestaurant?.let {
+                        StoreInfoCard(
+                            restaurant = it
+                        )
+                    }
                 }
             }
 

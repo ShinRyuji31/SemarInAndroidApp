@@ -18,38 +18,30 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.application.R
+import com.example.application.data.model.Restaurant
 import com.example.application.ui.theme.BlackSoft
 import com.example.application.ui.theme.GrayMedium
 
-data class Resto(
-    val name: String,
-    val rating: String,
-    val image: Int
-)
-
 @Composable
-fun DashboardAffordableRestaurant() {
+fun DashboardAffordableRestaurant(
+    restaurants: List<Restaurant>
+) {
 
-    val restos = listOf(
-        Resto("Kopi Kenangan", "⭐ 4.8 • 1.2km", R.drawable.resto_kopikenangan),
-        Resto("Ayam Geprek", "⭐ 4.6 • 0.8km", R.drawable.resto_ayamgeprek),
-        Resto("Sate Madura", "⭐ 4.7 • 1.5km", R.drawable.resto_sate)
-    )
-
-    val displayList = List(6) { restos[it % restos.size] }
-
-    Column(modifier = Modifier.padding(16.dp)) {
+    Column(
+        modifier = Modifier.padding(16.dp)
+    ) {
 
         Text(
-            "Semar Resto Termurah",
+            text = "Semar Resto Termurah",
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             color = BlackSoft
         )
 
         LazyRow {
-            items(displayList) { resto ->
+
+            items(restaurants) { resto ->
+
                 Card(
                     modifier = Modifier
                         .padding(8.dp)
@@ -59,28 +51,51 @@ fun DashboardAffordableRestaurant() {
                             GrayMedium,
                             RoundedCornerShape(16.dp)
                         ),
+
                     shape = RoundedCornerShape(16.dp),
+
                     colors = CardDefaults.cardColors(
                         containerColor = Color.Transparent
                     ),
+
                     elevation = CardDefaults.cardElevation(0.dp)
                 ) {
 
                     Column {
 
                         Image(
-                            painter = painterResource(id = resto.image),
+                            painter = painterResource(id = resto.imageRes),
+
                             contentDescription = null,
+
                             contentScale = ContentScale.Crop,
+
                             modifier = Modifier
                                 .height(100.dp)
                                 .fillMaxWidth()
-                                .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                                .clip(
+                                    RoundedCornerShape(
+                                        topStart = 16.dp,
+                                        topEnd = 16.dp
+                                    )
+                                )
                         )
 
-                        Column(modifier = Modifier.padding(8.dp)) {
-                            Text(resto.name, fontWeight = FontWeight.Bold, color = BlackSoft)
-                            Text(resto.rating, fontSize = 12.sp, color = BlackSoft)
+                        Column(
+                            modifier = Modifier.padding(8.dp)
+                        ) {
+
+                            Text(
+                                resto.name,
+                                fontWeight = FontWeight.Bold,
+                                color = BlackSoft
+                            )
+
+                            Text(
+                                text = "⭐ ${resto.rating}",
+                                fontSize = 12.sp,
+                                color = BlackSoft
+                            )
                         }
                     }
                 }

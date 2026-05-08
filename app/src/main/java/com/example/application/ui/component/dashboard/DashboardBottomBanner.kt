@@ -3,38 +3,33 @@ package com.example.application.ui.component.dashboard
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.application.R
+import com.example.application.data.model.PromoBanner
 import com.example.application.ui.theme.BlackSoft
 import com.example.application.ui.theme.GrayDark
 import com.example.application.ui.theme.GrayMedium
 import com.example.application.ui.theme.WhiteSoft
 
 @Composable
-fun DashboardBottomBanner() {
+fun DashboardBottomBanner(
+    banners: List<PromoBanner>
+) {
 
-    val banners = listOf(
-        R.drawable.banner_anterin,
-        R.drawable.banner_titipin
-    )
-
-    Column(modifier = Modifier.padding(16.dp)) {
+    Column(
+        modifier = Modifier.padding(16.dp)
+    ) {
 
         banners.forEach { banner ->
 
@@ -42,7 +37,9 @@ fun DashboardBottomBanner() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 12.dp),
+
                 shape = RoundedCornerShape(16.dp),
+
                 border = BorderStroke(
                     1.dp,
                     GrayMedium
@@ -58,9 +55,12 @@ fun DashboardBottomBanner() {
                     ) {
 
                         Image(
-                            painter = painterResource(banner),
+                            painter = painterResource(banner.imageRes),
+
                             contentDescription = null,
+
                             contentScale = ContentScale.Crop,
+
                             modifier = Modifier.fillMaxSize()
                         )
                     }
@@ -68,20 +68,23 @@ fun DashboardBottomBanner() {
                     Column(
                         modifier = Modifier
                             .background(WhiteSoft)
+                            .fillMaxWidth()
                             .padding(12.dp)
                     ) {
 
                         Text(
-                            text = "Anter-In Lagi Disini",
+                            text = banner.title,
                             fontWeight = FontWeight.Bold,
                             color = BlackSoft,
                             fontSize = 16.sp
                         )
 
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(
+                            modifier = Modifier.height(8.dp)
+                        )
 
                         Text(
-                            text = "Saya akan kembali ke Solo sebagai rakyat biasa Saya akan kembali ke Solo sebagai rakyat biasa...",
+                            text = banner.description,
                             fontSize = 12.sp,
                             color = GrayDark,
                             maxLines = 2

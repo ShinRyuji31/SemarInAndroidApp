@@ -14,7 +14,7 @@ import com.example.application.data.model.Restaurant
 @Composable
 fun DeliveryItemList(
     restaurants: List<Restaurant>,
-    onRestaurantClick: () -> Unit
+    onRestaurantClick: (Restaurant) -> Unit
 ) {
     Column {
 
@@ -33,7 +33,9 @@ fun DeliveryItemList(
                 rating = restaurant.rating,
                 imageRes = restaurant.imageRes,
                 promo = "diskon 5rb",
-                onClick = onRestaurantClick
+                onClick = {
+                    onRestaurantClick(restaurant)
+                }
             )
         }
     }

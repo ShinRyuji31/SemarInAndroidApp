@@ -51,7 +51,12 @@ fun DeliveryMainPage(
             item {
                 DeliveryItemList(
                     restaurants = restaurants,
-                    onRestaurantClick = onRestaurantClick
+                    onRestaurantClick = { restaurant ->
+
+                        viewModel.selectRestaurant(restaurant)
+
+                        onRestaurantClick()
+                    }
                 )
 
                 Spacer(modifier = Modifier.height(80.dp))

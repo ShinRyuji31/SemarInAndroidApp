@@ -17,6 +17,9 @@ class JajaninViewModel(
     private val _menu = MutableStateFlow<List<MenuFoodItem>>(emptyList())
     val menu: StateFlow<List<MenuFoodItem>> = _menu
 
+    private val _selectedRestaurant = MutableStateFlow<Restaurant?>(null)
+    val selectedRestaurant: StateFlow<Restaurant?> = _selectedRestaurant
+
     init {
         loadData()
     }
@@ -24,5 +27,9 @@ class JajaninViewModel(
     private fun loadData() {
         _restaurants.value = repository.getRestaurants()
         _menu.value = repository.getMenu()
+    }
+
+    fun selectRestaurant(restaurant: Restaurant) {
+        _selectedRestaurant.value = restaurant
     }
 }
