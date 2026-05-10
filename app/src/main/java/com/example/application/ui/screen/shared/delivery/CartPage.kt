@@ -1,11 +1,14 @@
-package com.example.application.ui.screen.cart
+package com.example.application.ui.screen.shared.delivery
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -13,19 +16,36 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.application.R
-import com.example.application.ui.component.cart.CartItem
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.application.ui.component.global.ButtonWhite
 import com.example.application.ui.component.global.Header
+import com.example.application.ui.component.shared.delivery.cart.CartItem
 import com.example.application.ui.theme.BluePrimary
 import com.example.application.ui.theme.BlueSecondary
+import com.example.application.util.toRupiah
+import com.example.application.viewmodel.CartViewModel
 
 @Composable
-fun CartScreen(
-    onBack: () -> Unit
+fun CartPage(
+    onBack: () -> Unit,
+    viewModel: CartViewModel = viewModel()
 ) {
-    Box(modifier = Modifier.fillMaxSize().background(Color.White)) {
-        Column(modifier = Modifier.fillMaxSize()) {
+
+    val cartItems by viewModel.cartItems.collectAsState()
+    val subtotal by viewModel.subtotal.collectAsState(0)
+    val deliveryFee by viewModel.deliveryFee.collectAsState()
+    val total by viewModel.total.collectAsState(0)
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+    ) {
+
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+
             Header(
                 title = "Cart",
                 onBack = onBack
@@ -35,31 +55,40 @@ fun CartScreen(
                 modifier = Modifier
                     .weight(1f)
                     .padding(horizontal = 16.dp),
-                contentPadding = PaddingValues(top = 8.dp, bottom = 16.dp)
+
+                contentPadding = PaddingValues(
+                    top = 8.dp,
+                    bottom = 16.dp
+                )
             ) {
-                item {
-                    CartItem(
-                        name = "The Eclair Bestie",
-                        price = "Rp89000",
-                        imageRes = R.drawable.dummy,
-                        quantity = 1,
+
+                items(cartItems) { cart ->
+
+                    val inventory = viewModel.getInventoryById(
+                        cart.storeInventoryId
                     )
-                }
-                item {
-                    CartItem(
-                        name = "Classic Eclair - Cookies & Cream",
-                        price = "Rp151200",
-                        imageRes = R.drawable.dummy,
-                        quantity = 2,
-                    )
-                }
-                item {
-                    CartItem(
-                        name = "Delight Box",
-                        price = "Rp297000",
-                        imageRes = R.drawable.dummy,
-                        quantity = 1,
-                    )
+
+                    inventory?.let {
+
+                        CartItem(
+                            name = it.name,
+                            price = it.price.toRupiah(),
+                            imageRes = it.imageRes,
+                            quantity = cart.quantity,
+
+                            onIncrease = {
+                                viewModel.increaseQuantity(
+                                    cart.id
+                                )
+                            },
+
+                            onDecrease = {
+                                viewModel.decreaseQuantity(
+                                    cart.id
+                                )
+                            }
+                        )
+                    }
                 }
             }
 
@@ -67,26 +96,40 @@ fun CartScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(Color.White)
-                    .padding(horizontal = 16.dp, vertical = 20.dp)
+                    .padding(
+                        horizontal = 16.dp,
+                        vertical = 20.dp
+                    )
             ) {
-                HorizontalDivider(modifier = Modifier.padding(bottom = 16.dp), thickness = 1.dp, color = Color.LightGray)
+
+                HorizontalDivider(
+                    modifier = Modifier.padding(bottom = 16.dp),
+                    thickness = 1.dp,
+                    color = Color.LightGray
+                )
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.Top
                 ) {
+
                     Text(
                         text = "Deliver to",
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold
                     )
-                    Column(horizontalAlignment = Alignment.End) {
+
+                    Column(
+                        horizontalAlignment = Alignment.End
+                    ) {
+
                         Text(
                             text = "Current Location",
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Bold
                         )
+
                         Text(
                             text = "Gg. Kutai Utara No. 1",
                             fontSize = 13.sp,
@@ -101,8 +144,18 @@ fun CartScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(text = "Subtotal", color = Color.Gray, fontSize = 15.sp)
-                    Text(text = "Rp 240200", color = Color.Gray, fontSize = 15.sp)
+
+                    Text(
+                        text = "Subtotal",
+                        color = Color.Gray,
+                        fontSize = 15.sp
+                    )
+
+                    Text(
+                        text = subtotal.toRupiah(),
+                        color = Color.Gray,
+                        fontSize = 15.sp
+                    )
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -111,8 +164,18 @@ fun CartScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(text = "Delivery fee", color = Color.Gray, fontSize = 15.sp)
-                    Text(text = "Rp 7000", color = Color.Gray, fontSize = 15.sp)
+
+                    Text(
+                        text = "Delivery fee",
+                        color = Color.Gray,
+                        fontSize = 15.sp
+                    )
+
+                    Text(
+                        text = deliveryFee.toRupiah(),
+                        color = Color.Gray,
+                        fontSize = 15.sp
+                    )
                 }
 
                 Spacer(modifier = Modifier.height(32.dp))
@@ -122,13 +185,15 @@ fun CartScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+
                     Text(
                         text = "Total",
                         fontSize = 22.sp,
                         fontWeight = FontWeight.Bold
                     )
+
                     Text(
-                        text = "Rp247200",
+                        text = total.toRupiah(),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -140,15 +205,20 @@ fun CartScreen(
                     .fillMaxWidth()
                     .background(
                         brush = Brush.verticalGradient(
-                            colors = listOf(BlueSecondary, BluePrimary)
+                            colors = listOf(
+                                BlueSecondary,
+                                BluePrimary
+                            )
                         )
                     )
                     .padding(16.dp)
                     .navigationBarsPadding()
             ) {
+
                 ButtonWhite(
                     text = "Checkout",
                     onClick = { },
+
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(55.dp)

@@ -22,7 +22,9 @@ import com.example.application.R
 import com.example.application.ui.theme.WhiteSoft
 
 @Composable
-fun AnterinHistoryItem(text: String) {
+fun AnterinHistoryItem(
+    text: String
+) {
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -36,16 +38,20 @@ fun AnterinHistoryItem(text: String) {
                 .background(WhiteSoft),
             contentAlignment = Alignment.Center
         ) {
+
             Icon(
                 painter = painterResource(id = R.drawable.ic_location),
                 contentDescription = null,
-                tint = WhiteSoft,
+                tint = Color.Black,
                 modifier = Modifier.size(16.dp)
             )
         }
 
         Spacer(modifier = Modifier.width(8.dp))
 
-        Text(text, fontSize = 12.sp)
+        Text(
+            text = text,
+            fontSize = 12.sp
+        )
     }
 }

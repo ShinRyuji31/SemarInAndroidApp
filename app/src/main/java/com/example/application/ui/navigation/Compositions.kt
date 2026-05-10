@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import com.example.application.data.model.StoreType
 import com.example.application.ui.screen.*
 import com.example.application.ui.screen.anterin.*
-import com.example.application.ui.screen.cart.CartScreen
+import com.example.application.ui.screen.shared.delivery.CartPage
 import com.example.application.ui.screen.shared.delivery.DeliveryDetailPage
 import com.example.application.ui.screen.shared.delivery.DeliveryMainPage
 
@@ -108,7 +108,7 @@ fun AppNavigation(
         )
 
         // CART ====================================================================
-        is Routes.CartRoute -> CartScreen(
+        is Routes.CartRoute -> CartPage(
             onBack = onBack
         )
 

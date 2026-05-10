@@ -1,4 +1,4 @@
-package com.example.application.ui.component.Anterin
+package com.example.application.ui.component.anterin
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize

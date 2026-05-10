@@ -148,14 +148,13 @@ class StoreRepository {
     fun getStoreInventory(): List<StoreInventory> {
         return listOf(
 
-            // ================= F1 - Beard Papa's =================
+            // ================= F1 =================
 
-            // Cream Puff Party Collections
             StoreInventory(
                 id = "F1001",
                 storeId = "F1",
                 name = "Delight Box",
-                price = "Rp297.000",
+                price = 297000,
                 imageRes = R.drawable.dummy,
                 category = "Cream Puff Party Collections"
             ),
@@ -164,7 +163,7 @@ class StoreRepository {
                 id = "F1002",
                 storeId = "F1",
                 name = "Family Bundle",
-                price = "Rp297.000",
+                price = 297000,
                 imageRes = R.drawable.dummy,
                 category = "Cream Puff Party Collections"
             ),
@@ -173,7 +172,7 @@ class StoreRepository {
                 id = "F1003",
                 storeId = "F1",
                 name = "Party Box",
-                price = "Rp120.000",
+                price = 120000,
                 imageRes = R.drawable.dummy,
                 category = "Cream Puff Party Collections"
             ),
@@ -182,7 +181,7 @@ class StoreRepository {
                 id = "F1004",
                 storeId = "F1",
                 name = "Mini Box",
-                price = "Rp15.000",
+                price = 15000,
                 imageRes = R.drawable.dummy,
                 category = "Cream Puff Party Collections"
             ),
@@ -191,17 +190,16 @@ class StoreRepository {
                 id = "F1005",
                 storeId = "F1",
                 name = "Super Bundle",
-                price = "Rp200.000",
+                price = 200000,
                 imageRes = R.drawable.dummy,
                 category = "Cream Puff Party Collections"
             ),
 
-            // The Eclair
             StoreInventory(
                 id = "F1006",
                 storeId = "F1",
                 name = "The Eclair Bestie",
-                price = "Rp89.000",
+                price = 89000,
                 imageRes = R.drawable.dummy,
                 category = "The Eclair"
             ),
@@ -210,7 +208,7 @@ class StoreRepository {
                 id = "F1007",
                 storeId = "F1",
                 name = "The Eclair",
-                price = "Rp49.900",
+                price = 49900,
                 imageRes = R.drawable.dummy,
                 category = "The Eclair"
             ),
@@ -219,7 +217,7 @@ class StoreRepository {
                 id = "F1008",
                 storeId = "F1",
                 name = "Eclair Chocolate",
-                price = "Rp25.000",
+                price = 25000,
                 imageRes = R.drawable.dummy,
                 category = "The Eclair"
             ),
@@ -228,17 +226,16 @@ class StoreRepository {
                 id = "F1009",
                 storeId = "F1",
                 name = "Eclair Vanilla",
-                price = "Rp25.000",
+                price = 25000,
                 imageRes = R.drawable.dummy,
                 category = "The Eclair"
             ),
 
-            // Signature Pie Cream Puff
             StoreInventory(
                 id = "F1010",
                 storeId = "F1",
                 name = "Durian",
-                price = "Rp93.000",
+                price = 93000,
                 imageRes = R.drawable.dummy,
                 category = "Signature Pie Cream Puff"
             ),
@@ -247,7 +244,7 @@ class StoreRepository {
                 id = "F1011",
                 storeId = "F1",
                 name = "Cookies & Cream",
-                price = "Rp75.600",
+                price = 75600,
                 imageRes = R.drawable.dummy,
                 category = "Signature Pie Cream Puff"
             ),
@@ -256,17 +253,16 @@ class StoreRepository {
                 id = "F1012",
                 storeId = "F1",
                 name = "Vanilla Custard",
-                price = "Rp58.000",
+                price = 58000,
                 imageRes = R.drawable.dummy,
                 category = "Signature Pie Cream Puff"
             ),
 
-            // Classic Eclair
             StoreInventory(
                 id = "F1013",
                 storeId = "F1",
                 name = "Black Thorn",
-                price = "Rp98.000",
+                price = 98000,
                 imageRes = R.drawable.dummy,
                 category = "Classic Eclair"
             ),
@@ -275,7 +271,7 @@ class StoreRepository {
                 id = "F1014",
                 storeId = "F1",
                 name = "Cookies & Cream",
-                price = "Rp82.000",
+                price = 82000,
                 imageRes = R.drawable.dummy,
                 category = "Classic Eclair"
             ),
@@ -284,17 +280,16 @@ class StoreRepository {
                 id = "F1015",
                 storeId = "F1",
                 name = "Custard",
-                price = "Rp68.000",
+                price = 68000,
                 imageRes = R.drawable.dummy,
                 category = "Classic Eclair"
             ),
 
-            // Mini Cream Puff
             StoreInventory(
                 id = "F1016",
                 storeId = "F1",
                 name = "Black Thorn",
-                price = "Rp151.700",
+                price = 151700,
                 imageRes = R.drawable.dummy,
                 category = "Mini Cream Puff"
             ),
@@ -303,7 +298,7 @@ class StoreRepository {
                 id = "F1017",
                 storeId = "F1",
                 name = "Vanilla Custard",
-                price = "Rp102.000",
+                price = 102000,
                 imageRes = R.drawable.dummy,
                 category = "Mini Cream Puff"
             ),
@@ -312,189 +307,9 @@ class StoreRepository {
                 id = "F1018",
                 storeId = "F1",
                 name = "10 pcs",
-                price = "Rp220.300",
+                price = 220300,
                 imageRes = R.drawable.dummy,
                 category = "Mini Cream Puff"
-            ),
-
-            // ================= F2 - Fore =================
-
-            StoreInventory(
-                id = "F2001",
-                storeId = "F2",
-                name = "Es Kopi Fore",
-                price = "Rp28.000",
-                imageRes = R.drawable.dummy,
-                category = "Coffee"
-            ),
-
-            StoreInventory(
-                id = "F2002",
-                storeId = "F2",
-                name = "Butterscotch Latte",
-                price = "Rp35.000",
-                imageRes = R.drawable.dummy,
-                category = "Coffee"
-            ),
-
-            // ================= F3 - Wingstop =================
-
-            StoreInventory(
-                id = "F3001",
-                storeId = "F3",
-                name = "Louisiana Wings",
-                price = "Rp45.000",
-                imageRes = R.drawable.dummy,
-                category = "Chicken"
-            ),
-
-            StoreInventory(
-                id = "F3002",
-                storeId = "F3",
-                name = "Cheese Fries",
-                price = "Rp28.000",
-                imageRes = R.drawable.dummy,
-                category = "Snack"
-            ),
-
-            // ================= F4 - JCO =================
-
-            StoreInventory(
-                id = "F4001",
-                storeId = "F4",
-                name = "Alcapone Donut",
-                price = "Rp12.000",
-                imageRes = R.drawable.dummy,
-                category = "Donut"
-            ),
-
-            StoreInventory(
-                id = "F4002",
-                storeId = "F4",
-                name = "Jcoccino",
-                price = "Rp30.000",
-                imageRes = R.drawable.dummy,
-                category = "Coffee"
-            ),
-
-            // ================= F5 - Chatime =================
-
-            StoreInventory(
-                id = "F5001",
-                storeId = "F5",
-                name = "Brown Sugar Milk Tea",
-                price = "Rp33.000",
-                imageRes = R.drawable.dummy,
-                category = "Milk Tea"
-            ),
-
-            StoreInventory(
-                id = "F5002",
-                storeId = "F5",
-                name = "Hazelnut Chocolate",
-                price = "Rp35.000",
-                imageRes = R.drawable.dummy,
-                category = "Beverage"
-            ),
-
-            // ================= R1 - Gramedia =================
-
-            StoreInventory(
-                id = "R1001",
-                storeId = "R1",
-                name = "Buku Atomic Habits",
-                price = "Rp108.000",
-                imageRes = R.drawable.dummy,
-                category = "Book"
-            ),
-
-            StoreInventory(
-                id = "R1002",
-                storeId = "R1",
-                name = "Notebook B5",
-                price = "Rp25.000",
-                imageRes = R.drawable.dummy,
-                category = "Stationery"
-            ),
-
-            // ================= R2 - Erafone =================
-
-            StoreInventory(
-                id = "R2001",
-                storeId = "R2",
-                name = "Samsung Galaxy Buds",
-                price = "Rp799.000",
-                imageRes = R.drawable.dummy,
-                category = "Audio"
-            ),
-
-            StoreInventory(
-                id = "R2002",
-                storeId = "R2",
-                name = "Anker Charger 20W",
-                price = "Rp189.000",
-                imageRes = R.drawable.dummy,
-                category = "Accessory"
-            ),
-
-            // ================= R3 - Planet Sports =================
-
-            StoreInventory(
-                id = "R3001",
-                storeId = "R3",
-                name = "Running Shoes",
-                price = "Rp899.000",
-                imageRes = R.drawable.dummy,
-                category = "Shoes"
-            ),
-
-            StoreInventory(
-                id = "R3002",
-                storeId = "R3",
-                name = "Nike Jersey",
-                price = "Rp299.000",
-                imageRes = R.drawable.dummy,
-                category = "Clothing"
-            ),
-
-            // ================= R4 - MR DIY =================
-
-            StoreInventory(
-                id = "R4001",
-                storeId = "R4",
-                name = "LED Desk Lamp",
-                price = "Rp85.000",
-                imageRes = R.drawable.dummy,
-                category = "Home"
-            ),
-
-            StoreInventory(
-                id = "R4002",
-                storeId = "R4",
-                name = "Mini Screwdriver Set",
-                price = "Rp45.000",
-                imageRes = R.drawable.dummy,
-                category = "Tools"
-            ),
-
-            // ================= R5 - Uniqlo =================
-
-            StoreInventory(
-                id = "R5001",
-                storeId = "R5",
-                name = "AIRism Oversized Tee",
-                price = "Rp199.000",
-                imageRes = R.drawable.dummy,
-                category = "Clothing"
-            ),
-
-            StoreInventory(
-                id = "R5002",
-                storeId = "R5",
-                name = "Cargo Pants",
-                price = "Rp399.000",
-                imageRes = R.drawable.dummy,
-                category = "Fashion"
             )
         )
     }

@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.application.ui.component.Anterin.AnterinBackground
+import com.example.application.ui.component.anterin.AnterinBackground
 import com.example.application.ui.component.global.Header
 import com.example.application.ui.component.global.ButtonBlue
 import com.example.application.ui.component.global.SearchBar
@@ -23,10 +23,7 @@ fun AnterinSearchPage(
     onBack: () -> Unit
 ) {
 
-    val buttonText = when (mode) {
-        MapMode.PICKUP -> "Set Pick-Up Location"
-        MapMode.DESTINATION -> "Set Destination"
-    }
+    val isPickup = mode == MapMode.PICKUP
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -53,7 +50,7 @@ fun AnterinSearchPage(
         }
 
         ButtonBlue(
-            text = buttonText,
+            text = if (isPickup) "Search pick-up location" else "Search destination",
             onClick = {
                 if (mode == MapMode.PICKUP) {
                     onNavigate(Routes.AnterDestinationInputRoute)

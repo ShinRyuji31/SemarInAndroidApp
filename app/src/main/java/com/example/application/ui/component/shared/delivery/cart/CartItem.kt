@@ -1,4 +1,4 @@
-package com.example.application.ui.component.cart
+package com.example.application.ui.component.shared.delivery.cart
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -16,7 +16,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.application.ui.component.global.CircleButton
 
 @Composable
 fun CartItem(
@@ -24,6 +23,8 @@ fun CartItem(
     price: String,
     imageRes: Int,
     quantity: Int,
+    onIncrease: () -> Unit,
+    onDecrease: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -71,20 +72,10 @@ fun CartItem(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            CircleButton(
-                text = "-",
-                modifier = Modifier.size(20.dp),
-                onClick = {}
-            )
-            Text(
-                text = quantity.toString(),
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Bold
-            )
-            CircleButton(
-                text = "+",
-                modifier = Modifier.size(20.dp),
-                onClick = {}
+            CartQuantitySelector(
+                quantity = quantity,
+                onIncrease = onIncrease,
+                onDecrease = onDecrease
             )
         }
     }

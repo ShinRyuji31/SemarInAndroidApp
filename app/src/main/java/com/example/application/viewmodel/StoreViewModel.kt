@@ -32,4 +32,5 @@ class StoreViewModel(
     fun selectStore(store: Store) {
         _selectedStore.value = store
     }
+
 }
