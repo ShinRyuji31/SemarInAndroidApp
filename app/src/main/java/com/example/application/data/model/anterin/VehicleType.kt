@@ -1,6 +1,6 @@
 package com.example.application.data.model.anterin
 
-data class Vehicle(
+data class VehicleType(
     val id: String,
     val name: String,
     val capacity: Int,

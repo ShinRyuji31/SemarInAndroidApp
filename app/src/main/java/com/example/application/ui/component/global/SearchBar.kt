@@ -8,10 +8,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -23,14 +19,14 @@ import com.example.application.ui.theme.GrayMedium
 
 @Composable
 fun SearchBar(
+    value: String,
+    onValueChange: (String) -> Unit,
     placeholderText: String
 ) {
 
-    var text by remember { mutableStateOf("") }
-
     OutlinedTextField(
-        value = text,
-        onValueChange = { text = it },
+        value = value,
+        onValueChange = onValueChange,
 
         textStyle = TextStyle(
             fontSize = 12.sp,
@@ -52,11 +48,9 @@ fun SearchBar(
         colors = OutlinedTextFieldDefaults.colors(
             focusedContainerColor = Color.White,
             unfocusedContainerColor = Color.White,
-
             focusedBorderColor = BluePrimary,
             unfocusedBorderColor = GrayMedium
         ),
-
 
         modifier = Modifier
             .fillMaxWidth()

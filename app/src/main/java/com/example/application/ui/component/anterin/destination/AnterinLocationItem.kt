@@ -33,8 +33,16 @@ fun AnterinLocationItem(title: String, subtitle: String) {
         Spacer(modifier = Modifier.width(8.dp))
 
         Column {
-            Text(title, fontWeight = FontWeight.Bold, fontSize = 13.sp)
-            Text(subtitle, fontSize = 12.sp, color = GrayDark)
+            Text(
+                title,
+                fontWeight = FontWeight.Bold,
+                fontSize = 13.sp
+            )
+            Text(
+                subtitle,
+                fontSize = 12.sp,
+                color = GrayDark
+            )
         }
     }
 }

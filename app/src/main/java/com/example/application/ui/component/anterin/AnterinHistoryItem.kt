@@ -19,11 +19,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.application.R
+import com.example.application.data.model.anterin.HistoryLocation
 import com.example.application.ui.theme.WhiteSoft
 
 @Composable
 fun AnterinHistoryItem(
-    text: String
+    history: HistoryLocation
 ) {
 
     Row(
@@ -50,7 +51,7 @@ fun AnterinHistoryItem(
         Spacer(modifier = Modifier.width(8.dp))
 
         Text(
-            text = text,
+            text = history.address,
             fontSize = 12.sp
         )
     }

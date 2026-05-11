@@ -1,10 +1,7 @@
 package com.example.application.ui.component.anterin
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -23,30 +20,31 @@ fun AnterinInputSection(
     title: String,
     value: String,
     placeholder: String,
-    onClick: () -> Unit,
-    onValueChange: (String) -> Unit
+    onClick: () -> Unit
 ) {
 
-    Text(title, fontWeight = FontWeight.Bold)
+    Text(
+        text = title,
+        fontWeight = FontWeight.Bold
+    )
 
     Spacer(modifier = Modifier.height(6.dp))
 
-    Box(
+    OutlinedTextField(
+        value = value,
+        onValueChange = {},
+        placeholder = {
+            Text(placeholder, color = BlackSoft)
+        },
+        enabled = false,
+        shape = RoundedCornerShape(12.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onClick() }
-    ) {
-        OutlinedTextField(
-            value = value,
-            onValueChange = onValueChange,
-            placeholder = { Text(placeholder, color = BlackSoft) },
-            shape = RoundedCornerShape(12.dp),
-            modifier = Modifier.fillMaxWidth(),
-            enabled = false,
-            colors = OutlinedTextFieldDefaults.colors(
-                disabledBorderColor = GrayMedium,
-                disabledContainerColor = WhiteSoft
-            )
+            .clickable { onClick() },
+        colors = OutlinedTextFieldDefaults.colors(
+            disabledBorderColor = GrayMedium,
+            disabledContainerColor = WhiteSoft,
+            disabledTextColor = Color.Black
         )
-    }
+    )
 }

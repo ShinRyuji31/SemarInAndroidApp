@@ -132,6 +132,8 @@ fun DashboardScreen(
                     ) {
 
                         SearchBar(
+                            value = "",
+                            onValueChange = {},
                             placeholderText = "Cari Kebutuhanmu"
                         )
                     }

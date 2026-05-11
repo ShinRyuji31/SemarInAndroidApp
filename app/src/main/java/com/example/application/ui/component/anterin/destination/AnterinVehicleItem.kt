@@ -23,12 +23,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.application.ui.theme.BlackSoft
 import com.example.application.ui.theme.BluePrimary
+import com.example.application.util.toRupiah
 
 @Composable
 fun AnterinVehicleItem(
     name: String,
-    capacity: String,
-    price: String,
+    capacity: Int,
+    price: Int,
     icon: Int,
     isSelected: Boolean,
     onClick: () -> Unit
@@ -67,7 +68,7 @@ fun AnterinVehicleItem(
         }
 
         Text(
-            price,
+            price.toRupiah(),
             fontWeight = FontWeight.Bold,
             color = if (isSelected) BluePrimary else BlackSoft
         )

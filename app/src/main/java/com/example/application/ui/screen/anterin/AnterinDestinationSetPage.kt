@@ -3,7 +3,9 @@ package com.example.application.ui.screen.anterin
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,14 +29,23 @@ fun AnterinDestinationSetPage(
     viewModel: AnterinViewModel = viewModel()
 ) {
 
-    val route by viewModel.route.collectAsState()
-    val vehicles by viewModel.vehicles.collectAsState()
-    val selectedVehicle = viewModel.selectedVehicle
+    val uiState by viewModel.uiState.collectAsState()
+    val destination = uiState.destination.ifBlank {
+        "Unknown destination"
+    }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    val pickup = uiState.pickup.ifBlank {
+        "Unknown pickup"
+    }
+
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
 
         Image(
-            painter = painterResource(id = R.drawable.background_mapdummy),
+            painter = painterResource(
+                id = R.drawable.background_mapdummy
+            ),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
@@ -63,36 +74,52 @@ fun AnterinDestinationSetPage(
 
                     AnterinLocationItem(
                         title = "Pick Up",
-                        subtitle = route.pickup
+                        subtitle = pickup
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
 
                     AnterinLocationItem(
                         title = "Drop Off",
-                        subtitle = route.destination
+                        subtitle = destination
                     )
                 }
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(
+                    modifier = Modifier.height(12.dp)
+                )
 
                 Column {
-                    vehicles.forEach { vehicle ->
+
+                    uiState.vehicleTypes.forEach { vehicle ->
 
                         AnterinVehicleItem(
                             name = vehicle.name,
-                            capacity = vehicle.capacity.toString(),
-                            price = vehicle.price.toString(),
+
+                            capacity =
+                                vehicle.capacity,
+
+                            price =
+                                vehicle.price,
+
                             icon = vehicle.icon,
-                            isSelected = selectedVehicle == vehicle.id,
+
+                            isSelected =
+                                uiState.selectedVehicleType
+                                        == vehicle.id,
+
                             onClick = {
-                                viewModel.selectedVehicle = vehicle.id
+                                viewModel.selectVehicleType(
+                                    vehicle.id
+                                )
                             }
                         )
                     }
                 }
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(
+                    modifier = Modifier.height(12.dp)
+                )
 
                 Box(
                     modifier = Modifier
@@ -100,19 +127,26 @@ fun AnterinDestinationSetPage(
                         .background(Color.White)
                         .navigationBarsPadding()
                 ) {
+
                     ButtonBlue(
                         text = "Find Driver",
+
                         onClick = onFindDriver,
+
                         modifier = Modifier
-                            .padding(horizontal = 16.dp, vertical = 12.dp)
+                            .padding(
+                                horizontal = 16.dp,
+                                vertical = 12.dp
+                            )
                             .fillMaxWidth()
                             .height(50.dp)
                     )
                 }
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(
+                    modifier = Modifier.height(12.dp)
+                )
             }
         }
     }
 }
-

@@ -1,27 +1,65 @@
 package com.example.application.viewmodel
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.application.data.model.anterin.DrivingRoute
 import com.example.application.data.repository.AnterinRepository
+import com.example.application.ui.state.AnterinUiState
 import kotlinx.coroutines.flow.MutableStateFlow
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 class AnterinViewModel : ViewModel() {
 
     private val repository = AnterinRepository()
 
-    val histories = MutableStateFlow(
-        repository.getHistories()
+    private val _uiState = MutableStateFlow(
+        AnterinUiState(
+            histories = repository.getHistories(),
+            vehicleTypes = repository.getVehicleTypes()
+        )
     )
 
-    val vehicles = MutableStateFlow(
-        repository.getVehicles()
-    )
+    val uiState: StateFlow<AnterinUiState> = _uiState.asStateFlow()
 
-    val route = MutableStateFlow(
-        repository.getRoute()
-    )
+    // ======================
+    // INPUT HANDLER
+    // ======================
+    fun onPickupChange(value: String) {
+        _uiState.update {
+            it.copy(pickup = value)
+        }
+    }
 
-    var selectedVehicle by mutableStateOf("car")
+    fun onDestinationChange(value: String) {
+        _uiState.update {
+            it.copy(destination = value)
+        }
+    }
+
+    // ======================
+    // VEHICLE
+    // ======================
+    fun selectVehicleType(id: String) {
+        _uiState.update {
+            it.copy(selectedVehicleType = id)
+        }
+    }
+
+    // ======================
+    // ROUTE CONFIRM
+    // ======================
+    fun confirmRoute() {
+        val state = _uiState.value
+
+        _uiState.update {
+            it.copy(
+                route = DrivingRoute(
+                    pickup = state.pickup,
+                    destination = state.destination,
+                    distance = "5.2 km"
+                )
+            )
+        }
+    }
 }

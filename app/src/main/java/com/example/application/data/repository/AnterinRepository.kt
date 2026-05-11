@@ -2,7 +2,7 @@ package com.example.application.data.repository
 
 import com.example.application.R
 import com.example.application.data.model.anterin.HistoryLocation
-import com.example.application.data.model.anterin.Vehicle
+import com.example.application.data.model.anterin.VehicleType
 import com.example.application.data.model.anterin.DrivingRoute
 
 class AnterinRepository {
@@ -26,9 +26,9 @@ class AnterinRepository {
         )
     }
 
-    fun getVehicles(): List<Vehicle> {
+    fun getVehicleTypes(): List<VehicleType> {
         return listOf(
-            Vehicle(
+            VehicleType(
                 id = "car",
                 name = "Car",
                 capacity = 4,
@@ -36,7 +36,7 @@ class AnterinRepository {
                 icon = R.drawable.ic_bike
             ),
 
-            Vehicle(
+            VehicleType(
                 id = "bike",
                 name = "Bike",
                 capacity = 1,
@@ -46,11 +46,4 @@ class AnterinRepository {
         )
     }
 
-    fun getRoute(): DrivingRoute {
-        return DrivingRoute(
-            pickup = "Lokananta Bloc, Kerten",
-            destination = "Gedung B FMIPA UNS",
-            distance = "5.2 km"
-        )
-    }
 }

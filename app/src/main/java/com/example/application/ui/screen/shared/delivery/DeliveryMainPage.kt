@@ -57,7 +57,10 @@ fun DeliveryMainPage(
                         .background(Color.Transparent)
                         .padding(vertical = 16.dp)
                 ) {
-                    SearchBar(placeholderText = "Cari kebutuhanmu")
+                    SearchBar(
+                        value = "",
+                        onValueChange = {},
+                        placeholderText = "Cari kebutuhanmu")
                 }
             }
 

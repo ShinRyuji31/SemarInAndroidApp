@@ -1,7 +1,9 @@
 package com.example.application.ui.screen.anterin
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -25,10 +27,7 @@ fun AnterinMainPage(
     viewModel: AnterinViewModel = viewModel()
 ) {
 
-    var pickup by remember { mutableStateOf("") }
-    var destination by remember { mutableStateOf("") }
-
-    val histories by viewModel.histories.collectAsState()
+    val uiState by viewModel.uiState.collectAsState()
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -40,14 +39,25 @@ fun AnterinMainPage(
         )
 
         AnterinFormCard(
+
             mode = mode,
-            pickup = pickup,
-            destination = destination,
-            histories = histories,
+
+            pickup = uiState.pickup,
+            destination = uiState.destination,
+
+            histories = uiState.histories,
+
             onPickupClick = onPickupClick,
             onDestinationClick = onDestinationClick,
-            onPickupChange = { pickup = it },
-            onDestinationChange = { destination = it },
+
+            onPickupChange = {
+                viewModel.onPickupChange(it)
+            },
+
+            onDestinationChange = {
+                viewModel.onDestinationChange(it)
+            },
+
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.Center)
