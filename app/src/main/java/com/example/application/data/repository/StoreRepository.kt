@@ -9,8 +9,7 @@ class StoreRepository {
     fun getStore(): List<Store> {
         return listOf(
 
-            // ================= FOOD STORE =================
-
+            //FOOD STORE
             Store(
                 id = "F1",
                 name = "Beard Papa’s",
@@ -76,8 +75,7 @@ class StoreRepository {
                 tags = listOf("Milk Tea", "Beverage")
             ),
 
-            // ================= RETAIL STORE =================
-
+            //RETAIL STORE
             Store(
                 id = "R1",
                 name = "Gramedia",
@@ -148,8 +146,7 @@ class StoreRepository {
     fun getStoreInventory(): List<StoreInventory> {
         return listOf(
 
-            // ================= F1 =================
-
+            //F1
             StoreInventory(
                 id = "F1001",
                 storeId = "F1",

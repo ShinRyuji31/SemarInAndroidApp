@@ -46,8 +46,7 @@ fun AppNavigation(
             onHomeClick = { onNavigate(Routes.DashBoardRoute) }
         )
 
-        // ANTER FLOW ===============================================================================
-
+        // ANTER FLOW 
         is Routes.AnterPickupInputRoute -> AnterinMainPage(
             mode = MainMode.PICKUP_ONLY,
             onPickupClick = { onNavigate(Routes.AnterPickupMapRoute) },
@@ -84,8 +83,7 @@ fun AppNavigation(
             onBack = onBack
         )
 
-        // JAJAN FLOW ==============================================================
-
+        // JAJAN FLOW
         is Routes.JajaninMainRoute -> DeliveryMainPage(
             type = StoreType.FOOD,
             onBack = onBack,
