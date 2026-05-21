@@ -151,9 +151,7 @@ fun AnterinOrderStatusPage(
                     vehicleInfo =
                         "AD 6767 SP (Honda Beat)",
 
-                    onCallClick = {
-
-                    },
+                    onCallClick = onChatClick,
 
                     onChatClick = onChatClick
                 )

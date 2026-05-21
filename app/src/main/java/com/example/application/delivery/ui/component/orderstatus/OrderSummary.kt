@@ -7,6 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.application.global.ui.theme.BlackSoft
+import okio.blackholeSink
 
 @Composable
 fun OrderSummary(
@@ -45,12 +47,14 @@ fun OrderSummary(
             Text(
                 text = "Total",
                 fontSize = 18.sp,
+                color = BlackSoft,
                 fontWeight = FontWeight.Bold
             )
 
             Text(
                 text = total,
                 fontSize = 18.sp,
+                color = BlackSoft,
                 fontWeight = FontWeight.Bold
             )
         }

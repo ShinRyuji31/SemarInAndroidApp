@@ -73,7 +73,6 @@ fun JajaninOrderStatusPage(
                 .background(WhiteSoft)
         ) {
 
-            // TIMELINE SECTION
             item {
 
                 Column(
@@ -117,14 +116,8 @@ fun JajaninOrderStatusPage(
                         isLast = true
                     )
                 }
-
-                HorizontalDivider(
-                    color = GrayMedium.copy(alpha = 0.5f),
-                    thickness = 8.dp
-                )
             }
 
-            // ORDER DETAILS TITLE
             item {
 
                 Text(
@@ -140,7 +133,6 @@ fun JajaninOrderStatusPage(
                 )
             }
 
-            // ORDER ITEMS
             items(cartItems) { cart ->
 
                 val inventory =
@@ -152,19 +144,14 @@ fun JajaninOrderStatusPage(
 
                     CartItemComponent(
                         name = it.name,
-
                         price = it.price.toRupiah(),
-
                         imageRes = it.imageRes,
-
                         quantity = cart.quantity,
-
                         showQuantitySelector = false
                     )
                 }
             }
 
-            // SUMMARY SECTION
             item {
 
                 OrderSummary(
@@ -184,7 +171,6 @@ fun JajaninOrderStatusPage(
                 )
             }
 
-            // DRIVER INFO
             item {
 
                 OrderStatusDriverDetail(
@@ -193,9 +179,7 @@ fun JajaninOrderStatusPage(
                     vehicleInfo =
                         "AD 6767 SP (Honda Beat)",
 
-                    onCallClick = {
-
-                    },
+                    onCallClick = onChatClick,
 
                     onChatClick = onChatClick
                 )

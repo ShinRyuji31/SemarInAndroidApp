@@ -13,9 +13,10 @@ import com.example.application.auth.ui.screen.SignUpScreen
 import com.example.application.dashboard.ui.screen.DashboardScreen
 import com.example.application.delivery.data.model.StoreType
 import com.example.application.delivery.ui.screen.*
-import com.example.application.shared.findingdriver.ui.screen.LandingScreen
-import com.example.application.global.ui.screen.shared.findingdriver.FindingDriverPage
+import com.example.application.auth.ui.screen.LandingScreen
+import com.example.application.shared.findingdriver.ui.screen.FindingDriverPage
 import com.example.application.orderhistory.ui.screen.OrderHistoryScreen
+import com.example.application.chat.ui.screen.ChatWithDriverPage
 
 @Composable
 fun AppNavigation(
