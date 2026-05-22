@@ -139,6 +139,137 @@ class StoreRepository {
                 closeTime = "22:00",
                 openDays = "Daily",
                 tags = listOf("Fashion", "Clothing")
+            ),
+
+            Store(
+                id = "F6",
+                name = "McDonald's",
+                address = "Jl. Slamet Riyadi No.245, Surakarta",
+                promo = "Paket hemat mulai 25rb",
+                rating = 4.7,
+                imageRes = R.drawable.dummy,
+                openTime = "00:00",
+                closeTime = "23:59",
+                openDays = "Daily",
+                tags = listOf("Burger", "Fast Food")
+            ),
+
+            Store(
+                id = "F7",
+                name = "Kopi Kenangan",
+                address = "Solo Square Mall",
+                promo = "Buy 1 Get 1 Coffee",
+                rating = 4.6,
+                imageRes = R.drawable.dummy,
+                openTime = "08:00",
+                closeTime = "22:00",
+                openDays = "Daily",
+                tags = listOf("Coffee", "Beverage")
+            ),
+
+            Store(
+                id = "F8",
+                name = "Sushi Tei",
+                address = "Solo Paragon Mall",
+                promo = "Salmon Matsuri",
+                rating = 4.9,
+                imageRes = R.drawable.dummy,
+                openTime = "10:00",
+                closeTime = "22:00",
+                openDays = "Daily",
+                tags = listOf("Japanese", "Sushi")
+            ),
+
+            Store(
+                id = "F9",
+                name = "Bakmi GM",
+                address = "The Park Solo Baru",
+                promo = "Gratis pangsit goreng",
+                rating = 4.5,
+                imageRes = R.drawable.dummy,
+                openTime = "09:00",
+                closeTime = "21:00",
+                openDays = "Daily",
+                tags = listOf("Noodles", "Chinese Food")
+            ),
+
+            Store(
+                id = "F10",
+                name = "Starbucks",
+                address = "Solo Grand Mall",
+                promo = "Happy Hour Frappuccino",
+                rating = 4.8,
+                imageRes = R.drawable.dummy,
+                openTime = "07:00",
+                closeTime = "23:00",
+                openDays = "Daily",
+                tags = listOf("Coffee", "Cafe")
+            ),
+
+            // RETAIL STORE
+            Store(
+                id = "R6",
+                name = "Ace Hardware",
+                address = "Solo Paragon Mall",
+                promo = "Diskon perlengkapan rumah",
+                rating = 4.8,
+                imageRes = R.drawable.dummy,
+                openTime = "10:00",
+                closeTime = "22:00",
+                openDays = "Daily",
+                tags = listOf("Tools", "Household")
+            ),
+
+            Store(
+                id = "R7",
+                name = "Informa",
+                address = "The Park Solo Baru",
+                promo = "Furniture Sale",
+                rating = 4.7,
+                imageRes = R.drawable.dummy,
+                openTime = "10:00",
+                closeTime = "22:00",
+                openDays = "Daily",
+                tags = listOf("Furniture", "Home Living")
+            ),
+
+            Store(
+                id = "R8",
+                name = "iBox",
+                address = "Solo Square Mall",
+                promo = "Trade-in iPhone",
+                rating = 4.9,
+                imageRes = R.drawable.dummy,
+                openTime = "10:00",
+                closeTime = "21:00",
+                openDays = "Daily",
+                tags = listOf("Apple", "Electronics")
+            ),
+
+            Store(
+                id = "R9",
+                name = "Guardian",
+                address = "Solo Grand Mall",
+                promo = "Buy 2 Get 1 Skincare",
+                rating = 4.5,
+                imageRes = R.drawable.dummy,
+                openTime = "09:00",
+                closeTime = "22:00",
+                openDays = "Daily",
+                tags = listOf("Health", "Beauty")
+            ),
+
+            Store(
+                id = "R10",
+                name = "Miniso",
+                address = "Solo Paragon Mall",
+                promo = "Promo serba lucu",
+                rating = 4.6,
+                imageRes = R.drawable.dummy,
+                openTime = "10:00",
+                closeTime = "22:00",
+                openDays = "Daily",
+                tags = listOf("Lifestyle", "Accessories")
             )
         )
     }
@@ -307,6 +438,250 @@ class StoreRepository {
                 price = 220300,
                 imageRes = R.drawable.dummy,
                 category = "Mini Cream Puff"
+            ),
+
+            // F6 - McDonald's
+            StoreInventory(
+                id = "F6001",
+                storeId = "F6",
+                name = "Big Mac",
+                price = 45000,
+                imageRes = R.drawable.dummy,
+                category = "Burger"
+            ),
+
+            StoreInventory(
+                id = "F6002",
+                storeId = "F6",
+                name = "McChicken",
+                price = 38000,
+                imageRes = R.drawable.dummy,
+                category = "Burger"
+            ),
+
+            StoreInventory(
+                id = "F6003",
+                storeId = "F6",
+                name = "French Fries Large",
+                price = 25000,
+                imageRes = R.drawable.dummy,
+                category = "Sides"
+            ),
+
+            StoreInventory(
+                id = "F6004",
+                storeId = "F6",
+                name = "Coca Cola",
+                price = 12000,
+                imageRes = R.drawable.dummy,
+                category = "Drinks"
+            ),
+
+            // F7 - Kopi Kenangan
+            StoreInventory(
+                id = "F7001",
+                storeId = "F7",
+                name = "Kopi Kenangan Mantan",
+                price = 28000,
+                imageRes = R.drawable.dummy,
+                category = "Coffee"
+            ),
+
+            StoreInventory(
+                id = "F7002",
+                storeId = "F7",
+                name = "Americano",
+                price = 22000,
+                imageRes = R.drawable.dummy,
+                category = "Coffee"
+            ),
+
+            StoreInventory(
+                id = "F7003",
+                storeId = "F7",
+                name = "Milk Tea",
+                price = 25000,
+                imageRes = R.drawable.dummy,
+                category = "Non Coffee"
+            ),
+
+            // F8 - Sushi Tei
+            StoreInventory(
+                id = "F8001",
+                storeId = "F8",
+                name = "Salmon Sushi",
+                price = 52000,
+                imageRes = R.drawable.dummy,
+                category = "Sushi"
+            ),
+
+            StoreInventory(
+                id = "F8002",
+                storeId = "F8",
+                name = "California Roll",
+                price = 48000,
+                imageRes = R.drawable.dummy,
+                category = "Roll"
+            ),
+
+            StoreInventory(
+                id = "F8003",
+                storeId = "F8",
+                name = "Chicken Katsu Don",
+                price = 58000,
+                imageRes = R.drawable.dummy,
+                category = "Rice Bowl"
+            ),
+
+            // F9 - Bakmi GM
+            StoreInventory(
+                id = "F9001",
+                storeId = "F9",
+                name = "Bakmi Special",
+                price = 35000,
+                imageRes = R.drawable.dummy,
+                category = "Noodles"
+            ),
+
+            StoreInventory(
+                id = "F9002",
+                storeId = "F9",
+                name = "Pangsit Goreng",
+                price = 28000,
+                imageRes = R.drawable.dummy,
+                category = "Sides"
+            ),
+
+            StoreInventory(
+                id = "F9003",
+                storeId = "F9",
+                name = "Es Teh Manis",
+                price = 10000,
+                imageRes = R.drawable.dummy,
+                category = "Drinks"
+            ),
+
+            // F10 - Starbucks
+            StoreInventory(
+                id = "F10001",
+                storeId = "F10",
+                name = "Caramel Macchiato",
+                price = 55000,
+                imageRes = R.drawable.dummy,
+                category = "Coffee"
+            ),
+
+            StoreInventory(
+                id = "F10002",
+                storeId = "F10",
+                name = "Java Chip Frappuccino",
+                price = 62000,
+                imageRes = R.drawable.dummy,
+                category = "Frappuccino"
+            ),
+
+            StoreInventory(
+                id = "F10003",
+                storeId = "F10",
+                name = "Cheesecake",
+                price = 38000,
+                imageRes = R.drawable.dummy,
+                category = "Dessert"
+            ),
+
+            // R6 - Ace Hardware
+            StoreInventory(
+                id = "R6001",
+                storeId = "R6",
+                name = "Cordless Drill",
+                price = 799000,
+                imageRes = R.drawable.dummy,
+                category = "Tools"
+            ),
+
+            StoreInventory(
+                id = "R6002",
+                storeId = "R6",
+                name = "LED Desk Lamp",
+                price = 199000,
+                imageRes = R.drawable.dummy,
+                category = "Lighting"
+            ),
+
+            // R7 - Informa
+            StoreInventory(
+                id = "R7001",
+                storeId = "R7",
+                name = "Office Chair",
+                price = 1299000,
+                imageRes = R.drawable.dummy,
+                category = "Furniture"
+            ),
+
+            StoreInventory(
+                id = "R7002",
+                storeId = "R7",
+                name = "Study Desk",
+                price = 999000,
+                imageRes = R.drawable.dummy,
+                category = "Furniture"
+            ),
+
+            // R8 - iBox
+            StoreInventory(
+                id = "R8001",
+                storeId = "R8",
+                name = "iPhone 15",
+                price = 15999000,
+                imageRes = R.drawable.dummy,
+                category = "Smartphone"
+            ),
+
+            StoreInventory(
+                id = "R8002",
+                storeId = "R8",
+                name = "AirPods Pro",
+                price = 3499000,
+                imageRes = R.drawable.dummy,
+                category = "Accessories"
+            ),
+
+            // R9 - Guardian
+            StoreInventory(
+                id = "R9001",
+                storeId = "R9",
+                name = "Skintific Cleanser",
+                price = 89000,
+                imageRes = R.drawable.dummy,
+                category = "Skincare"
+            ),
+
+            StoreInventory(
+                id = "R9002",
+                storeId = "R9",
+                name = "Vitamin C",
+                price = 65000,
+                imageRes = R.drawable.dummy,
+                category = "Health"
+            ),
+
+            // R10 - Miniso
+            StoreInventory(
+                id = "R10001",
+                storeId = "R10",
+                name = "Cute Water Bottle",
+                price = 59000,
+                imageRes = R.drawable.dummy,
+                category = "Lifestyle"
+            ),
+
+            StoreInventory(
+                id = "R10002",
+                storeId = "R10",
+                name = "Bluetooth Speaker",
+                price = 149000,
+                imageRes = R.drawable.dummy,
+                category = "Electronics"
             )
         )
     }

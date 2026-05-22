@@ -1,6 +1,7 @@
 package com.example.application.dashboard.ui.screen
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -29,7 +30,7 @@ import com.example.application.global.ui.component.SearchBar
 import com.example.application.global.ui.theme.WhiteSoft
 import com.example.application.dashboard.ui.viewmodel.DashboardViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun DashboardScreen(
     onProfileClick: () -> Unit,

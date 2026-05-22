@@ -1,5 +1,6 @@
 package com.example.application.delivery.ui.screen
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,6 +19,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.example.application.delivery.data.model.StoreType
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DeliveryMainPage(
     type: StoreType,
