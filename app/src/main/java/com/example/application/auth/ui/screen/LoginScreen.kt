@@ -18,11 +18,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.application.R
+import com.example.application.auth.ui.component.AuthInputField
 import com.example.application.auth.ui.viewmodel.AuthUiState
 import com.example.application.auth.ui.viewmodel.LoginViewModel
 import com.example.application.global.ui.component.ButtonBlue
 import com.example.application.global.ui.component.ButtonSocial
-import com.example.application.global.ui.component.TextFieldOutlineRegular
 import com.example.application.global.ui.theme.WhiteSoft
 import com.example.application.global.ui.theme.blueWhiteGradient
 
@@ -70,33 +70,15 @@ fun LoginScreen(
 
                 Spacer(modifier = Modifier.height(20.dp))
 
-                Text(
-                    text = "Email",
-                    modifier = Modifier.fillMaxWidth(),
-                    fontWeight = Bold,
-                    fontSize = 15.sp
-                )
-
-                Spacer(modifier = Modifier.height(2.dp))
-
-                TextFieldOutlineRegular(
+                AuthInputField(
+                    label = "Email",
                     value = email,
                     onValueChange = { email = it },
                     placeholder = "Enter Email"
                 )
 
-                Spacer(modifier = Modifier.height(12.dp))
-
-                Text(
-                    text = "Password",
-                    modifier = Modifier.fillMaxWidth(),
-                    fontWeight = Bold,
-                    fontSize = 15.sp
-                )
-
-                Spacer(modifier = Modifier.height(2.dp))
-
-                TextFieldOutlineRegular(
+                AuthInputField(
+                    label = "Password",
                     value = password,
                     onValueChange = { password = it },
                     placeholder = "Enter Password",

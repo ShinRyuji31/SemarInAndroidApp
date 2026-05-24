@@ -11,17 +11,16 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.application.R
+import com.example.application.auth.ui.component.AuthInputField
 import com.example.application.auth.ui.viewmodel.AuthUiState
 import com.example.application.auth.ui.viewmodel.SignUpViewModel
 import com.example.application.global.ui.component.ButtonBlue
 import com.example.application.global.ui.component.ButtonSocial
-import com.example.application.global.ui.component.TextFieldOutlineRegular
 import com.example.application.global.ui.theme.WhiteSoft
 import com.example.application.global.ui.theme.blueWhiteGradient
 
@@ -75,13 +74,13 @@ fun SignUpScreen(
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                SignUpField("Username", username) { username = it; validationError = null }
-                SignUpField("First Name", firstName) { firstName = it; validationError = null }
-                SignUpField("Last Name (Optional)", lastName) { lastName = it; validationError = null }
-                SignUpField("Email", email) { email = it; validationError = null }
-                SignUpField("Phone Number", phoneNumber) { phoneNumber = it; validationError = null }
-                SignUpField("Password", password, isPassword = true) { password = it; validationError = null }
-                SignUpField("Confirm Password", confirmPassword, isPassword = true) { confirmPassword = it; validationError = null }
+                AuthInputField("Username", username, { username = it; validationError = null })
+                AuthInputField("First Name", firstName, { firstName = it; validationError = null })
+                AuthInputField("Last Name (Optional)", lastName, { lastName = it; validationError = null })
+                AuthInputField("Email", email, { email = it; validationError = null })
+                AuthInputField("Phone Number", phoneNumber, { phoneNumber = it; validationError = null })
+                AuthInputField("Password", password, { password = it; validationError = null }, isPassword = true)
+                AuthInputField("Confirm Password", confirmPassword, { confirmPassword = it; validationError = null }, isPassword = true)
 
                 val errorMessage = (uiState as? AuthUiState.Error)?.message ?: validationError
                 if (errorMessage != null) {
@@ -136,27 +135,4 @@ fun SignUpScreen(
             }
         }
     }
-}
-
-@Composable
-private fun SignUpField(
-    label: String,
-    value: String,
-    isPassword: Boolean = false,
-    onValueChange: (String) -> Unit
-) {
-    Text(
-        text = label,
-        modifier = Modifier.fillMaxWidth(),
-        fontWeight = Bold,
-        fontSize = 15.sp
-    )
-    Spacer(modifier = Modifier.height(2.dp))
-    TextFieldOutlineRegular(
-        value = value,
-        onValueChange = onValueChange,
-        placeholder = "Enter $label",
-        isPassword = isPassword
-    )
-    Spacer(modifier = Modifier.height(12.dp))
 }
