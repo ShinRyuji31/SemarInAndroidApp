@@ -18,13 +18,16 @@ data class User(
     val phoneNumber: String,
     @SerialName("profile_pic")
     val profilePic: String? = null,
-    val password: String? = null // Included to match user's custom DB schema
+    @SerialName("time_created")
+    val timeCreated: String? = null,
+    @SerialName("time_updated")
+    val timeUpdated: String? = null
 )
 
 @Serializable
 data class Customer(
-    @SerialName("user_id")
-    val userId: String,
+    @SerialName("customer_id")
+    val customerId: String,
     @SerialName("customer_tier")
     val customerTier: String = "Regular"
 )

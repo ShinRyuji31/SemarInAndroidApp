@@ -9,6 +9,10 @@ import io.github.jan.supabase.auth.providers.builtin.Email
 import io.github.jan.supabase.auth.status.SessionStatus
 import io.github.jan.supabase.postgrest.postgrest
 import kotlinx.coroutines.flow.Flow
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 class UserRepository {
 
@@ -28,6 +32,12 @@ class UserRepository {
 
     val sessionStatus: Flow<SessionStatus> = auth.sessionStatus
 
+    private fun getCurrentIsoTimestamp(): String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
+        sdf.timeZone = TimeZone.getTimeZone("UTC")
+        return sdf.format(Date())
+    }
+
     suspend fun signUp(
         email: String, 
         password: String, 
@@ -45,14 +55,15 @@ class UserRepository {
                 this.password = password
             }
             
-            // 2. Retrieve the User ID from the current session
-            // Note: This requires "Confirm Email" to be DISABLED in Supabase dashboard
+            // 2. Retrieve the new User ID from the session
             val userId = auth.currentUserOrNull()?.id 
-                ?: throw Exception("Sign up successful but could not retrieve User ID. Please ensure 'Confirm Email' is DISABLED in Supabase Auth settings.")
+                ?: throw Exception("Sign up successful but could not retrieve User ID. Ensure 'Confirm Email' is DISABLED in Supabase.")
 
-            Log.d(TAG, "Auth successful. User ID: $userId. Proceeding to database insertion...")
+            Log.d(TAG, "Auth successful. User ID: $userId. Proceeding to profile insertion...")
 
-            // 3. Prepare user profile object (matching your schema image)
+            val now = getCurrentIsoTimestamp()
+
+            // 3. Prepare profile metadata (matching 'PROFILE' table schema)
             val userProfile = User(
                 id = userId,
                 username = username,
@@ -60,20 +71,21 @@ class UserRepository {
                 lastName = if (lastName.isBlank()) null else lastName,
                 email = email,
                 phoneNumber = phoneNumber,
-                password = password // Matching the 'password' column in your USER table
+                timeCreated = now,
+                timeUpdated = now
             )
             
-            val customerProfile = Customer(userId = userId)
+            val customerProfile = Customer(customerId = userId)
             
-            // 4. Insert into the USER table
-            Log.d(TAG, "Inserting into 'USER' table...")
-            postgrest["USER"].insert(userProfile)
+            // 4. Insert metadata into 'PROFILE' table
+            Log.d(TAG, "Inserting into 'PROFILE' table...")
+            postgrest.from("PROFILE").insert(userProfile)
             
-            // 5. Insert into the CUSTOMER table
+            // 5. Insert record into 'CUSTOMER' table
             Log.d(TAG, "Inserting into 'CUSTOMER' table...")
-            postgrest["CUSTOMER"].insert(customerProfile)
+            postgrest.from("CUSTOMER").insert(customerProfile)
             
-            Log.d(TAG, "Sign up and profile creation completed successfully.")
+            Log.d(TAG, "Registration flow completed successfully.")
             Result.success(Unit)
         } catch (e: Exception) {
             Log.e(TAG, "Sign up flow failed: ${e.localizedMessage}", e)
@@ -100,12 +112,15 @@ class UserRepository {
     suspend fun getUserProfile(): Result<User?> {
         return try {
             val userId = auth.currentUserOrNull()?.id ?: return Result.success(null)
-            val user = postgrest["USER"].select {
+            
+            // Fetch from 'PROFILE' table
+            val profile = postgrest.from("PROFILE").select {
                 filter {
                     eq("user_id", userId)
                 }
             }.decodeSingleOrNull<User>()
-            Result.success(user)
+            
+            Result.success(profile)
         } catch (e: Exception) {
             Result.failure(e)
         }

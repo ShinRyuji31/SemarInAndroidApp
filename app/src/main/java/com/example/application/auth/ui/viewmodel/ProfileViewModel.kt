@@ -1,5 +1,6 @@
 package com.example.application.auth.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.application.auth.data.model.User
@@ -36,16 +37,13 @@ class ProfileViewModel(
                     if (user != null) {
                         _uiState.value = ProfileUiState.Success(user)
                     } else {
-                        // User is authenticated but row in USER table is missing
+                        // User is authenticated but row in 'profile' table is missing
                         _uiState.value = ProfileUiState.ProfileNotFound
                     }
                 }
                 .onFailure { error ->
-                    val message = when {
-                        error.message?.contains("USER.id does not exist", true) == true -> "Database configuration error. Please contact support."
-                        else -> "Failed to load profile. Please check your connection."
-                    }
-                    _uiState.value = ProfileUiState.Error(message)
+                    Log.e("ProfileViewModel", "Error loading profile from 'PROFILE' table", error)
+                    _uiState.value = ProfileUiState.Error("Failed to load profile data")
                 }
         }
     }
