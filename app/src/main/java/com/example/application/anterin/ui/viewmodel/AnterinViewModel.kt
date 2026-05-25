@@ -22,9 +22,6 @@ class AnterinViewModel : ViewModel() {
 
     val uiState: StateFlow<AnterinUiState> = _uiState.asStateFlow()
 
-    // ======================
-    // INPUT HANDLER
-    // ======================
     fun onPickupChange(value: String) {
         _uiState.update {
             it.copy(pickup = value)
@@ -37,18 +34,12 @@ class AnterinViewModel : ViewModel() {
         }
     }
 
-    // ======================
-    // VEHICLE
-    // ======================
     fun selectVehicleType(id: String) {
         _uiState.update {
             it.copy(selectedVehicleType = id)
         }
     }
 
-    // ======================
-    // ROUTE CONFIRM
-    // ======================
     fun confirmRoute() {
         val state = _uiState.value
 

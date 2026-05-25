@@ -24,7 +24,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.application.dashboard.ui.component.*
 import com.example.application.dashboard.ui.viewmodel.DashboardViewModel
-import com.example.application.global.data.remote.location.LocationViewModel
+import com.example.application.global.data.location.LocationViewModel
 import com.example.application.global.ui.component.SearchBar
 import com.example.application.global.ui.theme.WhiteSoft
 

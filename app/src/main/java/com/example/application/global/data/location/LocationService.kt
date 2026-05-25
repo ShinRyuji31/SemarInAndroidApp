@@ -1,10 +1,10 @@
-package com.example.application.global.data.remote.location
+package com.example.application.global.data.location
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Geocoder
 import android.location.Location
-import com.example.application.global.data.remote.location.model.UserLocation
+import com.example.application.global.data.location.model.UserLocation
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority

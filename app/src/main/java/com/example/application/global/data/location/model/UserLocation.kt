@@ -1,4 +1,4 @@
-package com.example.application.global.data.remote.location.model
+package com.example.application.global.data.location.model
 
 data class UserLocation(
     val latitude: Double,
