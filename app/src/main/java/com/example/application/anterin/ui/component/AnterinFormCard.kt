@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.application.anterin.data.model.HistoryLocation
+import com.example.application.anterin.data.model.MapLocation
 import com.example.application.anterin.ui.screen.MainMode
 import com.example.application.global.ui.theme.WhiteSoft
 
@@ -16,16 +17,13 @@ import com.example.application.global.ui.theme.WhiteSoft
 fun AnterinFormCard(
     mode: MainMode,
 
-    pickup: String,
-    destination: String,
+    pickup: MapLocation?,
+    destination: MapLocation?,
 
     histories: List<HistoryLocation>,
 
     onPickupClick: () -> Unit,
     onDestinationClick: () -> Unit,
-
-    onPickupChange: (String) -> Unit,
-    onDestinationChange: (String) -> Unit,
 
     modifier: Modifier = Modifier
 ) {
@@ -38,7 +36,7 @@ fun AnterinFormCard(
 
         AnterinInputSection(
             title = "Pick Up",
-            value = pickup.ifBlank { "Current Location" },
+            value = pickup?.address ?: "Current Location",
             placeholder = "Current Location",
             onClick = onPickupClick
         )
@@ -48,7 +46,7 @@ fun AnterinFormCard(
 
             AnterinInputSection(
                 title = "Drop Off",
-                value = destination.ifBlank { "Choose Destination" },
+                value = destination?.address ?: "Choose Destination",
                 placeholder = "Choose Destination",
                 onClick = onDestinationClick
             )

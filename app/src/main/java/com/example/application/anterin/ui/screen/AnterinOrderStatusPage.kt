@@ -16,16 +16,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.application.R
-import com.example.application.anterin.ui.component.AnterinBackground
 import com.example.application.anterin.ui.component.destination.AnterinLocationCard
 import com.example.application.anterin.ui.component.destination.AnterinProgresLine
 import com.example.application.anterin.ui.viewmodel.AnterinViewModel
 import com.example.application.dashboard.ui.component.DashboardBottomNavBar
 import com.example.application.global.ui.component.Header
+import com.example.application.global.ui.component.MapWebView
 import com.example.application.global.ui.theme.BlackSoft
 import com.example.application.global.ui.theme.GrayMedium
 import com.example.application.global.ui.theme.WhiteSoft
 import com.example.application.global.ui.screen.OrderStatusDriverDetail
+import com.example.application.global.data.location.LocationViewModel
 
 @Composable
 fun AnterinOrderStatusPage(
@@ -34,18 +35,18 @@ fun AnterinOrderStatusPage(
     onProfileClick: () -> Unit,
     onChatClick: () -> Unit = {},
     onOrderHistoryClick: () -> Unit = {},
-    viewModel: AnterinViewModel = viewModel()
+    viewModel: AnterinViewModel,
+    locationViewModel: LocationViewModel = viewModel()
 ) {
-
     val uiState by viewModel.uiState.collectAsState()
+    val locationState by locationViewModel.uiState.collectAsState()
 
-    val destination = uiState.destination.ifBlank {
-        "Unknown destination"
-    }
+    val destination = uiState.destination?.address ?: "Unknown destination"
+    val pickup = uiState.pickup?.address ?: "Unknown pickup"
 
-    val pickup = uiState.pickup.ifBlank {
-        "Unknown pickup"
-    }
+    val userLatLng = if (locationState.latitude != null && locationState.longitude != null) {
+        Pair(locationState.latitude!!, locationState.longitude!!)
+    } else null
 
     Scaffold(
         topBar = {
@@ -54,7 +55,6 @@ fun AnterinOrderStatusPage(
                 onBack = onBack
             )
         },
-
         bottomBar = {
             DashboardBottomNavBar(
                 currentTab = 1,
@@ -65,31 +65,24 @@ fun AnterinOrderStatusPage(
             )
         }
     ) { paddingValues ->
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
                 .background(WhiteSoft)
         ) {
-
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
             ) {
-
                 Text(
                     text = "Driver is heading your way...",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     color = BlackSoft
                 )
-
-                Spacer(
-                    modifier = Modifier.height(12.dp)
-                )
-
+                Spacer(modifier = Modifier.height(12.dp))
                 AnterinProgresLine()
             }
 
@@ -98,18 +91,23 @@ fun AnterinOrderStatusPage(
                     .fillMaxWidth()
                     .weight(1f)
             ) {
-
-                AnterinBackground()
+                // REAL Interactive Map Preview
+                MapWebView(
+                    userLocation = userLatLng,
+                    pickupLocation = uiState.pickup,
+                    destinationLocation = uiState.destination,
+                    routeGeoJson = uiState.route?.geoJson,
+                    onMapClick = { _, _ -> },
+                    isInteractionEnabled = false,
+                    modifier = Modifier.fillMaxSize()
+                )
 
                 Column(
                     modifier = Modifier.align(Alignment.Center),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-
                     Icon(
-                        painter = painterResource(
-                            id = R.drawable.ic_location
-                        ),
+                        painter = painterResource(id = R.drawable.ic_location),
                         contentDescription = null,
                         tint = Color.Red,
                         modifier = Modifier.size(40.dp)
@@ -121,36 +119,21 @@ fun AnterinOrderStatusPage(
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier
-                            .background(
-                                WhiteSoft.copy(alpha = 0.7f),
-                                RoundedCornerShape(4.dp)
-                            )
-                            .padding(
-                                horizontal = 4.dp,
-                                vertical = 2.dp
-                            )
+                            .background(WhiteSoft.copy(alpha = 0.7f), RoundedCornerShape(4.dp))
+                            .padding(horizontal = 4.dp, vertical = 2.dp)
                     )
                 }
             }
 
             Card(
                 modifier = Modifier.fillMaxWidth(),
-
-                colors = CardDefaults.cardColors(
-                    containerColor = WhiteSoft
-                ),
-
+                colors = CardDefaults.cardColors(containerColor = WhiteSoft),
                 shape = RoundedCornerShape(0.dp)
             ) {
-
                 OrderStatusDriverDetail(
                     driverName = "Kyle",
-
-                    vehicleInfo =
-                        "AD 6767 SP (Honda Beat)",
-
+                    vehicleInfo = "AD 6767 SP (Honda Beat)",
                     onCallClick = onChatClick,
-
                     onChatClick = onChatClick
                 )
             }

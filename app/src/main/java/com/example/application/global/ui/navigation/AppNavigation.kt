@@ -1,22 +1,16 @@
 package com.example.application.global.ui.navigation
 
 import androidx.compose.runtime.Composable
-import com.example.application.anterin.ui.screen.AnterinDestinationSetPage
-import com.example.application.anterin.ui.screen.AnterinMainPage
-import com.example.application.anterin.ui.screen.AnterinOrderStatusPage
-import com.example.application.anterin.ui.screen.AnterinSearchPage
-import com.example.application.anterin.ui.screen.MainMode
-import com.example.application.anterin.ui.screen.MapMode
-import com.example.application.auth.ui.screen.LoginScreen
-import com.example.application.auth.ui.screen.ProfileScreen
-import com.example.application.auth.ui.screen.SignUpScreen
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.application.anterin.ui.screen.*
+import com.example.application.auth.ui.screen.*
 import com.example.application.dashboard.ui.screen.DashboardScreen
 import com.example.application.delivery.data.model.StoreType
 import com.example.application.delivery.ui.screen.*
-import com.example.application.auth.ui.screen.LandingScreen
-import com.example.application.global.ui.screen.FindingDriverPage
 import com.example.application.orderhistory.ui.screen.OrderHistoryScreen
 import com.example.application.chat.ui.screen.ChatWithDriverPage
+import com.example.application.anterin.ui.viewmodel.AnterinViewModel
+import com.example.application.global.ui.screen.FindingDriverPage
 
 @Composable
 fun AppNavigation(
@@ -24,9 +18,10 @@ fun AppNavigation(
     onNavigate: (Routes) -> Unit,
     onBack: () -> Unit
 ) {
+    // 1. Shared ViewModel for the Anter-In flow
+    val anterinViewModel: AnterinViewModel = viewModel()
 
     when (currentRoute) {
-
         // AUTH FLOW
         is Routes.LandingRoute -> LandingScreen(
             onLoginClick = { onNavigate(Routes.LoginRoute) },
@@ -68,36 +63,41 @@ fun AppNavigation(
             onProfileClick = { onNavigate(Routes.ProfileRoute) }
         )
 
-        // ANTER FLOW 
+        // ANTER FLOW (Uses Shared ViewModel)
         is Routes.AnterPickupInputRoute -> AnterinMainPage(
             mode = MainMode.PICKUP_ONLY,
             onPickupClick = { onNavigate(Routes.AnterPickupMapRoute) },
             onDestinationClick = {},
-            onBack = onBack
+            onBack = onBack,
+            viewModel = anterinViewModel
         )
 
         is Routes.AnterPickupMapRoute -> AnterinSearchPage(
             mode = MapMode.PICKUP,
             onNavigate = onNavigate,
-            onBack = onBack
+            onBack = onBack,
+            viewModel = anterinViewModel
         )
 
         is Routes.AnterDestinationInputRoute -> AnterinMainPage(
             mode = MainMode.PICKUP_AND_DESTINATION,
             onPickupClick = { onNavigate(Routes.AnterPickupMapRoute) },
             onDestinationClick = { onNavigate(Routes.AnterDestinationMapRoute) },
-            onBack = onBack
+            onBack = onBack,
+            viewModel = anterinViewModel
         )
 
         is Routes.AnterDestinationMapRoute -> AnterinSearchPage(
             mode = MapMode.DESTINATION,
             onNavigate = onNavigate,
-            onBack = onBack
+            onBack = onBack,
+            viewModel = anterinViewModel
         )
 
         is Routes.AnterDestinationSetRoute -> AnterinDestinationSetPage(
             onBack = onBack,
-            onFindDriver = { onNavigate(Routes.AnterFindingDriverRoute) }
+            onFindDriver = { onNavigate(Routes.AnterFindingDriverRoute) },
+            viewModel = anterinViewModel
         )
 
         is Routes.AnterFindingDriverRoute -> FindingDriverPage(
@@ -111,7 +111,8 @@ fun AppNavigation(
             onHomeClick = { onNavigate(Routes.DashBoardRoute) },
             onProfileClick = { onNavigate(Routes.ProfileRoute) },
             onChatClick = { onNavigate(Routes.JajaninChatRoute) },
-            onOrderHistoryClick = { onNavigate(Routes.OrderHistoryRoute) }
+            onOrderHistoryClick = { onNavigate(Routes.OrderHistoryRoute) },
+            viewModel = anterinViewModel
         )
 
         // JAJAN FLOW
@@ -150,7 +151,7 @@ fun AppNavigation(
             onOrderHistoryClick = { onNavigate(Routes.OrderHistoryRoute) }
         )
 
-        // CART ====================================================================
+        // CART 
         is Routes.CartRoute -> CartPage(
             onBack = onBack,
             onCheckout = { onNavigate(Routes.JajaninFindingDriverRoute) }
@@ -159,6 +160,5 @@ fun AppNavigation(
         is Routes.JajaninChatRoute -> ChatWithDriverPage(
             onBack = onBack
         )
-
     }
 }

@@ -27,6 +27,8 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
                 _uiState.value = LocationUiState(
                     isLoading = false,
                     locationName = location.address,
+                    latitude = location.latitude,
+                    longitude = location.longitude,
                     error = null
                 )
             } else {

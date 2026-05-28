@@ -1,19 +1,26 @@
 package com.example.application.anterin.ui.screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.application.anterin.ui.component.AnterinBackground
 import com.example.application.global.ui.component.Header
 import com.example.application.global.ui.component.ButtonBlue
-import com.example.application.global.ui.component.SearchBar
+import com.example.application.global.ui.component.MapWebView
 import com.example.application.global.ui.navigation.Routes
 import com.example.application.anterin.ui.viewmodel.AnterinViewModel
+import com.example.application.global.data.location.LocationViewModel
+import com.example.application.global.ui.component.SearchBar
 
 enum class MapMode {
     PICKUP,
@@ -24,56 +31,120 @@ enum class MapMode {
 fun AnterinSearchPage(
     mode: MapMode,
     onNavigate: (Routes) -> Unit,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    viewModel: AnterinViewModel,
+    locationViewModel: LocationViewModel = viewModel()
 ) {
-
     val isPickup = mode == MapMode.PICKUP
-    val viewModel: AnterinViewModel = viewModel()
     val uiState by viewModel.uiState.collectAsState()
+    val suggestions by viewModel.searchSuggestions.collectAsState()
+
+    var searchQuery by remember { mutableStateOf("") }
+
+    // Pass GPS location to map component
+    val locationState by locationViewModel.uiState.collectAsState()
+    val userLatLng = if (locationState.latitude != null && locationState.longitude != null) {
+        Pair(locationState.latitude!!, locationState.longitude!!)
+    } else null
+
+    // Trigger location fetch on entry
+    LaunchedEffect(Unit) {
+        locationViewModel.fetchLocation()
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
+        
+        // Persistent Map Component
+        MapWebView(
+            userLocation = userLatLng,
+            pickupLocation = uiState.pickup,
+            destinationLocation = uiState.destination,
+            routeGeoJson = uiState.route?.geoJson,
+            onMapClick = { lat, lng ->
+                if (isPickup) {
+                    viewModel.updatePickupByCoordinates(lat, lng)
+                } else {
+                    viewModel.updateDestinationByCoordinates(lat, lng)
+                }
+            },
+            modifier = Modifier.fillMaxSize()
+        )
 
-        AnterinBackground()
-
-        Column {
-            Header(
-                title = "Anter-In",
-                onBack = onBack
-            )
-        }
-
-        Box(
+        // Overlay UI
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 110.dp)
+                .zIndex(1f)
         ) {
-            SearchBar(
-                value = if (mode == MapMode.PICKUP)
-                    uiState.pickup
-                else
-                    uiState.destination,
-
-                onValueChange = {
-                    if (mode == MapMode.PICKUP)
-                        viewModel.onPickupChange(it)
-                    else
-                        viewModel.onDestinationChange(it)
-                },
-
-                placeholderText = if (mode == MapMode.PICKUP)
-                    "Search pick-up location"
-                else
-                    "Search destination"
+            Header(
+                title = if (isPickup) "Select Pick-up" else "Select Destination",
+                onBack = onBack
             )
+            
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // Search Bar with Suggestions
+            Box(modifier = Modifier.padding(horizontal = 8.dp)) {
+                Column {
+                    SearchBar(
+                        value = searchQuery,
+                        onValueChange = {
+                            searchQuery = it
+                            viewModel.searchLocations(it)
+                        },
+                        placeholderText = if (isPickup) "Search pickup location" else "Search destination"
+                    )
+
+                    if (suggestions.isNotEmpty()) {
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 4.dp),
+                            shape = RoundedCornerShape(12.dp),
+                            colors = CardDefaults.cardColors(containerColor = Color.White),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+                        ) {
+                            LazyColumn(modifier = Modifier.heightIn(max = 250.dp)) {
+                                items(suggestions) { suggestion ->
+                                    Column(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .clickable {
+                                                viewModel.selectSuggestion(suggestion, isPickup)
+                                                searchQuery = "" // Reset local query
+                                            }
+                                            .padding(16.dp)
+                                    ) {
+                                        Text(text = suggestion.displayName, fontSize = 14.sp)
+                                    }
+                                    HorizontalDivider(color = Color.LightGray.copy(alpha = 0.5f))
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
+        // Action Button
         ButtonBlue(
-            text = if (isPickup) "Search pick-up location" else "Search destination",
+            text = when {
+                isPickup && uiState.pickup?.address == "Resolving address..." -> "Resolving address..."
+                isPickup && uiState.pickup == null -> "Choose on Map"
+                isPickup -> "Set Pick-up Location"
+                !isPickup && uiState.destination?.address == "Resolving address..." -> "Resolving address..."
+                !isPickup && uiState.destination == null -> "Choose on Map"
+                else -> "Set Destination Location"
+            },
             onClick = {
-                if (mode == MapMode.PICKUP) {
-                    onNavigate(Routes.AnterDestinationInputRoute)
+                if (isPickup) {
+                    if (uiState.pickup != null) {
+                        onNavigate(Routes.AnterDestinationInputRoute)
+                    }
                 } else {
-                    onNavigate(Routes.AnterDestinationSetRoute)
+                    if (uiState.destination != null) {
+                        onNavigate(Routes.AnterDestinationSetRoute)
+                    }
                 }
             },
             modifier = Modifier
@@ -81,7 +152,12 @@ fun AnterinSearchPage(
                 .navigationBarsPadding()
                 .padding(16.dp)
                 .fillMaxWidth()
-                .height(50.dp)
+                .height(50.dp),
+            enabled = if (isPickup) {
+                uiState.pickup != null && uiState.pickup?.address != "Resolving address..."
+            } else {
+                uiState.destination != null && uiState.destination?.address != "Resolving address..."
+            }
         )
     }
 }

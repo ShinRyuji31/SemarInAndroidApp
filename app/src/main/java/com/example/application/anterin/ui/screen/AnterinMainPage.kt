@@ -39,25 +39,12 @@ fun AnterinMainPage(
         )
 
         AnterinFormCard(
-
             mode = mode,
-
             pickup = uiState.pickup,
             destination = uiState.destination,
-
             histories = uiState.histories,
-
             onPickupClick = onPickupClick,
             onDestinationClick = onDestinationClick,
-
-            onPickupChange = {
-                viewModel.onPickupChange(it)
-            },
-
-            onDestinationChange = {
-                viewModel.onDestinationChange(it)
-            },
-
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.Center)

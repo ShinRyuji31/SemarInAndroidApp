@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Leaflet Map</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <link rel="stylesheet" href="leaflet/leaflet.css" />
+    <script src="leaflet/leaflet.js"></script>
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: transparent;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            background: #f0f0f0;
+        }
+
+        /* Marker coloring */
+        .user-location-icon { filter: hue-rotate(140deg); }
+        .pickup-icon { filter: hue-rotate(240deg); } /* Purple-ish */
+        .destination-icon { filter: hue-rotate(0deg); } /* Default Red */
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        var map;
+        var userMarker;
+        var selectionMarker;
+        var pickupMarker;
+        var destinationMarker;
+        var routeLayer;
+
+        var mapInteractionEnabled = true;
+
+        function initMap() {
+            try {
+                map = L.map('map', {
+                    zoomControl: false,
+                    attributionControl: false
+                }).setView([-6.200000, 106.816666], 13);
+
+                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19
+                }).addTo(map);
+
+                map.on('click', function(e) {
+                    if (!mapInteractionEnabled) return;
+
+                    setSelectionMarker(e.latlng.lat, e.latlng.lng);
+                    if (window.AndroidInterface) {
+                        AndroidInterface.onMapClick(e.latlng.lat, e.latlng.lng);
+                    }
+                });
+
+                console.log("Leaflet Map Initialized");
+            } catch (e) {
+                console.error("Leaflet Init Error: " + e.message);
+            }
+        }
+
+        function setInteractionEnabled(enabled) {
+            mapInteractionEnabled = enabled;
+            if (enabled) {
+                map.dragging.enable();
+                map.touchZoom.enable();
+                map.doubleClickZoom.enable();
+                map.scrollWheelZoom.enable();
+            } else {
+                map.dragging.disable();
+                map.touchZoom.disable();
+                map.doubleClickZoom.disable();
+                map.scrollWheelZoom.disable();
+            }
+        }
+
+        function setUserLocation(lat, lng) {
+            if (userMarker) {
+                userMarker.setLatLng([lat, lng]);
+            } else {
+                userMarker = L.marker([lat, lng]).addTo(map);
+                userMarker._icon.classList.add("user-location-icon");
+            }
+            map.setView([lat, lng], 16);
+        }
+
+        function setSelectionMarker(lat, lng) {
+            if (selectionMarker) {
+                selectionMarker.setLatLng([lat, lng]);
+            } else {
+                selectionMarker = L.marker([lat, lng]).addTo(map);
+            }
+        }
+
+        function setMarkers(pickupJson, destinationJson) {
+            if (pickupMarker) map.removeLayer(pickupMarker);
+            if (destinationMarker) map.removeLayer(destinationMarker);
+            if (selectionMarker) map.removeLayer(selectionMarker);
+
+            if (pickupJson && pickupJson !== "null" && pickupJson !== "") {
+                var p = JSON.parse(pickupJson);
+                pickupMarker = L.marker([p.latitude, p.longitude]).addTo(map);
+                pickupMarker._icon.classList.add("pickup-icon");
+            }
+
+            if (destinationJson) {
+                var d = JSON.parse(destinationJson);
+                destinationMarker = L.marker([d.latitude, d.longitude]).addTo(map);
+                destinationMarker._icon.classList.add("destination-icon");
+            }
+        }
+
+        function drawRoute(geoJsonData) {
+            if (routeLayer) {
+                map.removeLayer(routeLayer);
+            }
+            routeLayer = L.geoJSON(JSON.parse(geoJsonData), {
+                style: {
+                    color: '#007AFF',
+                    weight: 5,
+                    opacity: 0.7
+                }
+            }).addTo(map);
+
+            map.fitBounds(routeLayer.getBounds(), { padding: [50, 50] });
+        }
+
+        function clearRoute() {
+            if (routeLayer) {
+                map.removeLayer(routeLayer);
+                routeLayer = null;
+            }
+        }
+
+        function moveCamera(lat, lng, zoom) {
+            map.setView([lat, lng], zoom || 16);
+        }
+
+        window.onload = initMap;
+    </script>
+</body>
+</html>
