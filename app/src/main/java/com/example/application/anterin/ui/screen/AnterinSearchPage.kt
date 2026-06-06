@@ -16,7 +16,6 @@ import androidx.compose.ui.zIndex
 import com.example.application.global.ui.component.Header
 import com.example.application.global.ui.component.ButtonBlue
 import com.example.application.global.ui.component.MapWebView
-import com.example.application.global.ui.navigation.Routes
 import com.example.application.anterin.ui.viewmodel.AnterinViewModel
 import com.example.application.global.data.location.LocationViewModel
 import com.example.application.global.ui.component.SearchBar
@@ -30,7 +29,7 @@ enum class MapMode {
 @Composable
 fun AnterinSearchPage(
     mode: MapMode,
-    onNavigate: (Routes) -> Unit,
+    onConfirm: () -> Unit,
     onBack: () -> Unit,
     viewModel: AnterinViewModel,
     locationViewModel: LocationViewModel = koinViewModel()
@@ -53,7 +52,7 @@ fun AnterinSearchPage(
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        
+
         // Persistent Map Component
         MapWebView(
             userLocation = userLatLng,
@@ -80,7 +79,7 @@ fun AnterinSearchPage(
                 title = if (isPickup) "Select Pick-up" else "Select Destination",
                 onBack = onBack
             )
-            
+
             Spacer(modifier = Modifier.height(8.dp))
 
             // Search Bar with Suggestions
@@ -139,11 +138,11 @@ fun AnterinSearchPage(
             onClick = {
                 if (isPickup) {
                     if (uiState.pickup != null) {
-                        onNavigate(Routes.AnterDestinationInputRoute)
+                        onConfirm()
                     }
                 } else {
                     if (uiState.destination != null) {
-                        onNavigate(Routes.AnterDestinationSetRoute)
+                        onConfirm()
                     }
                 }
             },

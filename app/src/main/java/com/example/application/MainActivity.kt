@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.*
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.application.auth.data.repository.UserRepository
 import com.example.application.global.ui.navigation.AppNavigation
 import com.example.application.global.ui.navigation.Routes
@@ -20,45 +22,46 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             ApplicationTheme {
-                val backStack = remember { mutableStateListOf<Routes>(Routes.LandingRoute) }
-                val currentRoute = backStack.lastOrNull() ?: Routes.LandingRoute
-                
                 val sessionStatus by userRepository.sessionStatus.collectAsState(SessionStatus.Initializing)
+                val navController = rememberNavController()
+                val currentBackStackEntry by navController.currentBackStackEntryAsState()
 
-                LaunchedEffect(sessionStatus) {
+                LaunchedEffect(sessionStatus, currentBackStackEntry) {
+                    val currentRoute = currentBackStackEntry?.destination?.route
                     when (sessionStatus) {
                         is SessionStatus.Authenticated -> {
-                            if (backStack.any { it is Routes.LandingRoute || it is Routes.LoginRoute || it is Routes.SignUpRoute }) {
-                                backStack.clear()
-                                backStack.add(Routes.DashBoardRoute)
+                            if (currentRoute == null ||
+                                currentRoute.contains("LandingRoute") ||
+                                currentRoute.contains("LoginRoute") ||
+                                currentRoute.contains("SignUpRoute") ||
+                                currentRoute.contains("AuthGraph")
+                            ) {
+                                navController.navigate(Routes.DashBoardRoute) {
+                                    popUpTo<Routes.AuthGraph> { inclusive = true }
+                                }
                             }
                         }
                         is SessionStatus.NotAuthenticated -> {
-                            if (backStack.any { it is Routes.DashBoardRoute || it is Routes.ProfileRoute }) {
-                                backStack.clear()
-                                backStack.add(Routes.LandingRoute)
+                            if (currentRoute != null && (
+                                currentRoute.contains("DashBoardRoute") ||
+                                currentRoute.contains("ProfileRoute") ||
+                                currentRoute.contains("OrderHistoryRoute") ||
+                                currentRoute.contains("AnterinGraph") ||
+                                currentRoute.contains("DeliveryGraph")
+                            )) {
+                                navController.navigate(Routes.AuthGraph) {
+                                    popUpTo<Routes.DashBoardRoute> { inclusive = true }
+                                }
                             }
                         }
                         else -> {}
                     }
                 }
-                
-                if (sessionStatus !is SessionStatus.Initializing) {
-                    AppNavigation(
-                        currentRoute = currentRoute,
-                        onNavigate = { newRoute ->
-                            if (newRoute is Routes.DashBoardRoute || newRoute is Routes.LandingRoute) {
-                                backStack.clear()
-                            }
-                            backStack.add(newRoute)
-                        },
-                        onBack = {
-                            if (backStack.size > 1) {
-                                backStack.removeAt(backStack.size - 1)
-                            }
-                        }
-                    )
-                }
+
+                AppNavigation(
+                    navController = navController,
+                    startDestination = Routes.AuthGraph
+                )
             }
         }
     }

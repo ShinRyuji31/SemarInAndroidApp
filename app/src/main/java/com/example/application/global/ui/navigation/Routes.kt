@@ -28,7 +28,12 @@ sealed interface Routes {
     @Serializable data object JajaninFindingDriverRoute : Routes
     @Serializable data object JajaninOrderStatusRoute : Routes
     @Serializable data object JajaninChatRoute : Routes
-    
+
     // CART
     @Serializable data object CartRoute : Routes
+
+    // ─── NESTED GRAPH ROOT MARKERS ───
+    @Serializable data object AuthGraph : Routes
+    @Serializable data object AnterinGraph : Routes
+    @Serializable data object DeliveryGraph : Routes
 }

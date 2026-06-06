@@ -35,7 +35,8 @@ import org.koin.androidx.compose.koinViewModel
 fun DeliveryDetailPage(
     onBack: () -> Unit,
     onCartClick: () -> Unit,
-    viewModel: StoreViewModel = koinViewModel()
+    viewModel: StoreViewModel = koinViewModel(),
+    cartViewModel: CartViewModel = koinViewModel()
 ) {
     val inventory by viewModel.inventory.collectAsState()
 
@@ -48,7 +49,6 @@ fun DeliveryDetailPage(
         inventory.filter { it.storeId == store.id }
     } ?: emptyList()
 
-    val cartViewModel: CartViewModel = koinViewModel()
     val cartItems by cartViewModel.cartItems.collectAsState()
 
     Box(modifier = Modifier.fillMaxSize().background(Color.White)) {
