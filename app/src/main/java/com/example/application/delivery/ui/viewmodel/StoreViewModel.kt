@@ -1,14 +1,17 @@
 package com.example.application.delivery.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.application.delivery.data.model.StoreInventory
 import com.example.application.delivery.data.model.Store
-import com.example.application.delivery.data.repository.StoreRepository
+import com.example.application.delivery.data.repository.SupabaseStoreRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class StoreViewModel(
-    private val repository: StoreRepository
+    private val repository: SupabaseStoreRepository
 ) : ViewModel() {
 
     private val _stores = MutableStateFlow<List<Store>>(emptyList())
@@ -25,12 +28,32 @@ class StoreViewModel(
     }
 
     private fun loadData() {
-        _stores.value = repository.getStore()
-        _inventory.value = repository.getStoreInventory()
+        viewModelScope.launch {
+            try {
+                repository.fetchStores()
+                    .onSuccess { _stores.value = it }
+                    .onFailure { Log.e("StoreViewModel", "fetchStores error", it) }
+
+                // Optionally, fetch inventory for first store or leave empty until selection
+                _inventory.value = emptyList()
+            } catch (e: Exception) {
+                Log.e("StoreViewModel", "loadData error", e)
+            }
+        }
     }
 
     fun selectStore(store: Store) {
         _selectedStore.value = store
+
+        viewModelScope.launch {
+            try {
+                repository.fetchProductsByStoreId(store.id)
+                    .onSuccess { _inventory.value = it }
+                    .onFailure { Log.e("StoreViewModel", "fetchProductsByStoreId error", it) }
+            } catch (e: Exception) {
+                Log.e("StoreViewModel", "selectStore error", e)
+            }
+        }
     }
 
 }

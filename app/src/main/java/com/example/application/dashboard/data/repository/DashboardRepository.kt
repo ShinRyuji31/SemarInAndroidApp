@@ -3,9 +3,9 @@ package com.example.application.dashboard.data.repository
 import com.example.application.R
 import com.example.application.dashboard.data.model.PromoBanner
 import com.example.application.delivery.data.model.Store
-import com.example.application.delivery.data.repository.StoreRepository
+import com.example.application.delivery.data.repository.SupabaseStoreRepository
 
-class DashboardRepository(private val storeRepository: StoreRepository) {
+class DashboardRepository(private val supabaseStoreRepository: SupabaseStoreRepository) {
 
     fun getTopBanners(): List<PromoBanner> {
         return listOf(
@@ -14,25 +14,21 @@ class DashboardRepository(private val storeRepository: StoreRepository) {
                 description = "Diskon hingga 70%",
                 imageRes = R.drawable.banner_promosatu
             ),
-
             PromoBanner(
                 title = "Gratis Ongkir",
                 description = "Khusus pengguna baru",
                 imageRes = R.drawable.banner_promodua
             ),
-
             PromoBanner(
                 title = "Cashback Besar",
                 description = "Bayar pakai e-wallet",
                 imageRes = R.drawable.banner_promotiga
             ),
-
             PromoBanner(
                 title = "Promo Tengah Malam",
                 description = "Diskon makanan favorit",
                 imageRes = R.drawable.banner_promoempat
             ),
-
             PromoBanner(
                 title = "Weekend Deal",
                 description = "Promo akhir pekan",
@@ -43,13 +39,11 @@ class DashboardRepository(private val storeRepository: StoreRepository) {
 
     fun getBottomBanners(): List<PromoBanner> {
         return listOf(
-
             PromoBanner(
                 title = "Anter-In Lagi Disini",
                 description = "Saya akan kembali ke Solo sebagai rakyat biasa...",
                 imageRes = R.drawable.banner_anterin
             ),
-
             PromoBanner(
                 title = "Titip-In Promo Baru",
                 description = "Titip barang lebih mudah dan cepat.",
@@ -58,18 +52,27 @@ class DashboardRepository(private val storeRepository: StoreRepository) {
         )
     }
 
-    fun getAffordableRestaurants(): List<Store> {
-
-        return storeRepository
-            .getStore()
-            .sortedByDescending { it.rating }
-            .take(3)
+    // Mengubah menjadi fungsi suspend untuk mengambil data dari Supabase
+    suspend fun getAffordableRestaurants(): List<Store> {
+        return supabaseStoreRepository.fetchStores().fold(
+            onSuccess = { stores ->
+                stores.sortedByDescending { it.rating }.take(3)
+            },
+            onFailure = {
+                emptyList()
+            }
+        )
     }
 
-    fun getLastOrderRestaurant(): Store {
-
-        return storeRepository
-            .getStore()
-            .first()
+    // Mengubah menjadi fungsi suspend untuk mengambil data dari Supabase
+    suspend fun getLastOrderRestaurant(): Store? {
+        return supabaseStoreRepository.fetchStores().fold(
+            onSuccess = { stores ->
+                stores.firstOrNull()
+            },
+            onFailure = {
+                null
+            }
+        )
     }
 }

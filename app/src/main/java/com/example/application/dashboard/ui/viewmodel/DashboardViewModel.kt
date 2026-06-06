@@ -1,5 +1,6 @@
 package com.example.application.dashboard.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.application.auth.data.model.User
@@ -36,15 +37,23 @@ class DashboardViewModel(
     }
 
     private fun loadDashboard() {
+        _topBanners.value = dashboardRepository.getTopBanners()
+        _bottomBanners.value = dashboardRepository.getBottomBanners()
+
         viewModelScope.launch {
             userRepository.getUserProfile().onSuccess { user ->
                 _user.value = user
+            }.onFailure {
+                Log.e("DashboardViewModel", "Failed to load user profile", it)
+            }
+
+            // Memanggil fungsi suspend Supabase di dalam coroutine scope
+            try {
+                _affordableRestaurants.value = dashboardRepository.getAffordableRestaurants()
+                _lastOrderStore.value = dashboardRepository.getLastOrderRestaurant()
+            } catch (e: Exception) {
+                Log.e("DashboardViewModel", "Failed to load stores from Supabase", e)
             }
         }
-
-        _topBanners.value = dashboardRepository.getTopBanners()
-        _bottomBanners.value = dashboardRepository.getBottomBanners()
-        _affordableRestaurants.value = dashboardRepository.getAffordableRestaurants()
-        _lastOrderStore.value = dashboardRepository.getLastOrderRestaurant()
     }
 }

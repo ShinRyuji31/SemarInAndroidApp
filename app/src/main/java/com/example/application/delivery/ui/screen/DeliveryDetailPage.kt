@@ -1,5 +1,9 @@
 package com.example.application.delivery.ui.screen
 
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import androidx.compose.ui.platform.LocalContext
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -58,8 +62,13 @@ fun DeliveryDetailPage(
                         .fillMaxWidth()
                         .height(200.dp)
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.dummy),
+                    val ctx = LocalContext.current
+
+                    AsyncImage(
+                        model = ImageRequest.Builder(ctx)
+                            .data(storeToShow?.imageUrl ?: R.drawable.dummy)
+                            .crossfade(true)
+                            .build(),
                         contentDescription = null,
                         modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.FillBounds

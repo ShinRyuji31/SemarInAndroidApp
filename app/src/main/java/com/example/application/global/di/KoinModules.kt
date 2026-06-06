@@ -16,7 +16,7 @@ import com.example.application.dashboard.data.repository.DashboardRepository
 import com.example.application.dashboard.ui.viewmodel.DashboardViewModel
 import com.example.application.delivery.data.local.CartDataStore
 import com.example.application.delivery.data.repository.CartRepository
-import com.example.application.delivery.data.repository.StoreRepository
+import com.example.application.delivery.data.repository.SupabaseStoreRepository
 import com.example.application.delivery.ui.viewmodel.CartViewModel
 import com.example.application.delivery.ui.viewmodel.StoreViewModel
 import com.example.application.global.data.location.LocationRepository
@@ -27,19 +27,27 @@ import com.example.application.orderhistory.viewmodel.OrderHistoryViewModel
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.auth.Auth
 import io.github.jan.supabase.postgrest.Postgrest
+import io.github.jan.supabase.serializer.KotlinXSerializer
+import kotlinx.serialization.json.Json
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
-    // Supabase Client
+    // Supabase Client dengan Konfigurasi Json Serializer Terpasang
     single {
         createSupabaseClient(
             supabaseUrl = BuildConfig.SUPABASE_URL,
             supabaseKey = BuildConfig.SUPABASE_KEY
         ) {
             install(Auth)
-            install(Postgrest)
+            install(Postgrest) {
+                // Menghubungkan serializer agar Supabase Postgrest tahu cara mem-parsing data JSON dari DB
+                serializer = KotlinXSerializer(Json {
+                    ignoreUnknownKeys = true // Agar tidak error jika kolom DB lebih banyak dari DTO aplikasi
+                    coerceInputValues = true
+                })
+            }
         }
     }
 
@@ -57,7 +65,7 @@ val repositoryModule = module {
     single { ChatRepository() }
     single { DashboardRepository(get()) }
     single { CartRepository(get()) }
-    single { StoreRepository() }
+    single { SupabaseStoreRepository(get()) }
     single { LocationRepository(get()) }
     single { OrderHistoryRepository() }
 }

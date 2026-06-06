@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.application.R
 import com.example.application.delivery.ui.component.cart.CartItemComponent
 import com.example.application.global.ui.component.ButtonWhite
 import com.example.application.global.ui.component.Header
@@ -74,7 +75,8 @@ fun CartPage(
                         CartItemComponent(
                             name = it.name,
                             price = it.price.toRupiah(),
-                            imageRes = it.imageRes,
+                            imageUrl = it.imageUrl,
+                            imageRes = it.imageRes ?: R.drawable.dummy,
                             quantity = cart.quantity,
 
                             onIncrease = {

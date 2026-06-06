@@ -5,17 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.application.delivery.data.model.CartItem
 import com.example.application.delivery.data.model.StoreInventory
 import com.example.application.delivery.data.repository.CartRepository
-import com.example.application.delivery.data.repository.StoreRepository
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.util.UUID
 
 class CartViewModel(
     private val cartRepository: CartRepository,
-    private val storeRepository: StoreRepository
+    private val storeViewModel: StoreViewModel
 ) : ViewModel() {
-
-    private val inventories = storeRepository.getStoreInventory()
 
     private val _cartItems = MutableStateFlow<List<CartItem>>(emptyList())
 
@@ -24,9 +21,7 @@ class CartViewModel(
     init {
 
         viewModelScope.launch {
-
             cartRepository.getCartItems().collect {
-
                 _cartItems.value = it
             }
         }
@@ -34,9 +29,7 @@ class CartViewModel(
 
     //Price States
     val subtotal = cartItems.map { carts ->
-
         carts.sumOf { cart ->
-
             val inventory = getInventoryById(
                 cart.storeInventoryId
             )
@@ -51,7 +44,6 @@ class CartViewModel(
         subtotal,
         deliveryFee
     ) { sub, fee ->
-
         sub + fee
     }
 
@@ -126,11 +118,11 @@ class CartViewModel(
         }
     }
 
-    //Inventory
+    //Inventory: dynamically read from StoreViewModel's inventory state
     fun getInventoryById(
         inventoryId: String
     ): StoreInventory? {
-        return inventories.find {
+        return storeViewModel.inventory.value.find {
             it.id == inventoryId
         }
     }

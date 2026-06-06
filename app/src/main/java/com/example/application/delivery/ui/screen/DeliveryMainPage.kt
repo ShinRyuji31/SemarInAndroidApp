@@ -30,16 +30,7 @@ fun DeliveryMainPage(
 
     val stores by viewModel.stores.collectAsState()
 
-    val filteredStores = when (type) {
-
-        StoreType.FOOD -> {
-            stores.filter { it.id.startsWith("F") }
-        }
-
-        StoreType.RETAIL -> {
-            stores.filter { it.id.startsWith("R") }
-        }
-    }
+    val filteredStores = stores.filter { it.type == type }
 
     Box(modifier = Modifier.fillMaxSize()) {
 

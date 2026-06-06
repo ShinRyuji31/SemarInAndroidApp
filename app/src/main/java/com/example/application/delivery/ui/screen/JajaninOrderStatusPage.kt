@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.application.R
 import com.example.application.delivery.ui.component.orderstatus.OrderSummary
 import com.example.application.delivery.ui.viewmodel.CartViewModel
 import com.example.application.dashboard.ui.component.DashboardBottomNavBar
@@ -145,7 +146,8 @@ fun JajaninOrderStatusPage(
                     CartItemComponent(
                         name = it.name,
                         price = it.price.toRupiah(),
-                        imageRes = it.imageRes,
+                        imageUrl = it.imageUrl,
+                        imageRes = it.imageRes ?: R.drawable.dummy,
                         quantity = cart.quantity,
                         showQuantitySelector = false
                     )

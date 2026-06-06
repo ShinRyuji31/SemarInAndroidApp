@@ -1,6 +1,5 @@
 package com.example.application.dashboard.ui.component
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -15,10 +14,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import com.example.application.R
 import com.example.application.delivery.data.model.Store
 import com.example.application.global.ui.component.RatingStar
 import com.example.application.global.ui.theme.BlackSoft
@@ -65,13 +68,16 @@ fun DashboardAffordableRestaurant(
 
                     Column {
 
-                        Image(
-                            painter = painterResource(id = resto.imageRes),
-
+                        // Menggunakan AsyncImage dari Coil untuk handle imageUrl dan fallback imageRes
+                        AsyncImage(
+                            model = ImageRequest.Builder(LocalContext.current)
+                                .data(resto.imageUrl ?: resto.imageRes ?: R.drawable.dummy)
+                                .crossfade(true)
+                                .build(),
+                            placeholder = painterResource(id = R.drawable.dummy),
+                            error = painterResource(id = R.drawable.dummy),
                             contentDescription = null,
-
                             contentScale = ContentScale.Crop,
-
                             modifier = Modifier
                                 .height(100.dp)
                                 .fillMaxWidth()

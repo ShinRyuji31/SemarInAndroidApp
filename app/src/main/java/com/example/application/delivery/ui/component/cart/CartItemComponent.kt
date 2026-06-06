@@ -1,6 +1,8 @@
 package com.example.application.delivery.ui.component.cart
 
-import androidx.compose.foundation.Image
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -12,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -21,6 +22,7 @@ import androidx.compose.ui.unit.sp
 fun CartItemComponent(
     name: String,
     price: String,
+    imageUrl: String? = null,
     imageRes: Int,
     quantity: Int,
 
@@ -48,6 +50,8 @@ fun CartItemComponent(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
+        val ctx = LocalContext.current
+
         Box(
             modifier = Modifier
                 .size(70.dp)
@@ -55,13 +59,13 @@ fun CartItemComponent(
                 .background(Color.Transparent)
         ) {
 
-            Image(
-                painter = painterResource(id = imageRes),
-
+            AsyncImage(
+                model = ImageRequest.Builder(ctx)
+                    .data(imageUrl ?: imageRes)
+                    .crossfade(true)
+                    .build(),
                 contentDescription = null,
-
                 modifier = Modifier.fillMaxSize(),
-
                 contentScale = ContentScale.Crop
             )
         }
