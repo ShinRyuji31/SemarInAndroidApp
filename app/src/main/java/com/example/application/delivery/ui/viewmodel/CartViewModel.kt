@@ -3,15 +3,16 @@ package com.example.application.delivery.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.application.delivery.data.model.CartItem
-import com.example.application.delivery.data.model.StoreInventory
 import com.example.application.delivery.data.repository.CartRepository
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.util.UUID
 
 class CartViewModel(
-    private val cartRepository: CartRepository,
-    private val storeViewModel: StoreViewModel
+    private val cartRepository: CartRepository
 ) : ViewModel() {
 
     private val _cartItems = MutableStateFlow<List<CartItem>>(emptyList())
@@ -19,7 +20,6 @@ class CartViewModel(
     val cartItems = _cartItems.asStateFlow()
 
     init {
-
         viewModelScope.launch {
             cartRepository.getCartItems().collect {
                 _cartItems.value = it
@@ -27,14 +27,9 @@ class CartViewModel(
         }
     }
 
-    //Price States
     val subtotal = cartItems.map { carts ->
         carts.sumOf { cart ->
-            val inventory = getInventoryById(
-                cart.storeInventoryId
-            )
-
-            (inventory?.price ?: 0) * cart.quantity
+            cart.price * cart.quantity
         }
     }
 
@@ -47,9 +42,11 @@ class CartViewModel(
         sub + fee
     }
 
-    //Add to Cart
     fun addToCart(
-        inventoryId: String
+        inventoryId: String,
+        name: String,
+        price: Int,
+        imageUrl: String?
     ) {
 
         viewModelScope.launch {
@@ -74,6 +71,9 @@ class CartViewModel(
                     CartItem(
                         id = UUID.randomUUID().toString(),
                         storeInventoryId = inventoryId,
+                        name = name,
+                        price = price,
+                        imageUrl = imageUrl,
                         quantity = 1
                     )
                 )
@@ -83,47 +83,51 @@ class CartViewModel(
         }
     }
 
-    //Quantity
     fun increaseQuantity(cartId: String) {
+
         viewModelScope.launch {
+
             val updated = _cartItems.value.map { cart ->
+
                 if (cart.id == cartId) {
+
                     cart.copy(
                         quantity = cart.quantity + 1
                     )
+
                 } else {
                     cart
                 }
             }
+
             cartRepository.saveCartItems(updated)
         }
     }
 
     fun decreaseQuantity(cartId: String) {
+
         viewModelScope.launch {
+
             val updated = _cartItems.value.mapNotNull { cart ->
+
                 if (cart.id == cartId) {
+
                     val newQty = cart.quantity - 1
 
                     if (newQty <= 0) {
                         null
                     } else {
-                        cart.copy(quantity = newQty)
+                        cart.copy(
+                            quantity = newQty
+                        )
                     }
+
                 } else {
                     cart
                 }
             }
-            cartRepository.saveCartItems(updated)
-        }
-    }
 
-    //Inventory: dynamically read from StoreViewModel's inventory state
-    fun getInventoryById(
-        inventoryId: String
-    ): StoreInventory? {
-        return storeViewModel.inventory.value.find {
-            it.id == inventoryId
+            cartRepository.saveCartItems(updated)
         }
     }
 }

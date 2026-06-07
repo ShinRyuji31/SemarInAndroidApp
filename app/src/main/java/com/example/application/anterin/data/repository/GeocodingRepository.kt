@@ -33,7 +33,6 @@ class GeocodingRepository {
                     parameters.append("lon", lon.toString())
                     parameters.append("format", "json")
                 }
-                // Nominatim requires a User-Agent
                 header("User-Agent", "SemarinAndroidApp")
             }.body()
             

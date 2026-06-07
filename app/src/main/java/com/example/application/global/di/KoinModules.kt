@@ -27,27 +27,19 @@ import com.example.application.orderhistory.viewmodel.OrderHistoryViewModel
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.auth.Auth
 import io.github.jan.supabase.postgrest.Postgrest
-import io.github.jan.supabase.serializer.KotlinXSerializer
-import kotlinx.serialization.json.Json
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
-    // Supabase Client dengan Konfigurasi Json Serializer Terpasang
+    // Supabase Client
     single {
         createSupabaseClient(
             supabaseUrl = BuildConfig.SUPABASE_URL,
             supabaseKey = BuildConfig.SUPABASE_KEY
         ) {
             install(Auth)
-            install(Postgrest) {
-                // Menghubungkan serializer agar Supabase Postgrest tahu cara mem-parsing data JSON dari DB
-                serializer = KotlinXSerializer(Json {
-                    ignoreUnknownKeys = true // Agar tidak error jika kolom DB lebih banyak dari DTO aplikasi
-                    coerceInputValues = true
-                })
-            }
+            install(Postgrest)
         }
     }
 
@@ -66,6 +58,7 @@ val repositoryModule = module {
     single { DashboardRepository(get()) }
     single { CartRepository(get()) }
     single { SupabaseStoreRepository(get()) }
+
     single { LocationRepository(get()) }
     single { OrderHistoryRepository() }
 }
@@ -78,7 +71,8 @@ val viewModelModule = module {
     viewModel { LocationViewModel(get()) }
     viewModel { DashboardViewModel(get(), get()) }
     viewModel { StoreViewModel(get()) }
-    viewModel { CartViewModel(get(), get()) }
+    viewModel { CartViewModel(get()) }
+
     viewModel { ChatViewModel(get()) }
     viewModel { OrderHistoryViewModel(get()) }
 }

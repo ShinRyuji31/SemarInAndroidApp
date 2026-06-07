@@ -6,5 +6,10 @@ import kotlinx.serialization.Serializable
 data class CartItem(
     val id: String,
     val storeInventoryId: String,
+
+    val name: String = "",
+    val price: Int = 0,
+    val imageUrl: String? = null,
+
     val quantity: Int
 )

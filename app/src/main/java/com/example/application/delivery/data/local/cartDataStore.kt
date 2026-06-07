@@ -14,19 +14,26 @@ private val Context.dataStore by preferencesDataStore(name = "cart_store")
 
 class CartDataStore(
     private val context: Context
+
 ) {
 
     companion object {
         private val CART_KEY = stringPreferencesKey("cart_items")
     }
 
+    private val jsonParser = Json {
+        ignoreUnknownKeys = true
+    }
     fun getCartItems(): Flow<List<CartItem>> {
-
         return context.dataStore.data.map { pref ->
 
             val json = pref[CART_KEY] ?: "[]"
 
-            Json.decodeFromString(json)
+            try {
+                jsonParser.decodeFromString<List<CartItem>>(json)
+            } catch (e: Exception) {
+                emptyList()
+            }
         }
     }
 

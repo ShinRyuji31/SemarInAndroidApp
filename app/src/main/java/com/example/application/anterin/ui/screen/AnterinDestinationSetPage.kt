@@ -38,8 +38,7 @@ fun AnterinDestinationSetPage(
     } else null
 
     Box(modifier = Modifier.fillMaxSize()) {
-        
-        // 1. REAL Interactive Map Preview (Disabled interactions)
+
         MapWebView(
             userLocation = userLatLng,
             pickupLocation = uiState.pickup,

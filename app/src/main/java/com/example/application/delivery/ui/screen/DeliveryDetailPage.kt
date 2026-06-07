@@ -97,7 +97,10 @@ fun DeliveryDetailPage(
                             onAddToCart = { inventory ->
 
                                 cartViewModel.addToCart(
-                                    inventory.id
+                                    inventory.id,
+                                    inventory.name,
+                                    inventory.price,
+                                    inventory.imageUrl
                                 )
                             }
                         )

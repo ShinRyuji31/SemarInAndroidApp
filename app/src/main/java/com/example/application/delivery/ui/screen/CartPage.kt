@@ -66,32 +66,21 @@ fun CartPage(
 
                 items(cartItems) { cart ->
 
-                    val inventory = viewModel.getInventoryById(
-                        cart.storeInventoryId
+                    CartItemComponent(
+                        name = cart.name,
+                        price = cart.price.toRupiah(),
+                        imageUrl = cart.imageUrl,
+                        imageRes = R.drawable.dummy,
+                        quantity = cart.quantity,
+
+                        onIncrease = {
+                            viewModel.increaseQuantity(cart.id)
+                        },
+
+                        onDecrease = {
+                            viewModel.decreaseQuantity(cart.id)
+                        }
                     )
-
-                    inventory?.let {
-
-                        CartItemComponent(
-                            name = it.name,
-                            price = it.price.toRupiah(),
-                            imageUrl = it.imageUrl,
-                            imageRes = it.imageRes ?: R.drawable.dummy,
-                            quantity = cart.quantity,
-
-                            onIncrease = {
-                                viewModel.increaseQuantity(
-                                    cart.id
-                                )
-                            },
-
-                            onDecrease = {
-                                viewModel.decreaseQuantity(
-                                    cart.id
-                                )
-                            }
-                        )
-                    }
                 }
             }
 
@@ -121,6 +110,10 @@ fun CartPage(
                         text = "Deliver to",
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold
+                    )
+
+                    Text(
+                        text = "Cart size = ${cartItems.size}"
                     )
 
                     Column(

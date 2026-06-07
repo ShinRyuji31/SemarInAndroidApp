@@ -136,22 +136,14 @@ fun JajaninOrderStatusPage(
 
             items(cartItems) { cart ->
 
-                val inventory =
-                    viewModel.getInventoryById(
-                        cart.storeInventoryId
-                    )
-
-                inventory?.let {
-
-                    CartItemComponent(
-                        name = it.name,
-                        price = it.price.toRupiah(),
-                        imageUrl = it.imageUrl,
-                        imageRes = it.imageRes ?: R.drawable.dummy,
-                        quantity = cart.quantity,
-                        showQuantitySelector = false
-                    )
-                }
+                CartItemComponent(
+                    name = cart.name,
+                    price = cart.price.toRupiah(),
+                    imageUrl = cart.imageUrl,
+                    imageRes = R.drawable.dummy,
+                    quantity = cart.quantity,
+                    showQuantitySelector = false
+                )
             }
 
             item {
