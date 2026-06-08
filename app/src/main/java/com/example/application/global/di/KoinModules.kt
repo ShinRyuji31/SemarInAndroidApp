@@ -8,7 +8,7 @@ import com.example.application.anterin.data.repository.SearchLocationRepository
 import com.example.application.anterin.ui.viewmodel.AnterinViewModel
 import com.example.application.auth.data.repository.UserRepository
 import com.example.application.auth.ui.viewmodel.LoginViewModel
-import com.example.application.auth.ui.viewmodel.ProfileViewModel
+import com.example.application.profile.ui.viewmodel.ProfileViewModel
 import com.example.application.auth.ui.viewmodel.SignUpViewModel
 import com.example.application.chat.data.repository.ChatRepository
 import com.example.application.chat.ui.viewmodel.ChatViewModel

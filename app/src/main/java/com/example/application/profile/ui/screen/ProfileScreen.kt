@@ -1,4 +1,4 @@
-package com.example.application.auth.ui.screen
+package com.example.application.profile.ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -19,10 +19,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.application.R
-import com.example.application.auth.ui.component.ProfileAlertLogout
-import com.example.application.auth.ui.component.ProfileItem
-import com.example.application.auth.ui.viewmodel.ProfileUiState
-import com.example.application.auth.ui.viewmodel.ProfileViewModel
+import com.example.application.profile.ui.component.ProfileAlertLogout
+import com.example.application.profile.ui.component.ProfileItem
+import com.example.application.profile.ui.viewmodel.ProfileUiState
+import com.example.application.profile.ui.viewmodel.ProfileViewModel
 import com.example.application.dashboard.ui.component.DashboardBottomNavBar
 import com.example.application.global.ui.component.BackButton
 import com.example.application.global.ui.theme.blueWhiteGradient

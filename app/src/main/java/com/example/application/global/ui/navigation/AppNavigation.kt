@@ -17,6 +17,7 @@ import com.example.application.delivery.ui.viewmodel.CartViewModel
 import com.example.application.delivery.ui.viewmodel.StoreViewModel
 import com.example.application.global.ui.screen.FindingDriverPage
 import com.example.application.orderhistory.ui.screen.OrderHistoryScreen
+import com.example.application.profile.ui.screen.ProfileScreen
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

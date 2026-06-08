@@ -1,4 +1,4 @@
-package com.example.application.auth.ui.component
+package com.example.application.profile.ui.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
