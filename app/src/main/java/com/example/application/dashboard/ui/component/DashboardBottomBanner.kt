@@ -15,10 +15,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.application.dashboard.data.model.PromoBanner
-import com.example.application.global.ui.theme.BlackSoft
-import com.example.application.global.ui.theme.GrayDark
-import com.example.application.global.ui.theme.GrayMedium
-import com.example.application.global.ui.theme.WhiteSoft
+import com.example.application._core.ui.theme.BlackSoft
+import com.example.application._core.ui.theme.GrayDark
+import com.example.application._core.ui.theme.GrayMedium
+import com.example.application._core.ui.theme.WhiteSoft
 
 @Composable
 fun DashboardBottomBanner(

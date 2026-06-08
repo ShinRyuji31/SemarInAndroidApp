@@ -15,9 +15,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.application.R
-import com.example.application.global.ui.component.ButtonBlue
-import com.example.application.global.ui.component.ButtonWhite
-import com.example.application.global.ui.theme.blueWhiteGradient
+import com.example.application._core.ui.component.ButtonBlue
+import com.example.application._core.ui.component.ButtonWhite
+import com.example.application._core.ui.theme.blueWhiteGradient
 
 @Composable
 fun LandingScreen(

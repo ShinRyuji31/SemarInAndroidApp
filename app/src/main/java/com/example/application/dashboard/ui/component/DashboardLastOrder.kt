@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.application.delivery.data.model.Store
 import com.example.application.delivery.ui.component.store.StoreCard
-import com.example.application.global.ui.theme.BlackSoft
+import com.example.application._core.ui.theme.BlackSoft
 
 @Composable
 fun DashboardLastOrder(

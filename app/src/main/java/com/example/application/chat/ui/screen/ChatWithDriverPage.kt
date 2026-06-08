@@ -17,7 +17,7 @@ import com.example.application.chat.ui.component.ChatBubble
 import com.example.application.chat.ui.component.ChatHeader
 import com.example.application.chat.ui.component.ChatInput
 import com.example.application.chat.ui.viewmodel.ChatViewModel
-import com.example.application.global.ui.theme.WhiteSoft
+import com.example.application._core.ui.theme.WhiteSoft
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

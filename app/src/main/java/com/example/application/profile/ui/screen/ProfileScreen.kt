@@ -24,8 +24,8 @@ import com.example.application.profile.ui.component.ProfileItem
 import com.example.application.profile.ui.viewmodel.ProfileUiState
 import com.example.application.profile.ui.viewmodel.ProfileViewModel
 import com.example.application.dashboard.ui.component.DashboardBottomNavBar
-import com.example.application.global.ui.component.BackButton
-import com.example.application.global.ui.theme.blueWhiteGradient
+import com.example.application._core.ui.component.BackButton
+import com.example.application._core.ui.theme.blueWhiteGradient
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

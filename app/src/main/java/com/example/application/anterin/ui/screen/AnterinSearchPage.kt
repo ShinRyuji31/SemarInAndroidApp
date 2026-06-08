@@ -13,12 +13,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
-import com.example.application.global.ui.component.Header
-import com.example.application.global.ui.component.ButtonBlue
-import com.example.application.global.ui.component.MapWebView
+import com.example.application._core.ui.component.Header
+import com.example.application._core.ui.component.ButtonBlue
+import com.example.application._core.ui.component.MapWebView
 import com.example.application.anterin.ui.viewmodel.AnterinViewModel
-import com.example.application.global.data.location.LocationViewModel
-import com.example.application.global.ui.component.SearchBar
+import com.example.application._core.data.location.LocationViewModel
+import com.example.application._core.ui.component.SearchBar
 import org.koin.androidx.compose.koinViewModel
 
 enum class MapMode {

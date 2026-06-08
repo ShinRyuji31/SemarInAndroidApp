@@ -18,11 +18,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.application.R
 import com.example.application.delivery.ui.component.cart.CartItemComponent
-import com.example.application.global.ui.component.ButtonWhite
-import com.example.application.global.ui.component.Header
-import com.example.application.global.ui.theme.BluePrimary
-import com.example.application.global.ui.theme.BlueSecondary
-import com.example.application.global.util.toRupiah
+import com.example.application._core.ui.component.ButtonWhite
+import com.example.application._core.ui.component.Header
+import com.example.application._core.ui.theme.BluePrimary
+import com.example.application._core.ui.theme.BlueSecondary
+import com.example.application._core.util.toRupiah
 import com.example.application.delivery.ui.viewmodel.CartViewModel
 import org.koin.androidx.compose.koinViewModel
 

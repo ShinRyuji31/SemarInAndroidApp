@@ -13,9 +13,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.application.chat.data.model.ChatMessage
-import com.example.application.global.ui.theme.BlackSoft
-import com.example.application.global.ui.theme.BluePrimary
-import com.example.application.global.ui.theme.WhiteSoft
+import com.example.application._core.ui.theme.BlackSoft
+import com.example.application._core.ui.theme.BluePrimary
+import com.example.application._core.ui.theme.WhiteSoft
 
 @Composable
 fun ChatBubble(message: ChatMessage) {

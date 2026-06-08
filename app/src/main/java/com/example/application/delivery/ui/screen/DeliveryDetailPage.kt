@@ -4,7 +4,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import androidx.compose.ui.platform.LocalContext
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -24,7 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.application.R
-import com.example.application.global.ui.component.Header
+import com.example.application._core.ui.component.Header
 import com.example.application.delivery.ui.component.store.StoreInfoCard
 import com.example.application.delivery.ui.component.inventory.DeliveryInventorySection
 import com.example.application.delivery.ui.viewmodel.StoreViewModel

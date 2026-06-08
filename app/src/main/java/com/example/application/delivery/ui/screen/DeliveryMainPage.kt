@@ -9,10 +9,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.application.global.ui.component.Header
-import com.example.application.global.ui.component.SearchBar
+import com.example.application._core.ui.component.Header
+import com.example.application._core.ui.component.SearchBar
 import com.example.application.delivery.ui.component.store.StoreCardList
-import com.example.application.global.ui.theme.WhiteSoft
+import com.example.application._core.ui.theme.WhiteSoft
 import com.example.application.delivery.ui.viewmodel.StoreViewModel
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue

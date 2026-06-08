@@ -14,8 +14,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.application.global.ui.component.CircleButton
-import com.example.application.global.ui.theme.GrayDark
+import com.example.application._core.ui.component.CircleButton
+import com.example.application._core.ui.theme.GrayDark
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import androidx.compose.ui.platform.LocalContext

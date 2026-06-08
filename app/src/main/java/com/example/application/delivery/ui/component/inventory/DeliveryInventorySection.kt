@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.application.R
 import com.example.application.delivery.data.model.StoreInventory
-import com.example.application.global.util.toRupiah
+import com.example.application._core.util.toRupiah
 
 @Composable
 fun DeliveryInventorySection(

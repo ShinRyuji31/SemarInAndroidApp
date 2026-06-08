@@ -15,10 +15,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
 import com.example.application.R
-import com.example.application.global.ui.component.ButtonBlue
-import com.example.application.global.ui.component.ButtonWhite
-import com.example.application.global.ui.theme.BlackSoft
-import com.example.application.global.ui.theme.WhiteSoft
+import com.example.application._core.ui.component.ButtonBlue
+import com.example.application._core.ui.component.ButtonWhite
+import com.example.application._core.ui.theme.BlackSoft
+import com.example.application._core.ui.theme.WhiteSoft
 
 @Composable
 fun ProfileAlertLogout(

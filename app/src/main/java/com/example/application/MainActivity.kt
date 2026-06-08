@@ -7,9 +7,9 @@ import androidx.compose.runtime.*
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.application.auth.data.repository.UserRepository
-import com.example.application.global.ui.navigation.AppNavigation
-import com.example.application.global.ui.navigation.Routes
-import com.example.application.global.ui.theme.ApplicationTheme
+import com.example.application._core.ui.navigation.AppNavigation
+import com.example.application._core.ui.navigation.Routes
+import com.example.application._core.ui.theme.ApplicationTheme
 import io.github.jan.supabase.auth.status.SessionStatus
 import org.koin.android.ext.android.inject
 

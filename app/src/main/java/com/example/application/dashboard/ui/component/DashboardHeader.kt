@@ -13,8 +13,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.application.R
 import com.example.application.auth.data.model.User
-import com.example.application.global.data.location.model.LocationUiState
-import com.example.application.global.ui.theme.WhiteSoft
+import com.example.application._core.data.location.model.LocationUiState
+import com.example.application._core.ui.theme.WhiteSoft
 
 @Composable
 fun DashboardHeader(

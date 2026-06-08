@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.example.application.anterin.data.model.HistoryLocation
 import com.example.application.anterin.data.model.MapLocation
 import com.example.application.anterin.ui.screen.MainMode
-import com.example.application.global.ui.theme.WhiteSoft
+import com.example.application._core.ui.theme.WhiteSoft
 
 @Composable
 fun AnterinFormCard(

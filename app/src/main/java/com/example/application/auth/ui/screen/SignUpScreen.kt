@@ -18,10 +18,10 @@ import com.example.application.R
 import com.example.application.auth.ui.component.AuthInputField
 import com.example.application.auth.ui.viewmodel.AuthUiState
 import com.example.application.auth.ui.viewmodel.SignUpViewModel
-import com.example.application.global.ui.component.ButtonBlue
-import com.example.application.global.ui.component.ButtonSocial
-import com.example.application.global.ui.theme.WhiteSoft
-import com.example.application.global.ui.theme.blueWhiteGradient
+import com.example.application._core.ui.component.ButtonBlue
+import com.example.application._core.ui.component.ButtonSocial
+import com.example.application._core.ui.theme.WhiteSoft
+import com.example.application._core.ui.theme.blueWhiteGradient
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

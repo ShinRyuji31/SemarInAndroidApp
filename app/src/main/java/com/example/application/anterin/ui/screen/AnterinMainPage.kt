@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.application.anterin.ui.component.AnterinBackground
 import com.example.application.anterin.ui.component.AnterinFormCard
-import com.example.application.global.ui.component.Header
+import com.example.application._core.ui.component.Header
 import com.example.application.anterin.ui.viewmodel.AnterinViewModel
 import org.koin.androidx.compose.koinViewModel
 

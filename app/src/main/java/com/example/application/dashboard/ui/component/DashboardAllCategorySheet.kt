@@ -8,8 +8,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.application.R
-import com.example.application.global.ui.component.ButtonIcon
-import com.example.application.global.ui.theme.BlackSoft
+import com.example.application._core.ui.component.ButtonIcon
+import com.example.application._core.ui.theme.BlackSoft
 
 @Composable
 fun DashboardAllCategorySheet(

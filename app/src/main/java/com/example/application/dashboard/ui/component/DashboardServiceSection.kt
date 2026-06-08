@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.application.R
-import com.example.application.global.ui.component.ButtonIcon
+import com.example.application._core.ui.component.ButtonIcon
 
 @Composable
 fun DashboardServiceSection(

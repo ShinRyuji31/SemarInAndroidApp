@@ -5,11 +5,9 @@ import coil.request.ImageRequest
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -24,10 +22,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.application.R
 import com.example.application.delivery.data.model.Store
-import com.example.application.global.ui.theme.BlackSoft
-import com.example.application.global.ui.theme.GrayDark
-import com.example.application.global.ui.theme.WhiteSoft
-import com.example.application.global.ui.theme.Yellow
+import com.example.application._core.ui.theme.BlackSoft
+import com.example.application._core.ui.theme.GrayDark
+import com.example.application._core.ui.theme.WhiteSoft
+import com.example.application._core.ui.theme.Yellow
 
 @Composable
 fun StoreCard(

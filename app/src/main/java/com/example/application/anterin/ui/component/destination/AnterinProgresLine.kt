@@ -11,8 +11,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.application.global.ui.theme.BlackSoft
-import com.example.application.global.ui.theme.GrayMedium
+import com.example.application._core.ui.theme.BlackSoft
+import com.example.application._core.ui.theme.GrayMedium
 
 @Composable
 fun AnterinProgresLine() {

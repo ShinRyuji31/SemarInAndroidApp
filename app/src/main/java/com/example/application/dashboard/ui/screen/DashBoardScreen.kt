@@ -23,9 +23,9 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import com.example.application.dashboard.ui.component.*
 import com.example.application.dashboard.ui.viewmodel.DashboardViewModel
-import com.example.application.global.data.location.LocationViewModel
-import com.example.application.global.ui.component.SearchBar
-import com.example.application.global.ui.theme.WhiteSoft
+import com.example.application._core.data.location.LocationViewModel
+import com.example.application._core.ui.component.SearchBar
+import com.example.application._core.ui.theme.WhiteSoft
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)

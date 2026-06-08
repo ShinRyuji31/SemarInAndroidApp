@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.application.global.ui.component.CircleButton
+import com.example.application._core.ui.component.CircleButton
 
 @Composable
 fun CartQuantitySelector(

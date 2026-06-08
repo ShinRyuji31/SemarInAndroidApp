@@ -11,13 +11,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.application.anterin.ui.component.destination.AnterinLocationCard
 import com.example.application.anterin.ui.component.destination.AnterinVehicleItem
-import com.example.application.global.ui.component.ButtonBlue
-import com.example.application.global.ui.component.Header
-import com.example.application.global.ui.component.MapWebView
-import com.example.application.global.ui.theme.BluePrimary
+import com.example.application._core.ui.component.ButtonBlue
+import com.example.application._core.ui.component.Header
+import com.example.application._core.ui.component.MapWebView
+import com.example.application._core.ui.theme.BluePrimary
 import com.example.application.anterin.ui.viewmodel.AnterinViewModel
-import com.example.application.global.data.location.LocationViewModel
-import com.example.application.global.util.toRupiah
+import com.example.application._core.data.location.LocationViewModel
+import com.example.application._core.util.toRupiah
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

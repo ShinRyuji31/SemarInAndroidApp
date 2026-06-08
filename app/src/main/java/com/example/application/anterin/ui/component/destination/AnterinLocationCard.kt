@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.application.global.ui.theme.WhiteSoft
+import com.example.application._core.ui.theme.WhiteSoft
 
 @Composable
 fun AnterinLocationCard(

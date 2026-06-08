@@ -23,9 +23,9 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.application.R
 import com.example.application.delivery.data.model.Store
-import com.example.application.global.ui.component.RatingStar
-import com.example.application.global.ui.theme.BlackSoft
-import com.example.application.global.ui.theme.GrayMedium
+import com.example.application._core.ui.component.RatingStar
+import com.example.application._core.ui.theme.BlackSoft
+import com.example.application._core.ui.theme.GrayMedium
 
 @Composable
 fun DashboardAffordableRestaurant(

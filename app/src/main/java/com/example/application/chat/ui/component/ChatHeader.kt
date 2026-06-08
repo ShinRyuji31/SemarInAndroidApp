@@ -14,9 +14,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.application.R
-import com.example.application.global.ui.component.BackButton
-import com.example.application.global.ui.theme.BluePrimary
-import com.example.application.global.ui.theme.WhiteSoft
+import com.example.application._core.ui.component.BackButton
+import com.example.application._core.ui.theme.BluePrimary
+import com.example.application._core.ui.theme.WhiteSoft
 
 @Composable
 fun ChatHeader(

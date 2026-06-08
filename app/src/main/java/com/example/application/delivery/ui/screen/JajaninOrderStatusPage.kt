@@ -20,12 +20,12 @@ import com.example.application.delivery.ui.viewmodel.CartViewModel
 import com.example.application.dashboard.ui.component.DashboardBottomNavBar
 import com.example.application.delivery.ui.component.cart.CartItemComponent
 import com.example.application.delivery.ui.component.orderstatus.OrderTimelineItem
-import com.example.application.global.ui.component.Header
-import com.example.application.global.ui.theme.BlackSoft
-import com.example.application.global.ui.theme.GrayMedium
-import com.example.application.global.ui.theme.WhiteSoft
-import com.example.application.global.util.toRupiah
-import com.example.application.global.ui.screen.OrderStatusDriverDetail
+import com.example.application._core.ui.component.Header
+import com.example.application._core.ui.theme.BlackSoft
+import com.example.application._core.ui.theme.GrayMedium
+import com.example.application._core.ui.theme.WhiteSoft
+import com.example.application._core.util.toRupiah
+import com.example.application._core.ui.screen.OrderStatusDriverDetail
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

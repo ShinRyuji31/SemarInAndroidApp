@@ -19,13 +19,13 @@ import com.example.application.anterin.ui.component.destination.AnterinLocationC
 import com.example.application.anterin.ui.component.destination.AnterinProgresLine
 import com.example.application.anterin.ui.viewmodel.AnterinViewModel
 import com.example.application.dashboard.ui.component.DashboardBottomNavBar
-import com.example.application.global.ui.component.Header
-import com.example.application.global.ui.component.MapWebView
-import com.example.application.global.ui.theme.BlackSoft
-import com.example.application.global.ui.theme.GrayMedium
-import com.example.application.global.ui.theme.WhiteSoft
-import com.example.application.global.ui.screen.OrderStatusDriverDetail
-import com.example.application.global.data.location.LocationViewModel
+import com.example.application._core.ui.component.Header
+import com.example.application._core.ui.component.MapWebView
+import com.example.application._core.ui.theme.BlackSoft
+import com.example.application._core.ui.theme.GrayMedium
+import com.example.application._core.ui.theme.WhiteSoft
+import com.example.application._core.ui.screen.OrderStatusDriverDetail
+import com.example.application._core.data.location.LocationViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
