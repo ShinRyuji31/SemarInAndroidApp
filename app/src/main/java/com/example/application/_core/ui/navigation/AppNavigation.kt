@@ -17,7 +17,8 @@ import com.example.application.delivery.ui.viewmodel.CartViewModel
 import com.example.application.delivery.ui.viewmodel.StoreViewModel
 import com.example.application._core.ui.screen.FindingDriverPage
 import com.example.application.orderhistory.ui.screen.OrderHistoryScreen
-import com.example.application.profile.ui.screen.ProfileScreen
+import com.example.application.profile.ui.screen.ProfileFullScreen
+import com.example.application.profile.ui.screen.ProfileMainScreen
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -98,7 +99,7 @@ fun AppNavigation(
         }
 
         composable<Routes.ProfileRoute> {
-            ProfileScreen(
+            ProfileMainScreen(
                 onBack = {
                     navController.popBackStack()
                 },
@@ -119,6 +120,10 @@ fun AppNavigation(
                 },
                 onOrderHistoryClick = {
                     navController.navigate(Routes.OrderHistoryRoute)
+                },
+
+                onFullProfileClick = {
+                    navController.navigate(Routes.ProfileFullRoute)
                 }
             )
         }
@@ -428,6 +433,65 @@ fun AppNavigation(
                         navController.navigate(Routes.OrderHistoryRoute)
                     },
                     viewModel = cartViewModel
+                )
+            }
+
+            composable<Routes.ProfileRoute> {
+                ProfileMainScreen(
+                    onBack = {
+                        navController.popBackStack()
+                    },
+                    onHomeClick = {
+                        navController.navigate(Routes.DashBoardRoute) {
+                            popUpTo(Routes.DashBoardRoute) {
+                                inclusive = true
+                            }
+                        }
+                    },
+                    onLogoutSuccess = {
+                        navController.navigate(Routes.AuthGraph) {
+                            popUpTo<Routes.DashBoardRoute> {
+                                inclusive = true
+                            }
+                        }
+                    },
+                    onOrderStatusClick = {
+                        navController.navigate(Routes.AnterOrderStatusRoute) {
+                            restoreState = true
+                        }
+                    },
+                    onOrderHistoryClick = {
+                        navController.navigate(Routes.OrderHistoryRoute)
+                    },
+
+                    onFullProfileClick = {
+                        navController.navigate(Routes.ProfileFullRoute)
+                    }
+                )
+            }
+
+            composable<Routes.ProfileFullRoute> {
+
+                ProfileFullScreen(
+                    onBack = {
+                        navController.popBackStack()
+                    },
+
+                    onHomeClick = {
+                        navController.navigate(Routes.DashBoardRoute)
+                    },
+
+                    onOrderStatusClick = {
+                        navController.navigate(
+                            Routes.AnterOrderStatusRoute
+                        )
+                    },
+
+                    onOrderHistoryClick = {
+                        navController.navigate(
+                            Routes.OrderHistoryRoute
+                        )
+                    }
                 )
             }
         }

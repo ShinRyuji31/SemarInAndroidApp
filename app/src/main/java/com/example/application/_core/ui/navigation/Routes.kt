@@ -10,6 +10,9 @@ sealed interface Routes {
     @Serializable data object SignUpRoute : Routes
     @Serializable data object DashBoardRoute : Routes
     @Serializable data object ProfileRoute : Routes
+
+    @Serializable
+    data object ProfileFullRoute : Routes
     @Serializable data object OrderHistoryRoute : Routes
 
     //ANTER FLOW

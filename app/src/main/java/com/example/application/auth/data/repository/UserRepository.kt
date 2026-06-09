@@ -114,4 +114,36 @@ class UserRepository(supabaseClient: SupabaseClient) {
             Result.failure(e)
         }
     }
+
+    suspend fun updateProfile(
+        username: String,
+        firstName: String,
+        phoneNumber: String
+    ): Result<Unit> {
+        return try {
+
+            val userId = auth.currentUserOrNull()?.id
+                ?: throw Exception("User not logged in")
+
+            val updateData = mapOf(
+                "username" to username,
+                "first_name" to firstName,
+                "phone_number" to phoneNumber,
+                "time_updated" to getCurrentIsoTimestamp()
+            )
+
+            postgrest
+                .from("PROFILE")
+                .update(updateData) {
+                    filter {
+                        eq("user_id", userId)
+                    }
+                }
+
+            Result.success(Unit)
+
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 }

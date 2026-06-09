@@ -10,6 +10,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.application._core.ui.component.TextFieldOutlineRegular
+import com.example.application._core.ui.theme.BlackSoft
 
 @Composable
 fun AuthInputField(
@@ -18,20 +19,22 @@ fun AuthInputField(
     onValueChange: (String) -> Unit,
     placeholder: String = "Enter $label",
     isPassword: Boolean = false,
-    modifier: Modifier = Modifier
+    enabled: Boolean = true
 ) {
     Text(
         text = label,
         modifier = Modifier.fillMaxWidth(),
         fontWeight = FontWeight.Bold,
-        fontSize = 15.sp
+        fontSize = 14.sp,
+        color = BlackSoft
     )
     Spacer(modifier = Modifier.height(2.dp))
     TextFieldOutlineRegular(
         value = value,
         onValueChange = onValueChange,
         placeholder = placeholder,
-        isPassword = isPassword
+        isPassword = isPassword,
+        enabled = enabled
     )
-    Spacer(modifier = Modifier.height(12.dp))
+    Spacer(modifier = Modifier.height(4.dp))
 }
