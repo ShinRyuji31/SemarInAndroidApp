@@ -20,8 +20,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.application._core.ui.theme.BlackSoft
+import com.example.application._core.ui.theme.BluePrimary
+import com.example.application._core.ui.theme.BlueSecondary
 import com.example.application._core.ui.theme.GrayDark
 import com.example.application._core.ui.theme.WhiteSoft
+import com.example.application._core.ui.theme.blueWhiteGradient
 
 @Composable
 fun ButtonIcon(
@@ -32,13 +35,12 @@ fun ButtonIcon(
 ) {
     Card(
         modifier = modifier
-            .size(80.dp)
+            .size(84.dp)
             .clickable { onClick() },
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
-            containerColor = WhiteSoft
-        ),
-        border = BorderStroke(2.dp, GrayDark)
+            containerColor = BlueSecondary
+        )
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -49,7 +51,7 @@ fun ButtonIcon(
             Icon(
                 painter = painterResource(id = icon),
                 contentDescription = title,
-                tint = BlackSoft,
+                tint = WhiteSoft,
                 modifier = Modifier.size(32.dp)
             )
 
@@ -58,7 +60,7 @@ fun ButtonIcon(
             Text(
                 text = title,
                 fontSize = 12.sp,
-                color = BlackSoft
+                color = WhiteSoft
             )
         }
     }

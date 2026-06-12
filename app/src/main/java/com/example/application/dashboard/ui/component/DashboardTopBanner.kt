@@ -25,42 +25,19 @@ fun DashboardTopBanner(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 16.dp)
     ) {
-
-        Text(
-            text = "Semar Promo Cek!!",
-
-            fontSize = 20.sp,
-
-            fontWeight = FontWeight.Bold,
-
-            color = Color.Black,
-
-            modifier = Modifier.padding(
-                horizontal = 16.dp,
-                vertical = 8.dp
-            )
-        )
-
         LazyRow(
-            contentPadding = PaddingValues(horizontal = 8.dp),
-
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
 
             items(banners) { banner ->
 
                 Image(
                     painter = painterResource(id = banner.imageRes),
-
                     contentDescription = "Banner Promo",
-
                     contentScale = ContentScale.Crop,
-
                     modifier = Modifier
-                        .size(width = 280.dp, height = 160.dp)
-                        .padding(8.dp)
+                        .size(width = 320.dp, height = 180.dp)
                         .clip(RoundedCornerShape(16.dp))
                 )
             }

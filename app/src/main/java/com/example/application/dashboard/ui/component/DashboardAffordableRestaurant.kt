@@ -32,9 +32,7 @@ fun DashboardAffordableRestaurant(
     stores: List<Store>
 ) {
 
-    Column(
-        modifier = Modifier.padding(16.dp)
-    ) {
+    Column{
 
         Text(
             text = "Semar Resto Termurah",
@@ -43,14 +41,18 @@ fun DashboardAffordableRestaurant(
             color = BlackSoft
         )
 
-        LazyRow {
+        Spacer(modifier = Modifier.height(6.dp))
+
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
 
             items(stores) { resto ->
 
                 Card(
                     modifier = Modifier
-                        .padding(8.dp)
                         .width(160.dp)
+                        .height(200.dp)
                         .border(
                             1.dp,
                             GrayMedium,
@@ -66,9 +68,11 @@ fun DashboardAffordableRestaurant(
                     elevation = CardDefaults.cardElevation(0.dp)
                 ) {
 
-                    Column {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                    ) {
 
-                        // Menggunakan AsyncImage dari Coil untuk handle imageUrl dan fallback imageRes
                         AsyncImage(
                             model = ImageRequest.Builder(LocalContext.current)
                                 .data(resto.imageUrl ?: resto.imageRes ?: R.drawable.dummy)
@@ -79,7 +83,7 @@ fun DashboardAffordableRestaurant(
                             contentDescription = null,
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
-                                .height(100.dp)
+                                .height(120.dp)
                                 .fillMaxWidth()
                                 .clip(
                                     RoundedCornerShape(
@@ -90,21 +94,34 @@ fun DashboardAffordableRestaurant(
                         )
 
                         Column(
-                            modifier = Modifier.padding(8.dp)
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .weight(1f)
+                                .padding(10.dp)
                         ) {
 
                             Text(
-                                resto.name,
+                                text = resto.name,
                                 fontWeight = FontWeight.Bold,
-                                color = BlackSoft
+                                color = BlackSoft,
+                                fontSize = 14.sp,
+                                maxLines = 2
+                            )
+
+                            Spacer(
+                                modifier = Modifier.weight(1f)
                             )
 
                             Row(
+                                modifier = Modifier.fillMaxWidth(),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
+
                                 RatingStar()
 
-                                Spacer(modifier = Modifier.width(4.dp))
+                                Spacer(
+                                    modifier = Modifier.width(4.dp)
+                                )
 
                                 Text(
                                     text = "${resto.rating}",
@@ -112,7 +129,6 @@ fun DashboardAffordableRestaurant(
                                     color = BlackSoft
                                 )
                             }
-
                         }
                     }
                 }

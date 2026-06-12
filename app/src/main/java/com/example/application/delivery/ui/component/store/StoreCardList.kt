@@ -17,7 +17,9 @@ fun StoreCardList(
     onStoreClick: (Store) -> Unit
 ) {
 
-    Column {
+    Column (
+        modifier = Modifier.padding(8.dp)
+    ) {
 
         Text(
             text = "Top Picks",
@@ -35,6 +37,8 @@ fun StoreCardList(
                     onStoreClick(store)
                 }
             )
+
+            Spacer(modifier = Modifier.height(6.dp))
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.example.application.dashboard.ui.component
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,9 +21,7 @@ fun DashboardLastOrder(
 
     if (store == null) return
 
-    Column(
-        modifier = Modifier.padding(8.dp)
-    ) {
+    Column{
 
         Text(
             text = "Last Ordered",
@@ -29,6 +29,8 @@ fun DashboardLastOrder(
             fontWeight = FontWeight.Bold,
             color = BlackSoft
         )
+
+        Spacer(modifier = Modifier.height(6.dp))
 
         StoreCard(
             store = store

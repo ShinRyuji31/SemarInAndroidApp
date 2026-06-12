@@ -163,10 +163,11 @@ fun DashboardScreen(
 
                 item {
                     Column(
+                        verticalArrangement = Arrangement.spacedBy(16.dp),
                         modifier = Modifier
                             .fillMaxWidth()
                             .background(MaterialTheme.colorScheme.background)
-                            .padding(top = 4.dp)
+                            .padding(16.dp)
                     ) {
                         DashboardTopBanner(banners = topBanners)
                         DashboardServiceSection(

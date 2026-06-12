@@ -23,7 +23,6 @@ fun StoreInfoCard(
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
     ) {
-        // White Card
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -67,7 +66,6 @@ fun StoreInfoCard(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Rating and Tags (Below the card)
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp),

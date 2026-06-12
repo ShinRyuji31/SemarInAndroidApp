@@ -37,7 +37,6 @@ fun StoreCard(
         modifier = Modifier
             .fillMaxWidth()
             .height(120.dp)
-            .padding(horizontal = 16.dp, vertical = 6.dp)
             .clip(RoundedCornerShape(20.dp))
             .background(WhiteSoft)
             .border(
