@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.*
+import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.application.auth.data.repository.UserRepository
@@ -19,6 +20,11 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        WindowCompat.getInsetsController(
+            window,
+            window.decorView
+        ).isAppearanceLightStatusBars = true
 
         setContent {
             ApplicationTheme {

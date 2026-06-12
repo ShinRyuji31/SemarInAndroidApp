@@ -1,6 +1,5 @@
 package com.example.application._core.ui.component
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,32 +15,35 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.application._core.ui.theme.BlackSoft
 import com.example.application._core.ui.theme.BluePrimary
-import com.example.application._core.ui.theme.BlueSecondary
-import com.example.application._core.ui.theme.GrayDark
 import com.example.application._core.ui.theme.WhiteSoft
-import com.example.application._core.ui.theme.blueWhiteGradient
 
 @Composable
 fun ButtonIcon(
     title: String,
     icon: Int,
     modifier: Modifier = Modifier,
+    containerColor: Color = BluePrimary,
+    contentColor: Color = WhiteSoft,
     onClick: () -> Unit
 ) {
     Card(
         modifier = modifier
             .size(84.dp)
             .clickable { onClick() },
+
         shape = RoundedCornerShape(16.dp),
+
         colors = CardDefaults.cardColors(
-            containerColor = BlueSecondary
+            containerColor = containerColor
         )
     ) {
+
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -51,16 +53,19 @@ fun ButtonIcon(
             Icon(
                 painter = painterResource(id = icon),
                 contentDescription = title,
-                tint = WhiteSoft,
+                tint = contentColor,
                 modifier = Modifier.size(32.dp)
             )
 
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(
+                modifier = Modifier.height(8.dp)
+            )
 
             Text(
                 text = title,
                 fontSize = 12.sp,
-                color = WhiteSoft
+                fontWeight = FontWeight.Bold,
+                color = contentColor
             )
         }
     }

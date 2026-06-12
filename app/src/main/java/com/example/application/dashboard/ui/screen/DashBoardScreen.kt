@@ -26,7 +26,10 @@ import com.example.application.dashboard.ui.viewmodel.DashboardViewModel
 import com.example.application._core.data.location.LocationViewModel
 import com.example.application._core.ui.component.SearchBar
 import com.example.application._core.ui.theme.WhiteSoft
+import com.example.application._core.ui.theme.blueWhiteGradient
+import com.example.application.delivery.data.model.Store
 import org.koin.androidx.compose.koinViewModel
+import com.example.application.delivery.ui.viewmodel.StoreViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
@@ -38,7 +41,8 @@ fun DashboardScreen(
     onOrderStatusClick: () -> Unit = {},
     onOrderHistoryClick: () -> Unit = {},
     viewModel: DashboardViewModel = koinViewModel(),
-    locationViewModel: LocationViewModel = koinViewModel()
+    locationViewModel: LocationViewModel = koinViewModel(),
+    onStoreClick: (Store) -> Unit
 ) {
     val context = LocalContext.current
     val user by viewModel.user.collectAsState()
@@ -46,11 +50,9 @@ fun DashboardScreen(
     val bottomBanners by viewModel.bottomBanners.collectAsState()
     val affordableRestaurants by viewModel.affordableRestaurants.collectAsState()
     val lastOrderRestaurant by viewModel.lastOrderStore.collectAsState()
-    
-    // Location state
+
     val locationState by locationViewModel.uiState.collectAsState()
 
-    // Permission launcher
     val permissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
@@ -61,7 +63,6 @@ fun DashboardScreen(
         }
     }
 
-    // Check permissions and fetch location on entry
     LaunchedEffect(Unit) {
         val hasFineLocation = ContextCompat.checkSelfPermission(
             context, Manifest.permission.ACCESS_FINE_LOCATION
@@ -91,9 +92,15 @@ fun DashboardScreen(
     if (showBottomSheet) {
         ModalBottomSheet(
             onDismissRequest = { showBottomSheet = false },
-            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
-            containerColor = WhiteSoft
+            shape = RoundedCornerShape(
+                topStart = 20.dp,
+                topEnd = 20.dp
+            ),
+            containerColor = Color.Transparent,
+            dragHandle = null,
+            tonalElevation = 0.dp
         ) {
+
             DashboardAllCategorySheet(
                 onClose = { showBottomSheet = false },
                 onAnterClick = {
@@ -127,12 +134,13 @@ fun DashboardScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
+                .background(blueWhiteGradient())
         ) {
             LazyColumn(
                 state = listState,
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.secondary)
+                    .background(color = Color.Transparent)
                     .padding(top = 50.dp)
             ) {
                 item {
@@ -163,10 +171,10 @@ fun DashboardScreen(
 
                 item {
                     Column(
-                        verticalArrangement = Arrangement.spacedBy(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(24.dp),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .background(MaterialTheme.colorScheme.background)
+                            .background(WhiteSoft)
                             .padding(16.dp)
                     ) {
                         DashboardTopBanner(banners = topBanners)
@@ -177,7 +185,10 @@ fun DashboardScreen(
                             onAllClick = { showBottomSheet = true }
                         )
                         DashboardLastOrder(store = lastOrderRestaurant)
-                        DashboardAffordableRestaurant(stores = affordableRestaurants)
+                        DashboardAffordableRestaurant(
+                            stores = affordableRestaurants,
+                            onStoreClick = onStoreClick
+                        )
                         DashboardBottomBanner(banners = bottomBanners)
                         Spacer(modifier = Modifier.height(80.dp))
                     }

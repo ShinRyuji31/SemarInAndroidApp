@@ -23,12 +23,12 @@ import androidx.compose.ui.unit.sp
 import com.example.application.R
 import com.example.application.delivery.data.model.Store
 import com.example.application._core.ui.theme.BlackSoft
-import com.example.application._core.ui.theme.GrayDark
+import com.example.application._core.ui.theme.GrayMedium
 import com.example.application._core.ui.theme.WhiteSoft
 import com.example.application._core.ui.theme.Yellow
 
 @Composable
-fun StoreCard(
+fun StoreCardLong(
     store: Store,
     onClick: () -> Unit = {}
 ) {
@@ -41,7 +41,7 @@ fun StoreCard(
             .background(WhiteSoft)
             .border(
                 width = 1.dp,
-                color = GrayDark,
+                color = GrayMedium,
                 shape = RoundedCornerShape(20.dp)
             )
             .clickable { onClick() }
@@ -69,7 +69,7 @@ fun StoreCard(
 
         Column(
             modifier = Modifier
-                .padding(12.dp)
+                .padding(8.dp)
                 .weight(1f)
         ) {
 

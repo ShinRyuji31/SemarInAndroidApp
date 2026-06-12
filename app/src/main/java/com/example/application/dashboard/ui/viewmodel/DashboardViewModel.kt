@@ -32,6 +32,13 @@ class DashboardViewModel(
     private val _lastOrderStore = MutableStateFlow<Store?>(null)
     val lastOrderStore: StateFlow<Store?> = _lastOrderStore
 
+    private val _selectedStore = MutableStateFlow<Store?>(null)
+    val selectedStore: StateFlow<Store?> = _selectedStore
+
+    fun selectStore(store: Store) {
+        _selectedStore.value = store
+    }
+
     init {
         loadDashboard()
     }
@@ -47,7 +54,6 @@ class DashboardViewModel(
                 Log.e("DashboardViewModel", "Failed to load user profile", it)
             }
 
-            // Memanggil fungsi suspend Supabase di dalam coroutine scope
             try {
                 _affordableRestaurants.value = dashboardRepository.getAffordableRestaurants()
                 _lastOrderStore.value = dashboardRepository.getLastOrderRestaurant()

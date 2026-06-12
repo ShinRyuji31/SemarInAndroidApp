@@ -31,7 +31,7 @@ fun StoreCardList(
 
         stores.forEach { store ->
 
-            StoreCard(
+            StoreCardLong(
                 store = store,
                 onClick = {
                     onStoreClick(store)

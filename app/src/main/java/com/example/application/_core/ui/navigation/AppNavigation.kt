@@ -1,7 +1,9 @@
 package com.example.application._core.ui.navigation
 
+import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -74,6 +76,13 @@ fun AppNavigation(
         }
 
         composable<Routes.DashBoardRoute> {
+            // Menggunakan Activity sebagai ViewModelStoreOwner agar data tersinkronisasi
+            // dengan layar di dalam DeliveryGraph tanpa menyebabkan crash
+            val context = LocalContext.current as ComponentActivity
+            val storeViewModel: StoreViewModel = koinViewModel(
+                viewModelStoreOwner = context
+            )
+
             DashboardScreen(
                 onProfileClick = {
                     navController.navigate(Routes.ProfileRoute)
@@ -88,12 +97,20 @@ fun AppNavigation(
                     navController.navigate(Routes.JastipinMainRoute)
                 },
                 onOrderStatusClick = {
-                    navController.navigate(Routes.AnterOrderStatusRoute) {
-                        restoreState = true
-                    }
+                    navController.navigate(
+                        Routes.AnterOrderStatusRoute
+                    )
                 },
                 onOrderHistoryClick = {
-                    navController.navigate(Routes.OrderHistoryRoute)
+                    navController.navigate(
+                        Routes.OrderHistoryRoute
+                    )
+                },
+                onStoreClick = { store ->
+                    storeViewModel.selectStore(store)
+                    navController.navigate(
+                        Routes.JajaninDetailRoute
+                    )
                 }
             )
         }
@@ -121,9 +138,27 @@ fun AppNavigation(
                 onOrderHistoryClick = {
                     navController.navigate(Routes.OrderHistoryRoute)
                 },
-
                 onFullProfileClick = {
                     navController.navigate(Routes.ProfileFullRoute)
+                }
+            )
+        }
+
+        composable<Routes.ProfileFullRoute> {
+            ProfileFullScreen(
+                onBack = {
+                    navController.popBackStack()
+                },
+                onHomeClick = {
+                    navController.navigate(Routes.DashBoardRoute) {
+                        popUpTo(Routes.DashBoardRoute) { inclusive = true }
+                    }
+                },
+                onOrderStatusClick = {
+                    navController.navigate(Routes.AnterOrderStatusRoute)
+                },
+                onOrderHistoryClick = {
+                    navController.navigate(Routes.OrderHistoryRoute)
                 }
             )
         }
@@ -310,12 +345,10 @@ fun AppNavigation(
         navigation<Routes.DeliveryGraph>(
             startDestination = Routes.JajaninMainRoute
         ) {
-            composable<Routes.JajaninMainRoute> { backStackEntry ->
-                val parentEntry = remember(backStackEntry) {
-                    navController.getBackStackEntry(Routes.DeliveryGraph)
-                }
+            composable<Routes.JajaninMainRoute> {
+                val context = LocalContext.current as ComponentActivity
                 val storeViewModel: StoreViewModel = koinViewModel(
-                    viewModelStoreOwner = parentEntry
+                    viewModelStoreOwner = context
                 )
                 DeliveryMainPage(
                     type = StoreType.FOOD,
@@ -329,12 +362,10 @@ fun AppNavigation(
                 )
             }
 
-            composable<Routes.JastipinMainRoute> { backStackEntry ->
-                val parentEntry = remember(backStackEntry) {
-                    navController.getBackStackEntry(Routes.DeliveryGraph)
-                }
+            composable<Routes.JastipinMainRoute> {
+                val context = LocalContext.current as ComponentActivity
                 val storeViewModel: StoreViewModel = koinViewModel(
-                    viewModelStoreOwner = parentEntry
+                    viewModelStoreOwner = context
                 )
                 DeliveryMainPage(
                     type = StoreType.RETAIL,
@@ -349,15 +380,18 @@ fun AppNavigation(
             }
 
             composable<Routes.JajaninDetailRoute> { backStackEntry ->
+                val context = LocalContext.current as ComponentActivity
+                val storeViewModel: StoreViewModel = koinViewModel(
+                    viewModelStoreOwner = context
+                )
+
                 val parentEntry = remember(backStackEntry) {
                     navController.getBackStackEntry(Routes.DeliveryGraph)
                 }
-                val storeViewModel: StoreViewModel = koinViewModel(
-                    viewModelStoreOwner = parentEntry
-                )
                 val cartViewModel: CartViewModel = koinViewModel(
                     viewModelStoreOwner = parentEntry
                 )
+
                 DeliveryDetailPage(
                     onBack = {
                         navController.popBackStack()
@@ -433,65 +467,6 @@ fun AppNavigation(
                         navController.navigate(Routes.OrderHistoryRoute)
                     },
                     viewModel = cartViewModel
-                )
-            }
-
-            composable<Routes.ProfileRoute> {
-                ProfileMainScreen(
-                    onBack = {
-                        navController.popBackStack()
-                    },
-                    onHomeClick = {
-                        navController.navigate(Routes.DashBoardRoute) {
-                            popUpTo(Routes.DashBoardRoute) {
-                                inclusive = true
-                            }
-                        }
-                    },
-                    onLogoutSuccess = {
-                        navController.navigate(Routes.AuthGraph) {
-                            popUpTo<Routes.DashBoardRoute> {
-                                inclusive = true
-                            }
-                        }
-                    },
-                    onOrderStatusClick = {
-                        navController.navigate(Routes.AnterOrderStatusRoute) {
-                            restoreState = true
-                        }
-                    },
-                    onOrderHistoryClick = {
-                        navController.navigate(Routes.OrderHistoryRoute)
-                    },
-
-                    onFullProfileClick = {
-                        navController.navigate(Routes.ProfileFullRoute)
-                    }
-                )
-            }
-
-            composable<Routes.ProfileFullRoute> {
-
-                ProfileFullScreen(
-                    onBack = {
-                        navController.popBackStack()
-                    },
-
-                    onHomeClick = {
-                        navController.navigate(Routes.DashBoardRoute)
-                    },
-
-                    onOrderStatusClick = {
-                        navController.navigate(
-                            Routes.AnterOrderStatusRoute
-                        )
-                    },
-
-                    onOrderHistoryClick = {
-                        navController.navigate(
-                            Routes.OrderHistoryRoute
-                        )
-                    }
                 )
             }
         }

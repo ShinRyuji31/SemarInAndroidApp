@@ -25,9 +25,7 @@ fun DashboardBottomBanner(
     banners: List<PromoBanner>
 ) {
 
-    Column(
-        modifier = Modifier.padding(16.dp)
-    ) {
+    Column{
 
         banners.forEach { banner ->
 
@@ -37,7 +35,6 @@ fun DashboardBottomBanner(
                     .padding(bottom = 12.dp),
 
                 shape = RoundedCornerShape(16.dp),
-
                 border = BorderStroke(
                     1.dp,
                     GrayMedium
