@@ -2,9 +2,7 @@ package com.example.application._core.di
 
 import com.example.application.BuildConfig
 import com.example.application.anterin.data.repository.AnterinRepository
-import com.example.application.anterin.data.repository.GeocodingRepository
-import com.example.application.anterin.data.repository.OsrmRepository
-import com.example.application.anterin.data.repository.SearchLocationRepository
+import com.example.application._core.data.maps.repository.MapsRepository
 import com.example.application.anterin.ui.viewmodel.AnterinViewModel
 import com.example.application.auth.data.repository.UserRepository
 import com.example.application.auth.ui.viewmodel.LoginViewModel
@@ -30,6 +28,10 @@ import io.github.jan.supabase.postgrest.Postgrest
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
+import io.ktor.client.HttpClient
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
 
 val appModule = module {
     // Supabase Client
@@ -42,6 +44,18 @@ val appModule = module {
             install(Postgrest)
         }
     }
+    
+    // Ktor HttpClient
+    single {
+        HttpClient {
+            install(ContentNegotiation) {
+                json(Json {
+                    ignoreUnknownKeys = true
+                    coerceInputValues = true
+                })
+            }
+        }
+    }
 
     // Services & DataStore
     single { LocationService(androidContext()) }
@@ -51,9 +65,7 @@ val appModule = module {
 val repositoryModule = module {
     single { UserRepository(get()) }
     single { AnterinRepository() }
-    single { GeocodingRepository() }
-    single { OsrmRepository() }
-    single { SearchLocationRepository() }
+    single { MapsRepository(get()) }
     single { ChatRepository() }
     single { DashboardRepository(get()) }
     single { CartRepository(get()) }
@@ -67,7 +79,7 @@ val viewModelModule = module {
     viewModel { LoginViewModel(get()) }
     viewModel { SignUpViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
-    viewModel { AnterinViewModel(get(), get(), get(), get()) }
+    viewModel { AnterinViewModel(get(), get()) }
     viewModel { LocationViewModel(get()) }
     viewModel { DashboardViewModel(get(), get()) }
     viewModel { StoreViewModel(get()) }

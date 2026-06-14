@@ -5,11 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.application.anterin.data.model.DrivingRoute
 import com.example.application.anterin.data.model.MapLocation
-import com.example.application.anterin.data.model.SearchLocationResult
+import com.example.application._core.data.maps.model.SearchLocationResult
 import com.example.application.anterin.data.repository.AnterinRepository
-import com.example.application.anterin.data.repository.GeocodingRepository
-import com.example.application.anterin.data.repository.OsrmRepository
-import com.example.application.anterin.data.repository.SearchLocationRepository
+import com.example.application._core.data.maps.repository.MapsRepository
 import com.example.application.anterin.ui.state.AnterinUiState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -18,14 +16,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 class AnterinViewModel(
     private val repository: AnterinRepository,
-    private val geocodingRepository: GeocodingRepository,
-    private val osrmRepository: OsrmRepository,
-    private val searchRepository: SearchLocationRepository
+    private val mapsRepository: MapsRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(
@@ -51,7 +46,7 @@ class AnterinViewModel(
         
         searchJob = viewModelScope.launch {
             delay(500)
-            searchRepository.searchLocation(query).onSuccess { results ->
+            mapsRepository.searchLocation(query).onSuccess { results ->
                 _searchSuggestions.value = results
             }.onFailure {
                 _searchSuggestions.value = emptyList()
@@ -76,7 +71,7 @@ class AnterinViewModel(
         geocodeJob = viewModelScope.launch {
             _uiState.update { it.copy(pickup = MapLocation(lat, lng, "Resolving address...")) }
             
-            val address = geocodingRepository.reverseGeocode(lat, lng) ?: "Unknown Location"
+            val address = mapsRepository.reverseGeocode(lat, lng) ?: "Unknown Location"
             _uiState.update {
                 it.copy(pickup = MapLocation(lat, lng, address))
             }
@@ -89,7 +84,7 @@ class AnterinViewModel(
         geocodeJob = viewModelScope.launch {
             _uiState.update { it.copy(destination = MapLocation(lat, lng, "Resolving address...")) }
             
-            val address = geocodingRepository.reverseGeocode(lat, lng) ?: "Unknown Location"
+            val address = mapsRepository.reverseGeocode(lat, lng) ?: "Unknown Location"
             _uiState.update {
                 it.copy(destination = MapLocation(lat, lng, address))
             }
@@ -101,7 +96,7 @@ class AnterinViewModel(
         val state = _uiState.value
         if (state.pickup != null && state.destination != null) {
             viewModelScope.launch {
-                osrmRepository.getRoute(
+                mapsRepository.getRoute(
                     state.pickup.latitude, state.pickup.longitude,
                     state.destination.latitude, state.destination.longitude
                 ).onSuccess { route ->
