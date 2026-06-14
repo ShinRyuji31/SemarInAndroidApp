@@ -19,21 +19,15 @@ fun CartQuantitySelector(
     onDecrease: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-
         CircleButton(
             text = "-",
             modifier = Modifier.size(20.dp),
-            onClick = {
-                if (quantity > 1) {
-                    onDecrease()
-                }
-            }
+            onClick = onDecrease
         )
 
         Text(
@@ -45,9 +39,7 @@ fun CartQuantitySelector(
         CircleButton(
             text = "+",
             modifier = Modifier.size(20.dp),
-            onClick = {
-                onIncrease()
-            }
+            onClick = onIncrease
         )
     }
 }

@@ -16,7 +16,6 @@ class CartViewModel(
 ) : ViewModel() {
 
     private val _cartItems = MutableStateFlow<List<CartItem>>(emptyList())
-
     val cartItems = _cartItems.asStateFlow()
 
     init {
@@ -28,45 +27,24 @@ class CartViewModel(
     }
 
     val subtotal = cartItems.map { carts ->
-        carts.sumOf { cart ->
-            cart.price * cart.quantity
-        }
+        carts.sumOf { it.price * it.quantity }
     }
 
     val deliveryFee = MutableStateFlow(7000)
 
-    val total = combine(
-        subtotal,
-        deliveryFee
-    ) { sub, fee ->
+    val total = combine(subtotal, deliveryFee) { sub, fee ->
         sub + fee
     }
 
-    fun addToCart(
-        inventoryId: String,
-        name: String,
-        price: Int,
-        imageUrl: String?
-    ) {
-
+    fun addToCart(inventoryId: String, name: String, price: Int, imageUrl: String?) {
         viewModelScope.launch {
-
             val current = _cartItems.value.toMutableList()
-
-            val existingIndex = current.indexOfFirst {
-                it.storeInventoryId == inventoryId
-            }
+            val existingIndex = current.indexOfFirst { it.storeInventoryId == inventoryId }
 
             if (existingIndex != -1) {
-
                 val existing = current[existingIndex]
-
-                current[existingIndex] = existing.copy(
-                    quantity = existing.quantity + 1
-                )
-
+                current[existingIndex] = existing.copy(quantity = existing.quantity + 1)
             } else {
-
                 current.add(
                     CartItem(
                         id = UUID.randomUUID().toString(),
@@ -78,55 +56,29 @@ class CartViewModel(
                     )
                 )
             }
-
             cartRepository.saveCartItems(current)
         }
     }
 
     fun increaseQuantity(cartId: String) {
-
         viewModelScope.launch {
-
             val updated = _cartItems.value.map { cart ->
-
-                if (cart.id == cartId) {
-
-                    cart.copy(
-                        quantity = cart.quantity + 1
-                    )
-
-                } else {
-                    cart
-                }
+                if (cart.id == cartId) cart.copy(quantity = cart.quantity + 1) else cart
             }
-
             cartRepository.saveCartItems(updated)
         }
     }
 
     fun decreaseQuantity(cartId: String) {
-
         viewModelScope.launch {
-
             val updated = _cartItems.value.mapNotNull { cart ->
-
                 if (cart.id == cartId) {
-
                     val newQty = cart.quantity - 1
-
-                    if (newQty <= 0) {
-                        null
-                    } else {
-                        cart.copy(
-                            quantity = newQty
-                        )
-                    }
-
+                    if (newQty <= 0) null else cart.copy(quantity = newQty)
                 } else {
                     cart
                 }
             }
-
             cartRepository.saveCartItems(updated)
         }
     }
