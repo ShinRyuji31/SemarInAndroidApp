@@ -14,8 +14,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import com.example.application.R
 import com.example.application._core.ui.theme.BluePrimary
+
 
 @Composable
 fun FloatingCartButton(
@@ -27,8 +29,10 @@ fun FloatingCartButton(
     Box(
         modifier = modifier
             .clickable { onClick() }
+            .wrapContentSize()
     ) {
 
+        // MAIN BUTTON
         Box(
             modifier = Modifier
                 .size(60.dp)
@@ -46,34 +50,31 @@ fun FloatingCartButton(
         ) {
 
             Icon(
-                painter = painterResource(
-                    R.drawable.ic_bag
-                ),
+                painter = painterResource(R.drawable.ic_bag),
                 contentDescription = "Cart",
                 tint = BluePrimary,
                 modifier = Modifier.size(30.dp)
             )
+        }
 
-            if (count > 0) {
+        if (count > 0) {
+            Box(
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .offset(x = 5.dp, y = (-5).dp)
+                    .size(25.dp)
+                    .background(
+                        BluePrimary,
+                        CircleShape
+                    ),
 
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .size(20.dp)
-                        .background(
-                            BluePrimary,
-                            CircleShape
-                        ),
-
-                    contentAlignment = Alignment.Center
-                ) {
-
-                    Text(
-                        text = count.toString(),
-                        color = Color.White,
-                        fontSize = 10.sp
-                    )
-                }
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = count.toString(),
+                    color = Color.White,
+                    fontSize = 14.sp
+                )
             }
         }
     }
