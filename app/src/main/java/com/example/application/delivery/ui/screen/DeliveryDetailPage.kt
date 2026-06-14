@@ -3,7 +3,6 @@ package com.example.application.delivery.ui.screen
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import androidx.compose.ui.platform.LocalContext
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.*
@@ -12,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -23,6 +23,8 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.example.application.R
 import com.example.application._core.ui.component.Header
+import com.example.application.delivery.data.model.StoreInventory
+import com.example.application.delivery.ui.component.cart.CartStoreConflictAlert
 import com.example.application.delivery.ui.component.cart.FloatingCartButton
 import com.example.application.delivery.ui.component.store.StoreInfoCard
 import com.example.application.delivery.ui.component.inventory.DeliveryInventorySection
@@ -39,9 +41,9 @@ fun DeliveryDetailPage(
     cartViewModel: CartViewModel = koinViewModel()
 ) {
     val inventory by viewModel.inventory.collectAsState()
-
     val stores by viewModel.stores.collectAsState()
     val selectedStore by viewModel.selectedStore.collectAsState()
+    val cartItems by cartViewModel.cartItems.collectAsState()
 
     val storeToShow = selectedStore ?: stores.firstOrNull()
 
@@ -49,7 +51,7 @@ fun DeliveryDetailPage(
         inventory.filter { it.storeId == store.id }
     } ?: emptyList()
 
-    val cartItems by cartViewModel.cartItems.collectAsState()
+    var conflictInventory by remember { mutableStateOf<StoreInventory?>(null) }
 
     Box(modifier = Modifier.fillMaxSize().background(Color.White)) {
         LazyColumn(
@@ -88,7 +90,7 @@ fun DeliveryDetailPage(
 
             item {
                 val groupedInventory = filteredInventory.groupBy { it.category }
-                
+
                 Column(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                     modifier = Modifier.offset(y = (-90).dp)
@@ -97,19 +99,25 @@ fun DeliveryDetailPage(
                         DeliveryInventorySection(
                             title = category,
                             items = items,
-                            onAddToCart = { inventory ->
+                            onAddToCart = { clickedInventory ->
+                                val currentCartStoreId = cartItems.firstOrNull()?.storeId
 
-                                cartViewModel.addToCart(
-                                    inventory.id,
-                                    inventory.name,
-                                    inventory.price,
-                                    inventory.imageUrl
-                                )
+                                if (currentCartStoreId != null && currentCartStoreId != storeToShow?.id) {
+                                    conflictInventory = clickedInventory
+                                } else {
+                                    cartViewModel.addToCart(
+                                        inventoryId = clickedInventory.id,
+                                        name = clickedInventory.name,
+                                        price = clickedInventory.price,
+                                        imageUrl = clickedInventory.imageUrl,
+                                        storeId = storeToShow!!.id,
+                                        storeType = storeToShow.type.name
+                                    )
+                                }
                             }
                         )
                     }
                 }
-                
                 Spacer(modifier = Modifier.height(60.dp))
             }
         }
@@ -119,7 +127,6 @@ fun DeliveryDetailPage(
 
         FloatingCartButton(
             count = cartItems.sumOf { it.quantity },
-
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(
@@ -136,13 +143,11 @@ fun DeliveryDetailPage(
                     detectDragGestures(
                         onDrag = { change, dragAmount ->
                             change.consume()
-
                             offsetX += dragAmount.x
                             offsetY += dragAmount.y
                         }
                     )
                 },
-
             onClick = onCartClick
         )
 
@@ -151,5 +156,26 @@ fun DeliveryDetailPage(
             onBack = onBack,
             modifier = Modifier.align(Alignment.TopCenter)
         )
+
+        if (conflictInventory != null && storeToShow != null) {
+            CartStoreConflictAlert(
+                currentStoreType = cartItems.first().storeType,
+                newStoreType = storeToShow.type.name,
+                onDismiss = {
+                    conflictInventory = null
+                },
+                onConfirm = {
+                    cartViewModel.clearCartAndAdd(
+                        inventoryId = conflictInventory!!.id,
+                        name = conflictInventory!!.name,
+                        price = conflictInventory!!.price,
+                        imageUrl = conflictInventory!!.imageUrl,
+                        storeId = storeToShow.id,
+                        storeType = storeToShow.type.name
+                    )
+                    conflictInventory = null
+                }
+            )
+        }
     }
 }

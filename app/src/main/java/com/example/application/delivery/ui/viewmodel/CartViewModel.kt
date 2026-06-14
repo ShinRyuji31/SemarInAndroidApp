@@ -36,7 +36,14 @@ class CartViewModel(
         sub + fee
     }
 
-    fun addToCart(inventoryId: String, name: String, price: Int, imageUrl: String?) {
+    fun addToCart(
+        inventoryId: String,
+        name: String,
+        price: Int,
+        imageUrl: String?,
+        storeId: String,
+        storeType: String
+    ) {
         viewModelScope.launch {
             val current = _cartItems.value.toMutableList()
             val existingIndex = current.indexOfFirst { it.storeInventoryId == inventoryId }
@@ -52,11 +59,36 @@ class CartViewModel(
                         name = name,
                         price = price,
                         imageUrl = imageUrl,
-                        quantity = 1
+                        quantity = 1,
+                        storeId = storeId,
+                        storeType = storeType
                     )
                 )
             }
             cartRepository.saveCartItems(current)
+        }
+    }
+
+    fun clearCartAndAdd(
+        inventoryId: String,
+        name: String,
+        price: Int,
+        imageUrl: String?,
+        storeId: String,
+        storeType: String
+    ) {
+        viewModelScope.launch {
+            val newItem = CartItem(
+                id = UUID.randomUUID().toString(),
+                storeInventoryId = inventoryId,
+                name = name,
+                price = price,
+                imageUrl = imageUrl,
+                quantity = 1,
+                storeId = storeId,
+                storeType = storeType
+            )
+            cartRepository.saveCartItems(listOf(newItem))
         }
     }
 
