@@ -96,6 +96,9 @@ fun AppNavigation(
                 onJastipinClick = {
                     navController.navigate(Routes.JastipinMainRoute)
                 },
+                onSearchClick = {
+                    navController.navigate(Routes.GlobalSearchRoute)
+                },
                 onOrderStatusClick = {
                     navController.navigate(
                         Routes.AnterOrderStatusRoute
@@ -345,6 +348,23 @@ fun AppNavigation(
         navigation<Routes.DeliveryGraph>(
             startDestination = Routes.JajaninMainRoute
         ) {
+            composable<Routes.GlobalSearchRoute> {
+                val context = LocalContext.current as ComponentActivity
+                val storeViewModel: StoreViewModel = koinViewModel(
+                    viewModelStoreOwner = context
+                )
+                DeliveryMainPage(
+                    type = StoreType.SEARCH,
+                    onBack = {
+                        navController.popBackStack()
+                    },
+                    onStoreClick = {
+                        navController.navigate(Routes.JajaninDetailRoute)
+                    },
+                    viewModel = storeViewModel
+                )
+            }
+
             composable<Routes.JajaninMainRoute> {
                 val context = LocalContext.current as ComponentActivity
                 val storeViewModel: StoreViewModel = koinViewModel(

@@ -28,9 +28,14 @@ fun DeliveryMainPage(
     viewModel: StoreViewModel = koinViewModel()
 ){
 
-    val stores by viewModel.stores.collectAsState()
+    val allFilteredStores by viewModel.filteredStores.collectAsState()
+    val searchQuery by viewModel.searchQuery.collectAsState()
 
-    val filteredStores = stores.filter { it.type == type }
+    val displayStores = if (type == StoreType.SEARCH) {
+        allFilteredStores
+    } else {
+        allFilteredStores.filter { it.type == type }
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -51,15 +56,16 @@ fun DeliveryMainPage(
                         .padding(vertical = 16.dp)
                 ) {
                     SearchBar(
-                        value = "",
-                        onValueChange = {},
-                        placeholderText = "Cari kebutuhanmu")
+                        value = searchQuery,
+                        onValueChange = { viewModel.updateSearchQuery(it) },
+                        placeholderText = if (type == StoreType.SEARCH) "Cari semua toko atau menu..." else "Cari toko, tag, atau menu..."
+                    )
                 }
             }
 
             item {
                 StoreCardList(
-                    stores = filteredStores,
+                    stores = displayStores,
                     onStoreClick = { store ->
 
                         viewModel.selectStore(store)
@@ -73,10 +79,10 @@ fun DeliveryMainPage(
         }
 
         Header(
-            title = if (type == StoreType.FOOD) {
-                "Jajan-In"
-            } else {
-                "Jastip-In"
+            title = when (type) {
+                StoreType.FOOD -> "Jajan-In"
+                StoreType.RETAIL -> "Jastip-In"
+                StoreType.SEARCH -> "Pencarian"
             },
             onBack = onBack,
             modifier = Modifier.align(Alignment.TopCenter)

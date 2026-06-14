@@ -25,6 +25,7 @@ sealed interface Routes {
     @Serializable data object AnterOrderStatusRoute : Routes
 
     // JAJAN
+    @Serializable data object GlobalSearchRoute : Routes
     @Serializable data object JajaninMainRoute : Routes
     @Serializable data object JastipinMainRoute : Routes
     @Serializable data object JajaninDetailRoute : Routes

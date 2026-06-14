@@ -15,7 +15,8 @@ data class StoreDto(
     @SerialName("open_hour") val openHour: String? = "00:00:00",
     @SerialName("close_hour") val closeHour: String? = "00:00:00",
     @SerialName("LOCATION") val location: LocationDto? = null,
-    @SerialName("tags") val tags: List<StoreTagDto>? = emptyList()
+    @SerialName("tags") val tags: List<StoreTagDto>? = emptyList(),
+    @SerialName("PRODUCT") val products: List<ProductDto>? = emptyList()
 )
 
 @Serializable

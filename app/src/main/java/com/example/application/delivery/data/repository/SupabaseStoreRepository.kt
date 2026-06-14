@@ -19,7 +19,7 @@ class SupabaseStoreRepository(
     suspend fun fetchStores(): Result<List<Store>> = withContext(Dispatchers.IO) {
         try {
             val dtos = supabase.postgrest["STORE"]
-                .select(columns = Columns.raw("*, LOCATION(*), tags:STORE_TAG(*)"))
+                .select(columns = Columns.raw("*, LOCATION(*), tags:STORE_TAG(*), PRODUCT(*)"))
                 .decodeList<StoreDto>()
 
             val stores = dtos.map { dto ->
@@ -40,7 +40,8 @@ class SupabaseStoreRepository(
                     closeTime = dto.closeHour?.take(5) ?: "00:00",
                     openDays = "Setiap Hari",
                     tags = dto.tags?.map { it.tagName } ?: emptyList(),
-                    type = mappedType
+                    type = mappedType,
+                    productNames = dto.products?.map { it.productName } ?: emptyList()
                 )
             }
             Result.success(stores)

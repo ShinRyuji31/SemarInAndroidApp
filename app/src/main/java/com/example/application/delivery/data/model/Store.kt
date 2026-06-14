@@ -12,5 +12,6 @@ data class Store(
     val closeTime: String,
     val openDays: String,
     val tags: List<String>,
-    val type: StoreType
+    val type: StoreType,
+    val productNames: List<String> = emptyList()
 )

@@ -8,6 +8,9 @@ import com.example.application.delivery.data.model.Store
 import com.example.application.delivery.data.repository.SupabaseStoreRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class StoreViewModel(
@@ -16,6 +19,21 @@ class StoreViewModel(
 
     private val _stores = MutableStateFlow<List<Store>>(emptyList())
     val stores: StateFlow<List<Store>> = _stores
+    
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery: StateFlow<String> = _searchQuery
+
+    val filteredStores: StateFlow<List<Store>> = combine(_stores, _searchQuery) { storeList, query ->
+        if (query.isBlank()) {
+            storeList
+        } else {
+            storeList.filter { store ->
+                store.name.contains(query, ignoreCase = true) ||
+                store.tags.any { tag -> tag.contains(query, ignoreCase = true) } ||
+                store.productNames.any { product -> product.contains(query, ignoreCase = true) }
+            }
+        }
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     private val _inventory = MutableStateFlow<List<StoreInventory>>(emptyList())
     val inventory: StateFlow<List<StoreInventory>> = _inventory
@@ -54,6 +72,10 @@ class StoreViewModel(
                 Log.e("StoreViewModel", "selectStore error", e)
             }
         }
+    }
+
+    fun updateSearchQuery(query: String) {
+        _searchQuery.value = query
     }
 
 }
