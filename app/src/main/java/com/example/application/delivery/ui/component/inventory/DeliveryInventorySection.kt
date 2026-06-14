@@ -20,6 +20,8 @@ fun DeliveryInventorySection(
 
         DeliveryInventoryTitle(title)
 
+        Spacer(modifier = Modifier.height(8.dp))
+
         LazyRow(
             contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),

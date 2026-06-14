@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.application.delivery.data.model.Store
 
 @Composable
@@ -18,13 +19,14 @@ fun StoreCardList(
 ) {
 
     Column (
-        modifier = Modifier.padding(8.dp)
+        modifier = Modifier.padding(horizontal = 16.dp)
     ) {
 
         Text(
             text = "Top Picks",
+            fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(horizontal = 16.dp)
+            modifier = Modifier.padding(horizontal = 8.dp)
         )
 
         Spacer(modifier = Modifier.height(8.dp))

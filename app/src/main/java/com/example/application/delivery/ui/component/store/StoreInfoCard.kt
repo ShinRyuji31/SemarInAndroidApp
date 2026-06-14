@@ -4,14 +4,19 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.application.R
+import com.example.application._core.ui.theme.GrayMedium
+import com.example.application._core.ui.theme.Yellow
 import com.example.application.delivery.data.model.Store
 
 @Composable
@@ -26,66 +31,73 @@ fun StoreInfoCard(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
+                .height(220.dp)
                 .background(Color.White, shape = RoundedCornerShape(16.dp))
                 .border(
                     width = 1.dp,
-                    color = Color.LightGray.copy(alpha = 0.5f),
+                    color = GrayMedium,
                     shape = RoundedCornerShape(16.dp)
                 )
-                .padding(20.dp)
+                .padding(16.dp)
         ) {
-            Column {
+            Column(
+                modifier = Modifier.fillMaxSize()
+            ) {
                 Text(
                     text = store.name,
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold
                 )
                 
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(8.dp))
                 
                 Text(
                     text = store.address,
-                    fontSize = 13.sp,
+                    fontSize = 12.sp,
                     color = Color.Gray
                 )
                 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(16.dp))
                 
                 Text(
                     text = "Opening Hours",
-                    fontSize = 13.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = "${store.openTime} - ${store.closeTime} WIB (${store.openDays})",
-                    fontSize = 13.sp,
-                    color = Color.Gray
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            modifier = Modifier.padding(horizontal = 4.dp)
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = "⭐",
-                    fontSize = 16.sp
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(
-                    text = store.rating.toString(),
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
                 )
-            }
 
-            store.tags.forEach { tag ->
-                StoreInfoCardTag(text = tag)
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = "${store.openTime} - ${store.closeTime} WIB (${store.openDays})",
+                    fontSize = 12.sp,
+                    color = Color.Gray
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_star),
+                            contentDescription = null,
+                            modifier = Modifier.size(16.dp),
+                            tint = Yellow
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = store.rating.toString(),
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+
+                    store.tags.forEach { tag ->
+                        StoreInfoCardTag(text = tag)
+                    }
+                }
             }
         }
     }

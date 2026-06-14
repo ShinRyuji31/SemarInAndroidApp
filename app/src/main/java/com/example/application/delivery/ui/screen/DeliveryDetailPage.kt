@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.application.R
 import com.example.application._core.ui.component.Header
+import com.example.application.delivery.ui.component.cart.FloatingCartButton
 import com.example.application.delivery.ui.component.store.StoreInfoCard
 import com.example.application.delivery.ui.component.inventory.DeliveryInventorySection
 import com.example.application.delivery.ui.viewmodel.StoreViewModel
@@ -60,7 +61,7 @@ fun DeliveryDetailPage(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(200.dp)
+                        .height(275.dp)
                 ) {
                     val ctx = LocalContext.current
 
@@ -78,18 +79,21 @@ fun DeliveryDetailPage(
 
             item {
                 storeToShow?.let {
-                    Box(modifier = Modifier.offset(y = (-40).dp)) {
+                    Box(
+                        modifier = Modifier.offset(y = (-110).dp)
+                    ) {
                         StoreInfoCard(store = it)
                     }
                 }
             }
 
             item {
-                Spacer(modifier = Modifier.height((-20).dp))
-
                 val groupedInventory = filteredInventory.groupBy { it.category }
                 
-                Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    modifier = Modifier.offset(y = (-90).dp)
+                ) {
                     groupedInventory.forEach { (category, items) ->
                         DeliveryInventorySection(
                             title = category,
@@ -107,46 +111,20 @@ fun DeliveryDetailPage(
                     }
                 }
                 
-                Spacer(modifier = Modifier.height(100.dp))
+                Spacer(modifier = Modifier.height(60.dp))
             }
         }
 
-        Box(
+        FloatingCartButton(
+            count = cartItems.sumOf { it.quantity },
+
             modifier = Modifier
                 .align(Alignment.CenterEnd)
                 .padding(end = 16.dp)
-                .offset(y = 40.dp)
-                .clickable { onCartClick() }
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(60.dp)
-                    .background(Color.White, CircleShape)
-                    .border(1.dp, Color(0xFF2D9CDB), CircleShape),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_bag),
-                    contentDescription = "Cart",
-                    tint = Color(0xFF2D9CDB),
-                    modifier = Modifier.size(30.dp)
-                )
-                
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .size(20.dp)
-                        .background(Color(0xFF2D9CDB), CircleShape),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = cartItems.sumOf { it.quantity }.toString(),
-                        color = Color.White,
-                        fontSize = 10.sp
-                    )
-                }
-            }
-        }
+                .offset(y = 40.dp),
+
+            onClick = onCartClick
+        )
 
         Header(
             title = "Jajan-In",

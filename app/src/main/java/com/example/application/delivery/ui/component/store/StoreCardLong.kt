@@ -18,11 +18,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.application.R
 import com.example.application.delivery.data.model.Store
 import com.example.application._core.ui.theme.BlackSoft
+import com.example.application._core.ui.theme.GrayDark
 import com.example.application._core.ui.theme.GrayMedium
 import com.example.application._core.ui.theme.WhiteSoft
 import com.example.application._core.ui.theme.Yellow
@@ -36,7 +38,7 @@ fun StoreCardLong(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(120.dp)
+            .height(110.dp)
             .clip(RoundedCornerShape(20.dp))
             .background(WhiteSoft)
             .border(
@@ -56,7 +58,7 @@ fun StoreCardLong(
                 .build(),
             contentDescription = null,
             modifier = Modifier
-                .width(100.dp)
+                .width(110.dp)
                 .fillMaxHeight()
                 .clip(
                     RoundedCornerShape(
@@ -69,34 +71,42 @@ fun StoreCardLong(
 
         Column(
             modifier = Modifier
-                .padding(8.dp)
+                .padding(horizontal = 12.dp, vertical = 8.dp)
                 .weight(1f)
+                .fillMaxHeight()
         ) {
 
             Text(
                 text = store.name,
                 fontWeight = FontWeight.Bold,
                 fontSize = 16.sp,
-                color = BlackSoft
-            )
-
-            Spacer(modifier = Modifier.height(4.dp))
-
-            Text(
-                text = store.address,
-                fontSize = 12.sp,
-                color = Color.Gray
+                color = BlackSoft,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
 
             Spacer(modifier = Modifier.height(2.dp))
 
             Text(
-                text = store.promo,
+                text = store.address,
                 fontSize = 12.sp,
-                color = Color.Gray
+                color = GrayDark,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(4.dp))
+
+            Text(
+                text = store.promo,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold,
+                color = BlackSoft,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
 
             Row(
                 verticalAlignment = Alignment.CenterVertically
@@ -105,15 +115,15 @@ fun StoreCardLong(
                 Icon(
                     painter = painterResource(id = R.drawable.ic_star),
                     contentDescription = null,
-                    modifier = Modifier.size(18.dp),
+                    modifier = Modifier.size(16.dp),
                     tint = Yellow
                 )
 
-                Spacer(modifier = Modifier.width(4.dp))
+                Spacer(modifier = Modifier.width(6.dp))
 
                 Text(
                     text = store.rating.toString(),
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.ExtraBold,
                     fontSize = 14.sp,
                     color = BlackSoft
                 )

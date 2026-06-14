@@ -12,8 +12,8 @@ import androidx.compose.ui.unit.sp
 fun DeliveryInventoryTitle(title: String) {
     Text(
         text = title,
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-        fontSize = 16.sp,
-        fontWeight = FontWeight.ExtraBold
+        modifier = Modifier.padding(horizontal = 16.dp),
+        fontSize = 20.sp,
+        fontWeight = FontWeight.Bold
     )
 }

@@ -11,14 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.application._core.ui.component.CircleButton
-import com.example.application._core.ui.theme.GrayDark
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import androidx.compose.ui.platform.LocalContext
+import com.example.application._core.ui.component.CircleButton
+import com.example.application._core.ui.theme.GrayDark
+import com.example.application._core.ui.theme.GrayMedium
 
 @Composable
 fun DeliveryInventoryItemCard(
@@ -31,18 +32,17 @@ fun DeliveryInventoryItemCard(
 ) {
     Column(
         modifier = modifier
-            .width(160.dp)
+            .width(150.dp)
+            .height(240.dp)
             .border(
                 width = 1.dp,
-                color = GrayDark,
-                shape = RoundedCornerShape(12.dp)
+                color = GrayMedium,
+                shape = RoundedCornerShape(16.dp)
             )
-            .clip(RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(16.dp))
             .background(Color.White)
     ) {
-
         val ctx = LocalContext.current
-
         Box {
             AsyncImage(
                 model = ImageRequest.Builder(ctx)
@@ -51,37 +51,40 @@ fun DeliveryInventoryItemCard(
                     .build(),
                 contentDescription = null,
                 modifier = Modifier
-                    .height(120.dp)
+                    .height(140.dp)
                     .fillMaxWidth(),
                 contentScale = ContentScale.Crop
             )
         }
-
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        ){
-            Column() {
+                .fillMaxSize()
+                .padding(12.dp)
+        ) {
+            Column(
+                modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .padding(end = 36.dp)
+            ) {
                 Text(
                     text = name,
-                    fontSize = 13.sp,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.Black,
+                    maxLines = 2
                 )
-
+                Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = price,
-                    fontSize = 11.sp,
-                    color = Color.Gray
+                    fontSize = 12.sp,
+                    color = GrayDark
                 )
             }
-
             CircleButton(
                 text = "+",
-                modifier = Modifier.size(20.dp),
+                modifier = Modifier
+                    .size(24.dp)
+                    .align(Alignment.BottomEnd),
                 onClick = onAddToCart
             )
         }

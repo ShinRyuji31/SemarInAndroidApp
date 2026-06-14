@@ -19,7 +19,7 @@ class SupabaseStoreRepository(
     suspend fun fetchStores(): Result<List<Store>> = withContext(Dispatchers.IO) {
         try {
             val dtos = supabase.postgrest["STORE"]
-                .select(columns = Columns.raw("*, LOCATION(*), STORE_TAG(*)"))
+                .select(columns = Columns.raw("*, LOCATION(*), tags:STORE_TAG(*)"))
                 .decodeList<StoreDto>()
 
             val stores = dtos.map { dto ->

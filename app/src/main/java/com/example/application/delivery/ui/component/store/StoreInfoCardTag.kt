@@ -9,7 +9,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.application._core.ui.theme.BluePrimary
 import com.example.application._core.ui.theme.GrayDark
+import com.example.application._core.ui.theme.GrayMedium
+import com.example.application._core.ui.theme.WhiteSoft
 
 @Composable
 fun StoreInfoCardTag(
@@ -17,12 +20,12 @@ fun StoreInfoCardTag(
 ) {
     Text(
         text = text,
-        fontSize = 11.sp,
-        color = Color(0xFF2D9CDB),
+        fontSize = 12.sp,
+        color = WhiteSoft,
 
         modifier = Modifier
             .background(
-                GrayDark,
+                BluePrimary,
                 shape = RoundedCornerShape(50)
             )
             .padding(
