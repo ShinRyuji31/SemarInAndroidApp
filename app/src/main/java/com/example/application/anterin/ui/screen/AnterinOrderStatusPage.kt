@@ -91,7 +91,6 @@ fun AnterinOrderStatusPage(
                     .fillMaxWidth()
                     .weight(1f)
             ) {
-                // REAL Interactive Map Preview
                 MapWebView(
                     userLocation = userLatLng,
                     pickupLocation = uiState.pickup,

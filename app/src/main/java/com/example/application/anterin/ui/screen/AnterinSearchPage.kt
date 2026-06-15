@@ -40,20 +40,17 @@ fun AnterinSearchPage(
 
     var searchQuery by remember { mutableStateOf("") }
 
-    // Pass GPS location to map component
     val locationState by locationViewModel.uiState.collectAsState()
     val userLatLng = if (locationState.latitude != null && locationState.longitude != null) {
         Pair(locationState.latitude!!, locationState.longitude!!)
     } else null
 
-    // Trigger location fetch on entry
     LaunchedEffect(Unit) {
         locationViewModel.fetchLocation()
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
 
-        // Persistent Map Component
         MapWebView(
             userLocation = userLatLng,
             pickupLocation = uiState.pickup,
@@ -69,7 +66,6 @@ fun AnterinSearchPage(
             modifier = Modifier.fillMaxSize()
         )
 
-        // Overlay UI
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -82,7 +78,6 @@ fun AnterinSearchPage(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Search Bar with Suggestions
             Box(modifier = Modifier.padding(horizontal = 8.dp)) {
                 Column {
                     SearchBar(
@@ -110,7 +105,7 @@ fun AnterinSearchPage(
                                             .fillMaxWidth()
                                             .clickable {
                                                 viewModel.selectSuggestion(suggestion, isPickup)
-                                                searchQuery = "" // Reset local query
+                                                searchQuery = ""
                                             }
                                             .padding(16.dp)
                                     ) {
