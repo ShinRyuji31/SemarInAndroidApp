@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.application.R
 import com.example.application.delivery.ui.component.cart.CartAlertRemoveItem
+import com.example.application.delivery.ui.component.cart.CartEmpty
 import com.example.application.delivery.ui.component.cart.CartItemComponent
 import com.example.application.delivery.ui.component.cart.CartSummary
 import com.example.application._core.ui.component.ButtonWhite
@@ -51,57 +52,64 @@ fun CartPage(
                 onBack = onBack
             )
 
-            LazyColumn(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(horizontal = 16.dp),
-                contentPadding = PaddingValues(top = 8.dp, bottom = 16.dp)
-            ) {
-                items(cartItems) { cart ->
-                    CartItemComponent(
-                        name = cart.name,
-                        price = cart.price.toRupiah(),
-                        imageUrl = cart.imageUrl,
-                        imageRes = R.drawable.dummy,
-                        quantity = cart.quantity,
-                        onIncrease = {
-                            viewModel.increaseQuantity(cart.id)
-                        },
-                        onDecrease = {
-                            if (cart.quantity == 1) {
-                                itemToRemove = cart.id
-                            } else {
-                                viewModel.decreaseQuantity(cart.id)
+            if (cartItems.isEmpty()) {
+
+                CartEmpty(modifier = Modifier.weight(1f))
+
+            } else {
+
+                LazyColumn(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(horizontal = 16.dp),
+                    contentPadding = PaddingValues(top = 8.dp, bottom = 16.dp)
+                ) {
+                    items(cartItems) { cart ->
+                        CartItemComponent(
+                            name = cart.name,
+                            price = cart.price.toRupiah(),
+                            imageUrl = cart.imageUrl,
+                            imageRes = R.drawable.dummy,
+                            quantity = cart.quantity,
+                            onIncrease = {
+                                viewModel.increaseQuantity(cart.id)
+                            },
+                            onDecrease = {
+                                if (cart.quantity == 1) {
+                                    itemToRemove = cart.id
+                                } else {
+                                    viewModel.decreaseQuantity(cart.id)
+                                }
                             }
-                        }
-                    )
-                }
-            }
-
-            CartSummary(
-                subtotal = subtotal,
-                deliveryFee = deliveryFee,
-                total = total
-            )
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(
-                        brush = Brush.verticalGradient(
-                            colors = listOf(BlueSecondary, BluePrimary)
                         )
-                    )
-                    .padding(16.dp)
-                    .navigationBarsPadding()
-            ) {
-                ButtonWhite(
-                    text = "Checkout",
-                    onClick = onCheckout,
+                    }
+                }
+
+                CartSummary(
+                    subtotal = subtotal,
+                    deliveryFee = deliveryFee,
+                    total = total
+                )
+
+                Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(55.dp)
-                )
+                        .background(
+                            brush = Brush.verticalGradient(
+                                colors = listOf(BlueSecondary, BluePrimary)
+                            )
+                        )
+                        .padding(16.dp)
+                        .navigationBarsPadding()
+                ) {
+                    ButtonWhite(
+                        text = "Checkout",
+                        onClick = onCheckout,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(55.dp)
+                    )
+                }
             }
         }
 
