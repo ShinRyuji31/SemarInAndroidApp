@@ -146,4 +146,8 @@ class UserRepository(supabaseClient: SupabaseClient) {
             Result.failure(e)
         }
     }
+
+    fun getCurrentUserId(): String? {
+        return auth.currentUserOrNull()?.id
+    }
 }

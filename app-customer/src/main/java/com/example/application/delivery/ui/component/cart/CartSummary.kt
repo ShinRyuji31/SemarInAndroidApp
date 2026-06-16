@@ -18,7 +18,8 @@ fun CartSummary(
     subtotal: Int,
     deliveryFee: Int,
     total: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    currentAddress: String
 ) {
     Column(
         modifier = modifier
@@ -50,7 +51,7 @@ fun CartSummary(
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "Gg. Kutai Utara No. 1",
+                    text = currentAddress,
                     fontSize = 13.sp,
                     color = Color.Gray
                 )

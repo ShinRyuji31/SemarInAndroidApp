@@ -2,6 +2,7 @@ package com.example.application.delivery.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.application.auth.data.repository.UserRepository
 import com.example.application.delivery.data.model.CartItem
 import com.example.application.delivery.data.repository.CartRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,11 +13,15 @@ import kotlinx.coroutines.launch
 import java.util.UUID
 
 class CartViewModel(
-    private val cartRepository: CartRepository
+    private val cartRepository: CartRepository,
+    private val userRepository: UserRepository // Tambahan
 ) : ViewModel() {
 
     private val _cartItems = MutableStateFlow<List<CartItem>>(emptyList())
     val cartItems = _cartItems.asStateFlow()
+
+    private val _isCheckingOut = MutableStateFlow(false)
+    val isCheckingOut = _isCheckingOut.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -34,6 +39,45 @@ class CartViewModel(
 
     val total = combine(subtotal, deliveryFee) { sub, fee ->
         sub + fee
+    }
+
+    fun processCheckout(
+        userLat: Double,
+        userLon: Double,
+        userAddress: String,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        viewModelScope.launch {
+            if (_cartItems.value.isEmpty()) return@launch
+            _isCheckingOut.value = true
+
+            val userId = userRepository.getCurrentUserId()
+            if (userId == null) {
+                onError("User tidak ditemukan, silakan login ulang.")
+                _isCheckingOut.value = false
+                return@launch
+            }
+
+            val currentSubtotal = _cartItems.value.sumOf { it.price * it.quantity }
+            val currentTotal = currentSubtotal + deliveryFee.value
+
+            val result = cartRepository.checkoutOrder(
+                userId = userId,
+                items = _cartItems.value,
+                total = currentTotal,
+                userLat = userLat,
+                userLon = userLon,
+                userAddress = userAddress
+            )
+
+            if (result.isSuccess) {
+                onSuccess()
+            } else {
+                onError("Gagal melakukan checkout: ${result.exceptionOrNull()?.message}")
+            }
+            _isCheckingOut.value = false
+        }
     }
 
     fun addToCart(

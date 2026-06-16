@@ -1,10 +1,12 @@
 package com.example.application.delivery.ui.screen
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -13,8 +15,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.application.R
+import com.example.application._core.data.location.LocationViewModel
 import com.example.application.delivery.ui.component.cart.CartAlertRemoveItem
 import com.example.application.delivery.ui.component.cart.CartEmpty
 import com.example.application.delivery.ui.component.cart.CartItemComponent
@@ -31,17 +35,32 @@ import org.koin.androidx.compose.koinViewModel
 fun CartPage(
     onBack: () -> Unit,
     onCheckout: () -> Unit,
-    viewModel: CartViewModel = koinViewModel()
+    viewModel: CartViewModel = koinViewModel(),
+    locationViewModel: LocationViewModel = koinViewModel()
 ) {
+    val context = LocalContext.current
     val cartItems by viewModel.cartItems.collectAsState()
     val subtotal by viewModel.subtotal.collectAsState(0)
     val deliveryFee by viewModel.deliveryFee.collectAsState()
     val total by viewModel.total.collectAsState(0)
 
+    val locationState by locationViewModel.uiState.collectAsState()
+
+    LaunchedEffect(Unit) {
+        locationViewModel.fetchLocation()
+    }
+
+    val currentLat = locationState.latitude ?: 0.0
+    val currentLon = locationState.longitude ?: 0.0
+
+    val currentAddress = when {
+        locationState.isLoading -> "Sedang mencari lokasi..."
+        locationState.locationName.isNotEmpty() -> locationState.locationName
+        else -> "Lokasi belum ditemukan"
+    }
+
     var itemToRemove by remember { mutableStateOf<String?>(null) }
-
     Box(modifier = Modifier.fillMaxSize()) {
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -88,7 +107,8 @@ fun CartPage(
                 CartSummary(
                     subtotal = subtotal,
                     deliveryFee = deliveryFee,
-                    total = total
+                    total = total,
+                    currentAddress = currentAddress
                 )
 
                 Box(
@@ -102,12 +122,33 @@ fun CartPage(
                         .padding(16.dp)
                         .navigationBarsPadding()
                 ) {
+                    val isCheckingOut by viewModel.isCheckingOut.collectAsState()
+
                     ButtonWhite(
-                        text = "Checkout",
-                        onClick = onCheckout,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(55.dp)
+                        text = if (isCheckingOut) "Loading..." else "Checkout",
+                        onClick = {
+                            if (!isCheckingOut) {
+                                if (currentLat == 0.0) {
+                                    Toast.makeText(
+                                        context,
+                                        "Mohon tunggu, sedang mencari lokasi Anda...",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    return@ButtonWhite
+                                }
+
+                                viewModel.processCheckout(
+                                    userLat = currentLat,
+                                    userLon = currentLon,
+                                    userAddress = currentAddress,
+                                    onSuccess = { onCheckout() },
+                                    onError = { errorMsg ->
+                                        Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
+                                    }
+                                )
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth().height(55.dp)
                     )
                 }
             }

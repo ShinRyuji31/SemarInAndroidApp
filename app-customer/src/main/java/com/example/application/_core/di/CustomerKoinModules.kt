@@ -23,7 +23,7 @@ val customerAppModule = module {
 val customerRepositoryModule = module {
     single { AnterinRepository() }
     single { DashboardRepository(get()) }
-    single { CartRepository(get()) }
+    single { CartRepository(get(), get()) }
     single { SupabaseStoreRepository(get()) }
     single { OrderHistoryRepository(get()) }
 }
@@ -33,7 +33,7 @@ val customerViewModelModule = module {
     viewModel { AnterinViewModel(get(), get()) }
     viewModel { DashboardViewModel(get(), get()) }
     viewModel { StoreViewModel(get()) }
-    viewModel { CartViewModel(get()) }
+    viewModel { CartViewModel(get(), get()) }
     viewModel { OrderHistoryViewModel(get()) }
 }
 
