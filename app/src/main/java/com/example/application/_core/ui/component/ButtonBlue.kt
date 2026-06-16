@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.application._core.ui.theme.BluePrimary
 import com.example.application._core.ui.theme.WhiteSoft
+import com.example.application._core.ui.theme.blueBlueGradient
 
 @Composable
 fun ButtonBlue(
@@ -27,14 +28,7 @@ fun ButtonBlue(
         modifier = modifier
             .alpha(if (enabled) 1f else 0.5f)
             .clip(RoundedCornerShape(10.dp))
-            .background(
-                brush = Brush.verticalGradient(
-                    listOf(
-                        WhiteSoft,
-                        BluePrimary
-                    )
-                )
-            )
+            .background(blueBlueGradient())
             .then(if (enabled) Modifier.clickable { onClick() } else Modifier),
         contentAlignment = Alignment.Center
     ) {

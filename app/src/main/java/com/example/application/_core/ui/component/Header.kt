@@ -12,11 +12,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.application._core.ui.theme.WhiteSoft
+import com.example.application._core.ui.theme.blueBlueGradient
 
 @Composable
 fun Header(
@@ -38,7 +38,7 @@ fun Header(
             modifier = modifier
                 .fillMaxWidth()
                 .height(60.dp)
-                .background(Color(0xFF2D9CDB))
+                .background(blueBlueGradient())
         ) {
 
             BackButton(
@@ -52,7 +52,7 @@ fun Header(
                 text = title,
                 color = WhiteSoft,
                 fontWeight = FontWeight.Bold,
-                fontSize = 16.sp,
+                fontSize = 18.sp,
                 modifier = Modifier.align(Alignment.Center)
             )
         }

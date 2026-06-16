@@ -10,3 +10,10 @@ fun blueWhiteGradient() = Brush.verticalGradient(
         WhiteSoft
     )
 )
+
+fun blueBlueGradient() = Brush.verticalGradient(
+    listOf(
+        BluePrimary,
+        BluePrimaryLight
+    )
+)
