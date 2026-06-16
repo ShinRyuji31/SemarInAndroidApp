@@ -42,7 +42,7 @@ class OrderHistoryRepository(
                     Color.White
                 }
 
-                val imageRes = if (store != null) R.drawable.dummy else R.drawable.dummy // Nanti tinggal ganti R.drawable.ic_bike buat anterin
+                val imageRes = if (store != null) R.drawable.dummy else R.drawable.ic_bike
 
                 val formattedDate = dto.orderDate.replace("T", ", ").substringBeforeLast(":") + " WIB"
 
