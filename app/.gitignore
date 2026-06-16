@@ -1,5 +1,0 @@
-local.properties
-*.keystore
-.idea/
-.gradle/
-build/

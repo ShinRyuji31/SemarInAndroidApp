@@ -16,4 +16,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Application"
-include(":app")
+include(":core", ":app-customer", ":app-driver")
