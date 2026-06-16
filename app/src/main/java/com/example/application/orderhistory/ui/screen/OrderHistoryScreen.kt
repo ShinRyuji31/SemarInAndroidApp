@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.example.application.dashboard.ui.component.DashboardBottomNavBar
 import com.example.application._core.ui.component.Header
 import com.example.application._core.ui.theme.WhiteSoft
+import com.example.application.orderhistory.ui.component.OrderHistoryEmptyState
 import com.example.application.orderhistory.ui.component.OrderHistoryItem
 import com.example.application.orderhistory.viewmodel.OrderHistoryViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -26,6 +27,7 @@ fun OrderHistoryScreen(
     viewModel: OrderHistoryViewModel = koinViewModel(),
 ) {
     val orders by viewModel.orders.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
 
     Scaffold(
         topBar = {
@@ -44,15 +46,24 @@ fun OrderHistoryScreen(
             )
         }
     ) { paddingValues ->
-        LazyColumn(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(WhiteSoft),
-            contentPadding = PaddingValues(16.dp)
+                .background(WhiteSoft)
         ) {
-            items(orders) { order ->
-                OrderHistoryItem(order = order)
+            // Cek kondisi loading atau kosong
+            if (!isLoading && orders.isEmpty()) {
+                OrderHistoryEmptyState()
+            } else {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(16.dp)
+                ) {
+                    items(orders) { order ->
+                        OrderHistoryItem(order = order)
+                    }
+                }
             }
         }
     }

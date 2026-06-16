@@ -72,7 +72,7 @@ val repositoryModule = module {
     single { SupabaseStoreRepository(get()) }
 
     single { LocationRepository(get()) }
-    single { OrderHistoryRepository() }
+    single { OrderHistoryRepository(get()) }
 }
 
 val viewModelModule = module {
