@@ -12,7 +12,9 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.application._core.ui.theme.BluePrimary
 import com.example.application._core.ui.theme.WhiteSoft
 import com.example.application._core.ui.theme.blueBlueGradient
@@ -32,6 +34,11 @@ fun ButtonBlue(
             .then(if (enabled) Modifier.clickable { onClick() } else Modifier),
         contentAlignment = Alignment.Center
     ) {
-        Text(text, color = Color.White)
+        Text(
+            text = text,
+            color = WhiteSoft,
+            fontWeight = FontWeight.Bold,
+            fontSize = 16.sp
+        )
     }
 }
