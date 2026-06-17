@@ -9,10 +9,21 @@ import io.github.jan.supabase.auth.providers.builtin.Email
 import io.github.jan.supabase.auth.status.SessionStatus
 import io.github.jan.supabase.postgrest.postgrest
 import kotlinx.coroutines.flow.Flow
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+
+// 👇 INI YANG KETINGGALAN BRO, TAMBAHIN driverTypeId DI SINI
+@Serializable
+data class DriverInsertDto(
+    @SerialName("driver_id") val driverId: String,
+    @SerialName("student_card") val studentCard: String,
+    @SerialName("driver_status") val driverStatus: String,
+    @SerialName("driver_type_id") val driverTypeId: String
+)
 
 class UserRepository(supabaseClient: SupabaseClient) {
 
@@ -27,57 +38,73 @@ class UserRepository(supabaseClient: SupabaseClient) {
         return sdf.format(Date())
     }
 
+    // UNTUK CUSTOMER
     suspend fun signUp(
-        email: String, 
-        password: String, 
-        username: String, 
-        firstName: String, 
-        lastName: String, 
-        phoneNumber: String
+        email: String, password: String, username: String,
+        firstName: String, lastName: String, phoneNumber: String
     ): Result<Unit> {
         return try {
-            Log.d("UserRepository", "Starting Supabase Auth sign up for: $email")
-            
-            // 1. Sign up to Supabase Auth
             auth.signUpWith(Email) {
                 this.email = email
                 this.password = password
             }
-            
-            // 2. Retrieve the new User ID from the session
-            val userId = auth.currentUserOrNull()?.id 
-                ?: throw Exception("Sign up successful but could not retrieve User ID. Ensure 'Confirm Email' is DISABLED in Supabase.")
-
-            Log.d("UserRepository", "Auth successful. User ID: $userId. Proceeding to profile insertion...")
+            val userId = auth.currentUserOrNull()?.id ?: throw Exception("Sign up successful but could not retrieve User ID.")
 
             val now = getCurrentIsoTimestamp()
-
-            // 3. Prepare profile metadata (matching 'PROFILE' table schema)
             val userProfile = User(
-                id = userId,
-                username = username,
-                firstName = firstName,
-                lastName = if (lastName.isBlank()) null else lastName,
-                email = email,
-                phoneNumber = phoneNumber,
-                timeCreated = now,
-                timeUpdated = now
+                id = userId, username = username, firstName = firstName,
+                lastName = lastName.ifBlank { null },
+                email = email, phoneNumber = phoneNumber,
+                timeCreated = now, timeUpdated = now
             )
-            
             val customerProfile = Customer(customerId = userId)
-            
-            // 4. Insert metadata into 'PROFILE' table
-            Log.d("UserRepository", "Inserting into 'PROFILE' table...")
+
             postgrest.from("PROFILE").insert(userProfile)
-            
-            // 5. Insert record into 'CUSTOMER' table
-            Log.d("UserRepository", "Inserting into 'CUSTOMER' table...")
             postgrest.from("CUSTOMER").insert(customerProfile)
-            
-            Log.d("UserRepository", "Registration flow completed successfully.")
+
             Result.success(Unit)
         } catch (e: Exception) {
-            Log.e("UserRepository", "Sign up flow failed: ${e.localizedMessage}", e)
+            Result.failure(e)
+        }
+    }
+
+    // UNTUK DRIVER
+    suspend fun signUpDriver(
+        email: String,
+        password: String,
+        username: String,
+        firstName: String,
+        lastName: String,
+        phoneNumber: String,
+        driverTypeId: String
+    ): Result<Unit> {
+        return try {
+            auth.signUpWith(Email) {
+                this.email = email
+                this.password = password
+            }
+            val userId = auth.currentUserOrNull()?.id ?: throw Exception("Sign up successful but could not retrieve User ID.")
+
+            val now = getCurrentIsoTimestamp()
+            val userProfile = User(
+                id = userId, username = username, firstName = firstName,
+                lastName = lastName.ifBlank { null },
+                email = email, phoneNumber = phoneNumber,
+                timeCreated = now, timeUpdated = now
+            )
+
+            val driverProfile = DriverInsertDto(
+                driverId = userId,
+                studentCard = "BELUM_UPLOAD",
+                driverStatus = "OFFLINE",
+                driverTypeId = driverTypeId // SEKARANG UDAH NGGAK ERROR
+            )
+
+            postgrest.from("PROFILE").insert(userProfile)
+            postgrest.from("DRIVER").insert(driverProfile)
+
+            Result.success(Unit)
+        } catch (e: Exception) {
             Result.failure(e)
         }
     }
@@ -101,14 +128,9 @@ class UserRepository(supabaseClient: SupabaseClient) {
     suspend fun getUserProfile(): Result<User?> {
         return try {
             val userId = auth.currentUserOrNull()?.id ?: return Result.success(null)
-            
-            // Fetch from 'PROFILE' table
             val profile = postgrest.from("PROFILE").select {
-                filter {
-                    eq("user_id", userId)
-                }
+                filter { eq("user_id", userId) }
             }.decodeSingleOrNull<User>()
-            
             Result.success(profile)
         } catch (e: Exception) {
             Result.failure(e)
@@ -116,32 +138,18 @@ class UserRepository(supabaseClient: SupabaseClient) {
     }
 
     suspend fun updateProfile(
-        username: String,
-        firstName: String,
-        phoneNumber: String
+        username: String, firstName: String, phoneNumber: String
     ): Result<Unit> {
         return try {
-
-            val userId = auth.currentUserOrNull()?.id
-                ?: throw Exception("User not logged in")
-
+            val userId = auth.currentUserOrNull()?.id ?: throw Exception("User not logged in")
             val updateData = mapOf(
-                "username" to username,
-                "first_name" to firstName,
-                "phone_number" to phoneNumber,
-                "time_updated" to getCurrentIsoTimestamp()
+                "username" to username, "first_name" to firstName,
+                "phone_number" to phoneNumber, "time_updated" to getCurrentIsoTimestamp()
             )
-
-            postgrest
-                .from("PROFILE")
-                .update(updateData) {
-                    filter {
-                        eq("user_id", userId)
-                    }
-                }
-
+            postgrest.from("PROFILE").update(updateData) {
+                filter { eq("user_id", userId) }
+            }
             Result.success(Unit)
-
         } catch (e: Exception) {
             Result.failure(e)
         }

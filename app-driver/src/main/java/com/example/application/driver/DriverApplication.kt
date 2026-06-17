@@ -4,6 +4,7 @@ import android.app.Application
 import com.example.application._core.di.coreAppModule
 import com.example.application._core.di.coreRepositoryModule
 import com.example.application._core.di.coreViewModelModule
+import com.example.application.driver._core.di.driverKoinModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -20,7 +21,7 @@ class DriverApplication : Application() {
                     coreAppModule,
                     coreRepositoryModule,
                     coreViewModelModule
-                )
+                ) + driverKoinModules
             )
         }
     }

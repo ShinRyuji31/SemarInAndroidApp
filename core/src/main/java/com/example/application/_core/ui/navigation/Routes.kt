@@ -11,8 +11,7 @@ sealed interface Routes {
     @Serializable data object DashBoardRoute : Routes
     @Serializable data object ProfileRoute : Routes
 
-    @Serializable
-    data object ProfileFullRoute : Routes
+    @Serializable data object ProfileFullRoute : Routes
     @Serializable data object OrderHistoryRoute : Routes
 
     //ANTER FLOW
@@ -40,4 +39,9 @@ sealed interface Routes {
     @Serializable data object AuthGraph : Routes
     @Serializable data object AnterinGraph : Routes
     @Serializable data object DeliveryGraph : Routes
+
+    // Driver
+    @Serializable data object DriverAuthRoute : Routes
+    @Serializable data object DriverDashboardRoute : Routes
+    @Serializable data object DriverSignUpRoute : Routes // TAMBAHAN BARU
 }
