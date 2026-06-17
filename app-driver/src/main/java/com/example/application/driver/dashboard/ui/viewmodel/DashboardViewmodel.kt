@@ -14,8 +14,7 @@ class DriverDashboardViewModel : ViewModel() {
         _isOnline.value = online
 
         if (online) {
-            // TODO: Nanti di sini kita jalankan LocationService buat broadcast posisi driver
-            // dan update status driver ke Supabase biar siap terima order
+            // TODO: brodcast posisi driver
         } else {
             // TODO: Matikan LocationService
         }
