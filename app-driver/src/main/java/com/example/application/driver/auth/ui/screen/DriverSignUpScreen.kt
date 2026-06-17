@@ -1,4 +1,4 @@
-package com.example.application.driver._core.ui.screen
+package com.example.application.driver.auth.ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,7 +19,7 @@ import com.example.application.auth.ui.viewmodel.AuthUiState
 import com.example.application._core.ui.component.ButtonBlue
 import com.example.application._core.ui.theme.WhiteSoft
 import com.example.application._core.ui.theme.blueWhiteGradient
-import com.example.application.driver._core.ui.viewmodel.DriverSignUpViewModel
+import com.example.application.driver.auth.ui.viewmodel.DriverSignUpViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

@@ -8,9 +8,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.application._core.ui.navigation.Routes
 import com.example.application.auth.ui.screen.LoginScreen
-import com.example.application.driver._core.ui.viewmodel.DriverAuthViewModel
+import com.example.application.driver.auth.ui.viewmodel.DriverAuthViewModel
 import com.example.application.driver.dashboard.ui.screen.DriverDashboardScreen
-import com.example.application.driver._core.ui.screen.DriverSignUpScreen
+import com.example.application.driver.auth.ui.screen.DriverSignUpScreen
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

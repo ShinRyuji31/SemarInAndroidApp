@@ -1,4 +1,4 @@
-package com.example.application.driver._core.ui.viewmodel
+package com.example.application.driver.auth.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
