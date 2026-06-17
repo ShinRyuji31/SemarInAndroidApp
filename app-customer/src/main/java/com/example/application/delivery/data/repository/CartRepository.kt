@@ -1,6 +1,7 @@
 package com.example.application.delivery.data.repository
 
 import android.util.Log
+import com.example.application._core.data.maps.repository.MapsRepository
 import com.example.application.delivery.data.dto.ItemOrderInsertDto
 import com.example.application.delivery.data.dto.LocationInsertDto
 import com.example.application.delivery.data.dto.OrderInsertDto
@@ -19,7 +20,8 @@ import java.util.UUID
 
 class CartRepository(
     private val dataStore: CartDataStore,
-    private val supabase: SupabaseClient
+    private val supabase: SupabaseClient,
+    private val mapsRepository: MapsRepository
 ) {
     fun getCartItems(): Flow<List<CartItem>> = dataStore.getCartItems()
 
@@ -41,12 +43,25 @@ class CartRepository(
 
             // 1. CARI LOKASI TOKO (Untuk Pickup Location)
             val storeInfo = supabase.postgrest["STORE"]
-                .select {
-                    filter { eq("store_id", storeId) }
-                }.decodeSingle<StoreLocationDto>()
+                .select { filter { eq("store_id", storeId) } }
+                .decodeSingle<StoreLocationDto>()
             val pickupLocationId = storeInfo.locationId
 
-            // 2. INSERT LOKASI USER (Untuk Destination Location)
+            val storeLocation = supabase.postgrest["LOCATION"]
+                .select { filter { eq("location_id", pickupLocationId) } }
+                .decodeSingle<LocationInsertDto>()
+
+            // 2. HITUNG JARAK PAKAI MAPS REPOSITORY
+            val routeResult = mapsRepository.getRoute(
+                startLat = storeLocation.latitude,
+                startLon = storeLocation.longitude,
+                endLat = userLat,
+                endLon = userLon
+            )
+            val distanceInMeters = routeResult.getOrNull()?.distance ?: 0.0
+            val distanceInKm = distanceInMeters / 1000.0
+
+            // 3. INSERT LOKASI USER (Alamat Pengiriman)
             val destinationLocationId = UUID.randomUUID().toString()
             val locationDto = LocationInsertDto(
                 locationId = destinationLocationId,
@@ -57,23 +72,25 @@ class CartRepository(
             supabase.postgrest["LOCATION"].insert(locationDto)
 
             val orderId = UUID.randomUUID().toString()
-            val now = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US).apply {
-                timeZone = TimeZone.getTimeZone("UTC")
-            }.format(Date())
 
-            // 3. INSERT ORDER (Sambungin Pickup & Destination)
+            val now = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", java.util.Locale.US).apply {
+                timeZone = java.util.TimeZone.getTimeZone("Asia/Jakarta")
+            }.format(java.util.Date())
+
+            // 4. INSERT ORDER (Sekarang masukin distance)
             val orderDto = OrderInsertDto(
                 orderId = orderId,
                 orderDate = now,
                 totalPrice = total.toDouble(),
                 orderStatus = "PENDING",
                 customerId = userId,
-                pickupLocationId = pickupLocationId,       // Dari Toko
-                destinationLocationId = destinationLocationId // Dari User
+                pickupLocationId = pickupLocationId,
+                destinationLocationId = destinationLocationId,
+                distance = distanceInKm
             )
             supabase.postgrest["ORDER"].insert(orderDto)
 
-            // 4. INSERT ITEM_ORDER
+            // 5. INSERT ITEM_ORDER
             val itemOrderDto = ItemOrderInsertDto(
                 orderId = orderId,
                 orderType = storeType,
@@ -81,7 +98,7 @@ class CartRepository(
             )
             supabase.postgrest["ITEM_ORDER"].insert(itemOrderDto)
 
-            // 5. INSERT ORDER_ITEM
+            // 6. INSERT ORDER_ITEM
             val orderItems = items.flatMap { cartItem ->
                 List(cartItem.quantity) {
                     OrderItemInsertDto(
@@ -94,10 +111,12 @@ class CartRepository(
                 supabase.postgrest["ORDER_ITEM"].insert(orderItems)
             }
 
+            // 7. BERSIHKAN KERANJANG
             saveCartItems(emptyList())
+
             Result.success(Unit)
         } catch (e: Exception) {
-            Log.e("CartRepository", "Checkout failed: ${e.message}")
+            android.util.Log.e("CartRepository", "Checkout failed: ${e.message}")
             Result.failure(e)
         }
     }

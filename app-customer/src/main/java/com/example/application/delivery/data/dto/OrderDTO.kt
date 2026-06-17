@@ -18,8 +18,9 @@ data class OrderInsertDto(
     @SerialName("total_price") val totalPrice: Double,
     @SerialName("order_status") val orderStatus: String,
     @SerialName("customer_id") val customerId: String,
-    @SerialName("pickup_location_id") val pickupLocationId: String, // Tambahan Pickup
-    @SerialName("destination_location_id") val destinationLocationId: String
+    @SerialName("pickup_location_id") val pickupLocationId: String,
+    @SerialName("destination_location_id") val destinationLocationId: String,
+    @SerialName("distance") val distance: Double? = null
 )
 
 @Serializable
@@ -35,7 +36,6 @@ data class OrderItemInsertDto(
     @SerialName("product_id") val productId: String
 )
 
-// TAMBAHAN BARU: Buat narik location_id dari STORE
 @Serializable
 data class StoreLocationDto(
     @SerialName("location_id") val locationId: String

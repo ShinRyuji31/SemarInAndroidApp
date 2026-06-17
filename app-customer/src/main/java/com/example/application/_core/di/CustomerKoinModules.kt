@@ -1,5 +1,6 @@
 package com.example.application._core.di
 
+import com.example.application._core.data.maps.repository.MapsRepository
 import com.example.application.anterin.data.repository.AnterinRepository
 import com.example.application.anterin.ui.viewmodel.AnterinViewModel
 import com.example.application.dashboard.data.repository.DashboardRepository
@@ -23,7 +24,7 @@ val customerAppModule = module {
 val customerRepositoryModule = module {
     single { AnterinRepository() }
     single { DashboardRepository(get()) }
-    single { CartRepository(get(), get()) }
+    single { CartRepository(get(), get(), get())}
     single { SupabaseStoreRepository(get()) }
     single { OrderHistoryRepository(get()) }
 }
