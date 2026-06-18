@@ -26,6 +26,7 @@ import com.example.application.driver.dashboard.ui.component.DashboardProfileCar
 import com.example.application.driver.dashboard.ui.component.DashboardWaitingOrderCard
 import com.example.application.driver.dashboard.ui.viewmodel.DriverDashboardViewModel
 import org.koin.androidx.compose.koinViewModel
+import com.example.application.driver._core.ui.screen.DriverIncomingOrderScreen
 
 @Composable
 fun DriverDashboardScreen(
@@ -37,10 +38,9 @@ fun DriverDashboardScreen(
     viewModel: DriverDashboardViewModel = koinViewModel()
 ) {
     val isOnline by viewModel.isOnline.collectAsState()
+    val incomingOrder by viewModel.incomingOrder.collectAsState()
+    val activeOrder by viewModel.activeOrder.collectAsState()
     var showLogoutDialog by remember { mutableStateOf(false) }
-
-    // TODO: masukin data supabes
-    val hasActiveOrder = false
 
     Box(modifier = Modifier.fillMaxSize()) {
         Scaffold(
@@ -61,16 +61,11 @@ fun DriverDashboardScreen(
                     .padding(innerPadding)
             ) {
                 Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(rememberScrollState())
+                    modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
                 ) {
                     DashboardHeader()
-
                     Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(16.dp),
+                        modifier = Modifier.fillMaxSize().padding(16.dp),
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         DashboardProfileCard(
@@ -78,31 +73,20 @@ fun DriverDashboardScreen(
                             profilePicUrl = null,
                             onToggleOnline = { viewModel.setOnlineStatus(it) }
                         )
-
                         DashboardDriverStat()
-
                         DashboardMenuSection(
                             onFullProfileClick = onNavigateToProfile,
                             onLogoutClick = { showLogoutDialog = true }
                         )
-
                         Spacer(modifier = Modifier.height(100.dp))
                     }
                 }
 
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(16.dp)
-                ) {
+                Box(modifier = Modifier.align(Alignment.BottomCenter).padding(16.dp)) {
                     when {
-                        !isOnline -> {
-                            DashboardOfflineCard()
-                        }
-                        isOnline && !hasActiveOrder -> {
-                            DashboardWaitingOrderCard()
-                        }
-                        isOnline && hasActiveOrder -> {
+                        !isOnline -> DashboardOfflineCard()
+                        isOnline && activeOrder == null -> DashboardWaitingOrderCard()
+                        isOnline && activeOrder != null -> {
                             DashboardActiveOrderCard(
                                 onDetailClick = { onNavigateToOrderDetail() }
                             )
@@ -112,13 +96,19 @@ fun DriverDashboardScreen(
             }
         }
 
+        if (incomingOrder != null) {
+            DriverIncomingOrderScreen(
+                price = incomingOrder?.totalPrice?.toInt() ?: 0,
+                distanceKm = incomingOrder?.distance ?: 0.0,
+                onAccept = { incomingOrder?.orderId?.let { viewModel.acceptOrder(it) } },
+                onDecline = { incomingOrder?.orderId?.let { viewModel.declineOrder(it) } }
+            )
+        }
+
         if (showLogoutDialog) {
             DashboardAlertLogout(
                 onDismiss = { showLogoutDialog = false },
-                onLogout = {
-                    showLogoutDialog = false
-                    onLogout()
-                }
+                onLogout = { showLogoutDialog = false; onLogout() }
             )
         }
     }

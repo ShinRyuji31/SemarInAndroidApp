@@ -13,7 +13,7 @@ val driverRepositoryModule = module {
 
 val driverViewModelModule = module {
     viewModel { DriverAuthViewModel(get(), get()) }
-    viewModel { DriverDashboardViewModel() }
+    viewModel { DriverDashboardViewModel(get(), get(), get()) }
     viewModel { DriverSignUpViewModel(get()) }
 }
 
