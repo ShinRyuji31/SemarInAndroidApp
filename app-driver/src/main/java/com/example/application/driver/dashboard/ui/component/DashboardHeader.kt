@@ -18,7 +18,6 @@ fun DashboardHeader() {
         modifier = Modifier
             .fillMaxWidth()
             .background(blueBlueGradient())
-            .statusBarsPadding()
     ) {
         Row(
             modifier = Modifier

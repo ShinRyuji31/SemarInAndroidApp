@@ -2,9 +2,9 @@ package com.example.application.driver.dashboard.ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -16,11 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.application._core.ui.theme.GrayMedium
 import com.example.application.driver.dashboard.ui.component.DashboardActiveOrderCard
-import com.example.application.driver.dashboard.ui.component.DashboardHeader
-import com.example.application.driver.dashboard.ui.component.DashboardProfileCard
-import com.example.application.driver.dashboard.ui.component.DashboardMenuSection
-import com.example.application.driver.dashboard.ui.component.DashboardDriverStat
 import com.example.application.driver.dashboard.ui.component.DashboardAlertLogout
+import com.example.application.driver.dashboard.ui.component.DashboardBottomNavBar
+import com.example.application.driver.dashboard.ui.component.DashboardDriverStat
+import com.example.application.driver.dashboard.ui.component.DashboardHeader
+import com.example.application.driver.dashboard.ui.component.DashboardMenuSection
+import com.example.application.driver.dashboard.ui.component.DashboardOfflineCard
+import com.example.application.driver.dashboard.ui.component.DashboardProfileCard
+import com.example.application.driver.dashboard.ui.component.DashboardWaitingOrderCard
 import com.example.application.driver.dashboard.ui.viewmodel.DriverDashboardViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -28,60 +31,85 @@ import org.koin.androidx.compose.koinViewModel
 fun DriverDashboardScreen(
     onLogout: () -> Unit,
     onNavigateToOrderDetail: () -> Unit,
+    onNavigateToOrderStatus: () -> Unit = {},
+    onNavigateToOrderHistory: () -> Unit = {},
+    onNavigateToProfile: () -> Unit = {},
     viewModel: DriverDashboardViewModel = koinViewModel()
 ) {
     val isOnline by viewModel.isOnline.collectAsState()
     var showLogoutDialog by remember { mutableStateOf(false) }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(GrayMedium)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-        ) {
-            DashboardHeader()
+    // TODO: masukin data supabes
+    val hasActiveOrder = false
 
-            Spacer(modifier = Modifier.width(16.dp))
-
-
-            Column(
+    Box(modifier = Modifier.fillMaxSize()) {
+        Scaffold(
+            bottomBar = {
+                DashboardBottomNavBar(
+                    currentTab = 0,
+                    onHomeClick = { },
+                    onOrderStatusClick = onNavigateToOrderStatus,
+                    onOrderHistoryClick = onNavigateToOrderHistory,
+                    onProfileClick = onNavigateToProfile
+                )
+            }
+        ) { innerPadding ->
+            Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ){
+                    .background(GrayMedium)
+                    .padding(innerPadding)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
+                ) {
+                    DashboardHeader()
 
-                DashboardProfileCard(
-                    isOnline = isOnline,
-                    profilePicUrl = null,
-                    onToggleOnline = { viewModel.setOnlineStatus(it) }
-                )
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        DashboardProfileCard(
+                            isOnline = isOnline,
+                            profilePicUrl = null,
+                            onToggleOnline = { viewModel.setOnlineStatus(it) }
+                        )
 
-                DashboardDriverStat()
+                        DashboardDriverStat()
 
-                DashboardMenuSection(
-                    onFullProfileClick = { /* TODO Pindah Profile */ },
-                    onOrderHistoryClick = { /* TODO Pindah History */ },
-                    onLogoutClick = { showLogoutDialog = true }
-                )
+                        DashboardMenuSection(
+                            onFullProfileClick = onNavigateToProfile,
+                            onLogoutClick = { showLogoutDialog = true }
+                        )
 
-                Spacer(modifier = Modifier.height(100.dp))
+                        Spacer(modifier = Modifier.height(100.dp))
+                    }
+                }
+
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(16.dp)
+                ) {
+                    when {
+                        !isOnline -> {
+                            DashboardOfflineCard()
+                        }
+                        isOnline && !hasActiveOrder -> {
+                            DashboardWaitingOrderCard()
+                        }
+                        isOnline && hasActiveOrder -> {
+                            DashboardActiveOrderCard(
+                                onDetailClick = { onNavigateToOrderDetail() }
+                            )
+                        }
+                    }
+                }
             }
-
-        }
-
-        if (isOnline) {
-            DashboardActiveOrderCard(
-                onDetailClick = { onNavigateToOrderDetail() },
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(16.dp)
-                    .navigationBarsPadding()
-            )
         }
 
         if (showLogoutDialog) {
