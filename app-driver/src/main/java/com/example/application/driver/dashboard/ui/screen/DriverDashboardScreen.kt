@@ -6,6 +6,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,9 +25,8 @@ import com.example.application.driver.dashboard.ui.component.DashboardMenuSectio
 import com.example.application.driver.dashboard.ui.component.statuscard.DashboardOfflineCard
 import com.example.application.driver.dashboard.ui.component.DashboardProfileCard
 import com.example.application.driver.dashboard.ui.component.statuscard.DashboardWaitingOrderCard
-import com.example.application.driver.dashboard.ui.viewmodel.DriverDashboardViewModel
+import com.example.application.driver.dashboard.ui.viewmodel.DashboardViewModel
 import org.koin.androidx.compose.koinViewModel
-import com.example.application.driver.order.ui.screen.DriverIncomingOrderScreen
 
 @Composable
 fun DriverDashboardScreen(
@@ -35,10 +35,9 @@ fun DriverDashboardScreen(
     onNavigateToOrderStatus: () -> Unit = {},
     onNavigateToOrderHistory: () -> Unit = {},
     onNavigateToProfile: () -> Unit = {},
-    viewModel: DriverDashboardViewModel = koinViewModel()
-) {
+    viewModel: DashboardViewModel = koinViewModel()
+){
     val isOnline by viewModel.isOnline.collectAsState()
-    val incomingOrder by viewModel.incomingOrder.collectAsState()
     val activeOrder by viewModel.activeOrder.collectAsState()
     var showLogoutDialog by remember { mutableStateOf(false) }
 
@@ -94,15 +93,6 @@ fun DriverDashboardScreen(
                     }
                 }
             }
-        }
-
-        if (incomingOrder != null) {
-            DriverIncomingOrderScreen(
-                price = incomingOrder?.totalPrice?.toInt() ?: 0,
-                distanceKm = incomingOrder?.distance ?: 0.0,
-                onAccept = { incomingOrder?.orderId?.let { viewModel.acceptOrder(it) } },
-                onDecline = { incomingOrder?.orderId?.let { viewModel.declineOrder(it) } }
-            )
         }
 
         if (showLogoutDialog) {
