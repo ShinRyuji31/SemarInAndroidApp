@@ -72,6 +72,10 @@ fun DriverAppNavigation() {
                             }
                         }
                     )
+                },
+                onNavigateToOrderDetail = {
+                    // Sementara pakai Toast dulu buat ngetes
+                    Toast.makeText(context, "Membuka detail pesanan...", Toast.LENGTH_SHORT).show()
                 }
             )
         }

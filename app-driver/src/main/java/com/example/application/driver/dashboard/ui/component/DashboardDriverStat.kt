@@ -13,29 +13,47 @@ import androidx.compose.ui.unit.sp
 import com.example.application._core.ui.theme.BluePrimary
 
 @Composable
-fun DriverStatsSection() {
+fun DashboardDriverStat() {
     Row(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Card(
             modifier = Modifier.weight(1f),
             colors = CardDefaults.cardColors(containerColor = Color.White)
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
-                Text("Target Harian", color = Color.Gray, fontSize = 14.sp)
-                Text("0/10", fontWeight = FontWeight.Bold, fontSize = 24.sp, color = BluePrimary)
+                Text(
+                    "Target Harian",
+                    color = Color.Gray,
+                    fontSize = 14.sp
+                )
+                Text(
+                    "0/10",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 24.sp,
+                    color = BluePrimary
+                )
             }
         }
+
         Card(
             modifier = Modifier.weight(1f),
             colors = CardDefaults.cardColors(containerColor = Color.White)
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
-                Text("Pendapatan", color = Color.Gray, fontSize = 14.sp)
-                Text("Rp 0", fontWeight = FontWeight.Bold, fontSize = 24.sp, color = Color(0xFF008938))
+                Text(
+                    "Pendapatan",
+                    color = Color.Gray,
+                    fontSize = 14.sp
+                )
+                Text(
+                    "Rp 0",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 24.sp,
+                    color = BluePrimary
+                )
             }
         }
     }

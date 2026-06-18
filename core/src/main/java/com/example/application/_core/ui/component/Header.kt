@@ -26,7 +26,6 @@ fun Header(
 ) {
 
     Column {
-
         Spacer(
             modifier = Modifier
                 .fillMaxWidth()

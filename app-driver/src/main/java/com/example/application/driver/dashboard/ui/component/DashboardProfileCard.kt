@@ -1,8 +1,6 @@
 package com.example.application.driver.dashboard.ui.component
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -12,24 +10,28 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.application._core.ui.theme.BlackSoft
 import com.example.application._core.ui.theme.BluePrimary
+import com.example.application._core.ui.theme.GrayDark
+import com.example.application._core.ui.theme.WhiteSoft
+import com.example.application.profile.ui.component.ProfileAvatar
 
 @Composable
-fun DriverProfileCard(
+fun DashboardProfileCard(
     isOnline: Boolean,
+    profilePicUrl: String? = null,
     onToggleOnline: (Boolean) -> Unit
 ) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
+            .fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
         Row(
             modifier = Modifier
@@ -39,28 +41,41 @@ fun DriverProfileCard(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Box(modifier = Modifier.size(60.dp).clip(CircleShape).background(Color.LightGray))
+                ProfileAvatar(
+                    profilePic = profilePicUrl,
+                    modifier = Modifier.size(60.dp)
+                )
+
                 Spacer(modifier = Modifier.width(16.dp))
+
                 Column {
-                    Text("Driver Aktif", fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                    Text("Mahasiswa UNS", color = Color.Gray, fontSize = 14.sp)
+                    Text(
+                        text = "Driver Aktif",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = BlackSoft
+                    )
+                    Text(
+                        text = "Mahasiswa UNS",
+                        color = GrayDark,
+                        fontSize = 14.sp
+                    )
                 }
             }
 
-            // Saklar Online / Offline
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Switch(
                     checked = isOnline,
                     onCheckedChange = onToggleOnline,
                     colors = SwitchDefaults.colors(
-                        checkedThumbColor = Color.White,
+                        checkedThumbColor = WhiteSoft,
                         checkedTrackColor = BluePrimary
                     )
                 )
                 Text(
                     text = if (isOnline) "Online" else "Offline",
                     color = if (isOnline) BluePrimary else Color.Gray,
-                    fontSize = 12.sp,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
                 )
             }
