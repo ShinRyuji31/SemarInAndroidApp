@@ -1,33 +1,17 @@
-package com.example.application.driver._core.data.repository
+package com.example.application.driver.order.data.repository
 
 import android.util.Log
 import com.example.application.driver._core.data.model.DriverDto
+import com.example.application.driver._core.data.model.DriverLocationDto
+import com.example.application.driver.order.data.dto.ActiveOrderDto
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.postgrest
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
-@Serializable
-data class DriverLocationDto(
-    @SerialName("driver_id") val driverId: String,
-    @SerialName("latitude") val latitude: Double,
-    @SerialName("longitude") val longitude: Double,
-    @SerialName("time_updated") val timeUpdated: String
-)
-
-@Serializable
-data class ActiveOrderDto(
-    @SerialName("order_id") val orderId: String,
-    @SerialName("order_status") val orderStatus: String,
-    @SerialName("distance") val distance: Double? = null,
-    @SerialName("total_price") val totalPrice: Double? = null
-)
-
-class DriverRepository(private val supabase: SupabaseClient) {
+class OrderRepository(private val supabase: SupabaseClient) {
 
     private fun getCurrentIsoTimestamp(): String {
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.US)

@@ -1,4 +1,4 @@
-package com.example.application.driver._core.ui.screen
+package com.example.application.driver.order.ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

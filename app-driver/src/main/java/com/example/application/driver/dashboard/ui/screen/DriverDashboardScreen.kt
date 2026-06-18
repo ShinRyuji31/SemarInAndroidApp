@@ -15,18 +15,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.application._core.ui.theme.GrayMedium
-import com.example.application.driver.dashboard.ui.component.DashboardActiveOrderCard
+import com.example.application.driver.dashboard.ui.component.statuscard.DashboardActiveOrderCard
 import com.example.application.driver.dashboard.ui.component.DashboardAlertLogout
 import com.example.application.driver.dashboard.ui.component.DashboardBottomNavBar
 import com.example.application.driver.dashboard.ui.component.DashboardDriverStat
 import com.example.application.driver.dashboard.ui.component.DashboardHeader
 import com.example.application.driver.dashboard.ui.component.DashboardMenuSection
-import com.example.application.driver.dashboard.ui.component.DashboardOfflineCard
+import com.example.application.driver.dashboard.ui.component.statuscard.DashboardOfflineCard
 import com.example.application.driver.dashboard.ui.component.DashboardProfileCard
-import com.example.application.driver.dashboard.ui.component.DashboardWaitingOrderCard
+import com.example.application.driver.dashboard.ui.component.statuscard.DashboardWaitingOrderCard
 import com.example.application.driver.dashboard.ui.viewmodel.DriverDashboardViewModel
 import org.koin.androidx.compose.koinViewModel
-import com.example.application.driver._core.ui.screen.DriverIncomingOrderScreen
+import com.example.application.driver.order.ui.screen.DriverIncomingOrderScreen
 
 @Composable
 fun DriverDashboardScreen(

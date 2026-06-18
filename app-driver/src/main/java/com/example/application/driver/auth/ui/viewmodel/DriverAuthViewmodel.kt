@@ -3,12 +3,12 @@ package com.example.application.driver.auth.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.application.auth.data.repository.UserRepository
-import com.example.application.driver._core.data.repository.DriverRepository
+import com.example.application.driver.order.data.repository.OrderRepository
 import kotlinx.coroutines.launch
 
 class DriverAuthViewModel(
     private val userRepository: UserRepository,
-    private val driverRepository: DriverRepository
+    private val orderRepository: OrderRepository
 ) : ViewModel() {
 
     fun verifyDriverStatus(onSuccess: () -> Unit, onError: (String) -> Unit) {
@@ -21,7 +21,7 @@ class DriverAuthViewModel(
                 return@launch
             }
 
-            val isActive = driverRepository.checkIsDriverActive(userId)
+            val isActive = orderRepository.checkIsDriverActive(userId)
 
             if (isActive) {
                 onSuccess()

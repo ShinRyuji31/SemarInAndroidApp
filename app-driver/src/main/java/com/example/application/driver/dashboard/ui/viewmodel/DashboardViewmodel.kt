@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.application._core.data.location.LocationRepository
 import com.example.application.auth.data.repository.UserRepository
-import com.example.application.driver._core.data.repository.ActiveOrderDto
-import com.example.application.driver._core.data.repository.DriverRepository
+import com.example.application.driver.order.data.dto.ActiveOrderDto
+import com.example.application.driver.order.data.repository.OrderRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +15,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class DriverDashboardViewModel(
-    private val driverRepository: DriverRepository,
+    private val orderRepository: OrderRepository,
     private val locationRepository: LocationRepository,
     private val userRepository: UserRepository
 ) : ViewModel() {
@@ -44,10 +44,10 @@ class DriverDashboardViewModel(
             while (isActive && _isOnline.value) {
                 val location = locationRepository.fetchCurrentLocation()
                 if (location != null) {
-                    driverRepository.updateDriverLocation(driverId, location.latitude, location.longitude)
+                    orderRepository.updateDriverLocation(driverId, location.latitude, location.longitude)
                 }
-                _incomingOrder.value = driverRepository.getIncomingOrder(driverId)
-                _activeOrder.value = driverRepository.getActiveOrder(driverId)
+                _incomingOrder.value = orderRepository.getIncomingOrder(driverId)
+                _activeOrder.value = orderRepository.getActiveOrder(driverId)
 
                 delay(10000)
             }
@@ -63,19 +63,19 @@ class DriverDashboardViewModel(
 
     fun acceptOrder(orderId: String) {
         viewModelScope.launch {
-            val success = driverRepository.updateOrderStatus(orderId, "ACCEPTED")
+            val success = orderRepository.updateOrderStatus(orderId, "ACCEPTED")
             if (success) {
                 _incomingOrder.value = null
 
                 val driverId = userRepository.getCurrentUserId() ?: return@launch
-                _activeOrder.value = driverRepository.getActiveOrder(driverId)
+                _activeOrder.value = orderRepository.getActiveOrder(driverId)
             }
         }
     }
 
     fun declineOrder(orderId: String) {
         viewModelScope.launch {
-            driverRepository.updateOrderStatus(orderId, "NULL")
+            orderRepository.updateOrderStatus(orderId, "NULL")
             _incomingOrder.value = null
         }
     }
