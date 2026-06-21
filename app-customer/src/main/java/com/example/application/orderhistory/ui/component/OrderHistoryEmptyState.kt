@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.application.R
+import com.example.application.core.R
 import com.example.application._core.ui.theme.BlackSoft
 
 @Composable
@@ -25,7 +25,7 @@ fun OrderHistoryEmptyState(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(id = R.drawable.dummy),
+            painter = painterResource(id = R.drawable.logo_coloredleaf),
             contentDescription = "Empty Order History",
             modifier = Modifier.size(120.dp)
         )

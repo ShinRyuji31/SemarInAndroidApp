@@ -6,7 +6,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.application.R
+import com.example.application.core.R
 import com.example.application.delivery.data.model.StoreInventory
 import com.example.application._core.util.toRupiah
 

@@ -6,7 +6,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -14,6 +13,7 @@ import com.example.application.R
 import com.example.application._core.ui.component.ButtonIcon
 import com.example.application._core.ui.theme.BluePrimary
 import com.example.application._core.ui.theme.WhiteSoft
+import com.example.application._core.ui.theme.blueBlueGradient
 import com.example.application._core.ui.theme.blueWhiteGradient
 
 @Composable
@@ -28,7 +28,7 @@ fun DashboardAllCategorySheet(
         modifier = Modifier
             .fillMaxWidth()
             .background(
-                blueWhiteGradient(),
+                blueBlueGradient(),
                 RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
             )
             .padding(20.dp)
@@ -77,8 +77,9 @@ fun DashboardAllCategorySheet(
                     icon = R.drawable.ic_bag,
                     modifier = Modifier.weight(1f),
                     containerColor = WhiteSoft,
-                    contentColor = BluePrimary
-                ) {}
+                    contentColor = BluePrimary,
+                    onClick = onJastipinClick
+                )
 
                 ButtonIcon(
                     title = "Survei-In",

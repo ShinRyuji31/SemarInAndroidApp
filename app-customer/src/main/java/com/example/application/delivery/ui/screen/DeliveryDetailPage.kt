@@ -21,7 +21,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import com.example.application.R
+import com.example.application.core.R
 import com.example.application._core.ui.component.Header
 import com.example.application.delivery.data.model.StoreInventory
 import com.example.application.delivery.ui.component.cart.CartStoreConflictAlert

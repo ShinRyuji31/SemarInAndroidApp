@@ -2,6 +2,7 @@ package com.example.application.orderhistory.data.repository
 
 import android.util.Log
 import androidx.compose.ui.graphics.Color
+import com.example.application.core.R as coreR
 import com.example.application.R
 import com.example.application.orderhistory.data.model.OrderHistory
 import com.example.application.orderhistory.data.model.OrderType
@@ -42,7 +43,7 @@ class OrderHistoryRepository(
                     Color.White
                 }
 
-                val imageRes = if (store != null) R.drawable.dummy else R.drawable.ic_bike
+                val imageRes = if (store != null) coreR.drawable.dummy else R.drawable.ic_bike
 
                 val formattedDate = dto.orderDate.replace("T", ", ").substringBeforeLast(":") + " WIB"
 

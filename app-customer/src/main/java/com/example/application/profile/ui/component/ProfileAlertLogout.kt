@@ -14,7 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
-import com.example.application.R
+import com.example.application.core.R
 import com.example.application._core.ui.component.ButtonBlue
 import com.example.application._core.ui.component.ButtonWhite
 import com.example.application._core.ui.theme.BlackSoft

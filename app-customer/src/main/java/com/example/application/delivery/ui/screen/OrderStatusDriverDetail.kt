@@ -1,5 +1,4 @@
-package com.example.application._core.ui.screen
-
+package com.example.application.delivery.ui.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -17,7 +16,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.application.core.R
+import com.example.application.R
+import com.example.application.core.R as CoreR
 import com.example.application._core.ui.theme.BlackSoft
 import com.example.application._core.ui.theme.BluePrimary
 import com.example.application._core.ui.theme.GrayMedium
@@ -30,32 +30,22 @@ fun OrderStatusDriverDetail(
     onCallClick: () -> Unit,
     onChatClick: () -> Unit = {}
 ) {
-
     Card(
         modifier = Modifier.fillMaxWidth(),
-
         colors = CardDefaults.cardColors(
             containerColor = WhiteSoft
         ),
-
         shape = RoundedCornerShape(0.dp)
     ) {
-
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
-
             Row(
                 modifier = Modifier.fillMaxWidth(),
-
                 verticalAlignment = Alignment.CenterVertically,
-
-                horizontalArrangement =
-                    Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-
                 Column {
-
                     Text(
                         text = driverName,
                         fontSize = 18.sp,
@@ -73,28 +63,18 @@ fun OrderStatusDriverDetail(
                     contentAlignment = Alignment.CenterEnd,
                     modifier = Modifier.width(80.dp)
                 ) {
-
                     Image(
-                        painter = painterResource(
-                            id = R.drawable.ic_bike
-                        ),
-
+                        painter = painterResource(id = R.drawable.ic_bike),
                         contentDescription = null,
-
                         modifier = Modifier
                             .size(60.dp)
                             .align(Alignment.CenterStart)
                     )
 
                     Image(
-                        painter = painterResource(
-                            id = R.drawable.dummy
-                        ),
-
+                        painter = painterResource(id = CoreR.drawable.dummy),
                         contentDescription = null,
-
                         contentScale = ContentScale.Crop,
-
                         modifier = Modifier
                             .size(40.dp)
                             .clip(CircleShape)
@@ -109,58 +89,39 @@ fun OrderStatusDriverDetail(
                 }
             }
 
-            Spacer(
-                modifier = Modifier.height(12.dp)
-            )
+            Spacer(modifier = Modifier.height(12.dp))
 
             Row(
-                verticalAlignment =
-                    Alignment.CenterVertically,
-
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
-
                 OutlinedTextField(
                     value = "",
                     onValueChange = {},
-
                     placeholder = {
                         Text(
                             "Any notes?",
                             fontSize = 14.sp
                         )
                     },
-
                     modifier = Modifier
                         .weight(1f)
                         .height(50.dp),
-
                     shape = RoundedCornerShape(8.dp),
-
-                    colors =
-                        OutlinedTextFieldDefaults.colors(
-                            unfocusedBorderColor =
-                                GrayMedium
-                        )
+                    colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedBorderColor = GrayMedium
+                    )
                 )
 
-                Spacer(
-                    modifier = Modifier.width(8.dp)
-                )
+                Spacer(modifier = Modifier.width(8.dp))
 
                 IconButton(
                     onClick = onCallClick
                 ) {
-
                     Icon(
-                        painter = painterResource(
-                            id = R.drawable.ic_orderstatus
-                        ),
-
+                        painter = painterResource(id = CoreR.drawable.ic_orderstatus),
                         contentDescription = "Call",
-
                         tint = BlackSoft,
-
                         modifier = Modifier.size(28.dp)
                     )
                 }

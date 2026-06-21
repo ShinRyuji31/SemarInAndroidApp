@@ -14,9 +14,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.application.R
 import com.example.application._core.ui.theme.BlackSoft
 import com.example.application._core.ui.theme.GrayDark
+import com.example.application.core.R
 
 @Composable
 fun AnterinLocationItem(title: String, subtitle: String) {

@@ -17,7 +17,7 @@ import com.example.application.delivery.data.model.StoreType
 import com.example.application.delivery.ui.screen.*
 import com.example.application.delivery.ui.viewmodel.CartViewModel
 import com.example.application.delivery.ui.viewmodel.StoreViewModel
-import com.example.application._core.ui.screen.FindingDriverPage
+import com.example.application.delivery.ui.screen.FindingDriverPage
 import com.example.application.orderhistory.ui.screen.OrderHistoryScreen
 import com.example.application.profile.ui.screen.ProfileFullScreen
 import com.example.application.profile.ui.screen.ProfileMainScreen

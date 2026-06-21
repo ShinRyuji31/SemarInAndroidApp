@@ -18,9 +18,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.application.R
 import com.example.application.anterin.data.model.HistoryLocation
 import com.example.application._core.ui.theme.WhiteSoft
+import com.example.application.core.R
 
 @Composable
 fun AnterinHistoryItem(

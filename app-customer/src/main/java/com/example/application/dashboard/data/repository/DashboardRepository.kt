@@ -52,7 +52,6 @@ class DashboardRepository(private val supabaseStoreRepository: SupabaseStoreRepo
         )
     }
 
-    // Mengubah menjadi fungsi suspend untuk mengambil data dari Supabase
     suspend fun getAffordableRestaurants(): List<Store> {
         return supabaseStoreRepository.fetchStores().fold(
             onSuccess = { stores ->
@@ -64,7 +63,6 @@ class DashboardRepository(private val supabaseStoreRepository: SupabaseStoreRepo
         )
     }
 
-    // Mengubah menjadi fungsi suspend untuk mengambil data dari Supabase
     suspend fun getLastOrderRestaurant(): Store? {
         return supabaseStoreRepository.fetchStores().fold(
             onSuccess = { stores ->

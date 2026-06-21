@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.application.R
+import com.example.application.core.R
 import com.example.application.delivery.ui.component.orderstatus.OrderSummary
 import com.example.application.delivery.ui.viewmodel.CartViewModel
 import com.example.application.dashboard.ui.component.DashboardBottomNavBar
@@ -25,7 +25,6 @@ import com.example.application._core.ui.theme.BlackSoft
 import com.example.application._core.ui.theme.GrayMedium
 import com.example.application._core.ui.theme.WhiteSoft
 import com.example.application._core.util.toRupiah
-import com.example.application._core.ui.screen.OrderStatusDriverDetail
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

@@ -14,7 +14,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.application.R
 import com.example.application.anterin.ui.component.destination.AnterinLocationCard
 import com.example.application.anterin.ui.component.destination.AnterinProgresLine
 import com.example.application.anterin.ui.viewmodel.AnterinViewModel
@@ -24,9 +23,10 @@ import com.example.application._core.ui.component.MapWebView
 import com.example.application._core.ui.theme.BlackSoft
 import com.example.application._core.ui.theme.GrayMedium
 import com.example.application._core.ui.theme.WhiteSoft
-import com.example.application._core.ui.screen.OrderStatusDriverDetail
+import com.example.application.delivery.ui.screen.OrderStatusDriverDetail
 import com.example.application._core.data.location.LocationViewModel
 import org.koin.androidx.compose.koinViewModel
+import com.example.application.core.R
 
 @Composable
 fun AnterinOrderStatusPage(

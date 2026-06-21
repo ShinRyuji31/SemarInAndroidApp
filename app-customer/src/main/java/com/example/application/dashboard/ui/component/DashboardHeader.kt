@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.application.R
+import com.example.application.core.R
 import com.example.application.auth.data.model.User
 import com.example.application._core.data.location.model.LocationUiState
 import com.example.application._core.ui.theme.WhiteSoft

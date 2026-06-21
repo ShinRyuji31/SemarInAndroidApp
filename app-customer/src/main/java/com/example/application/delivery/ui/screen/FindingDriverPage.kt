@@ -1,4 +1,4 @@
-package com.example.application._core.ui.screen
+package com.example.application.delivery.ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -12,11 +12,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.application.core.R
 import com.example.application._core.ui.component.Header
 import com.example.application._core.ui.theme.BluePrimary
 import com.example.application._core.ui.theme.WhiteSoft
 import kotlinx.coroutines.delay
+import com.example.application.R
 
 enum class DriverState {
     FINDING,
@@ -38,18 +38,21 @@ fun FindingDriverPage(
         onFinished()
     }
 
-    val (title, subtitle, image) = when (currentState) {
-        DriverState.FINDING -> Triple(
-            "Hold on tight.",
-            "We are finding a driver for you",
-            R.drawable.logo_coloredbike
-        )
+    val title: String
+    val subtitle: String
+    val imageRes: Int
 
-        DriverState.FOUND -> Triple(
-            "Horay!",
-            "We have found you a driver",
-            R.drawable.ic_star
-        )
+    when (currentState) {
+        DriverState.FINDING -> {
+            title = "Hold on tight."
+            subtitle = "We are finding a driver for you"
+            imageRes = R.drawable.logo_coloredbike
+        }
+        DriverState.FOUND -> {
+            title = "Hooray!" // Typo Horay dibenerin
+            subtitle = "We have found you a driver"
+            imageRes = R.drawable.logo_coloredhelmet
+        }
     }
 
     Box(
@@ -89,7 +92,7 @@ fun FindingDriverPage(
             Spacer(modifier = Modifier.height(32.dp))
 
             Icon(
-                painter = painterResource(id = image),
+                painter = painterResource(id = imageRes),
                 contentDescription = null,
                 modifier = Modifier.size(120.dp),
                 tint = Color.Unspecified

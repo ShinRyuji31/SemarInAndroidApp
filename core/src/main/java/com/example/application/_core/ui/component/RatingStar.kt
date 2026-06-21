@@ -7,8 +7,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.size
-import com.example.application.core.R
 import com.example.application._core.ui.theme.Yellow
+import com.example.application.core.R
 
 @Composable
 fun RatingStar(

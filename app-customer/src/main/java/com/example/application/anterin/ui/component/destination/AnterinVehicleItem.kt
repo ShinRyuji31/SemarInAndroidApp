@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 fun AnterinVehicleItem(
     name: String,
     capacity: String,
-    price: String, // String type
+    price: String,
     icon: Int,
     isSelected: Boolean,
     onClick: () -> Unit

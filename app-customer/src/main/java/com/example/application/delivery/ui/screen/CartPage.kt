@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.example.application.R
+import com.example.application.core.R
 import com.example.application._core.data.location.LocationViewModel
 import com.example.application.delivery.ui.component.cart.CartAlertRemoveItem
 import com.example.application.delivery.ui.component.cart.CartEmpty

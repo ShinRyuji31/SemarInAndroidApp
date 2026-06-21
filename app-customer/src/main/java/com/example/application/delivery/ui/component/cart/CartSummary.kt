@@ -64,8 +64,16 @@ fun CartSummary(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = "Subtotal", color = Color.Gray, fontSize = 15.sp)
-            Text(text = subtotal.toRupiah(), color = Color.Gray, fontSize = 15.sp)
+            Text(
+                text = "Subtotal",
+                color = Color.Gray,
+                fontSize = 15.sp
+            )
+            Text(
+                text = subtotal.toRupiah(),
+                color = Color.Gray,
+                fontSize = 15.sp
+            )
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -74,8 +82,16 @@ fun CartSummary(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = "Delivery fee", color = Color.Gray, fontSize = 15.sp)
-            Text(text = deliveryFee.toRupiah(), color = Color.Gray, fontSize = 15.sp)
+            Text(
+                text = "Delivery fee",
+                color = Color.Gray,
+                fontSize = 15.sp
+            )
+            Text(
+                text = deliveryFee.toRupiah(),
+                color = Color.Gray,
+                fontSize = 15.sp
+            )
         }
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -85,8 +101,16 @@ fun CartSummary(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "Total", fontSize = 22.sp, fontWeight = FontWeight.Bold)
-            Text(text = total.toRupiah(), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+            Text(
+                text = "Total",
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = total.toRupiah(),
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
         }
     }
 }

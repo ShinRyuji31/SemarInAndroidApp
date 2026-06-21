@@ -44,7 +44,7 @@ fun AnterinDestinationSetPage(
             pickupLocation = uiState.pickup,
             destinationLocation = uiState.destination,
             routeGeoJson = uiState.route?.geoJson,
-            onMapClick = { _, _ -> }, // Disable selection on this page
+            onMapClick = { _, _ -> },
             isInteractionEnabled = false,
             modifier = Modifier.fillMaxSize()
         )
@@ -70,14 +70,13 @@ fun AnterinDestinationSetPage(
 
                 Column {
                     uiState.vehicleTypes.forEach { vehicle ->
-                        // Calculate real price
                         val distance = uiState.route?.distanceKm ?: 0.0
                         val totalPrice = (vehicle.price.toDouble() * distance).toLong()
 
                         AnterinVehicleItem(
                             name = vehicle.name,
                             capacity = "${vehicle.capacity} person",
-                            price = totalPrice.toRupiah(), // Real calculated price
+                            price = totalPrice.toRupiah(),
                             icon = vehicle.icon,
                             isSelected = uiState.selectedVehicleType == vehicle.id,
                             onClick = {
