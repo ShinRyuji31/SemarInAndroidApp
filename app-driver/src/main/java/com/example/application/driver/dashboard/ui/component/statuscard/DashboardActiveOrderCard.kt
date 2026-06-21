@@ -15,8 +15,11 @@ import com.example.application._core.ui.component.ButtonWhite
 import com.example.application._core.ui.theme.WhiteSoft
 import com.example.application._core.ui.theme.blueBlueGradient
 
+import com.example.application.driver.order.data.dto.ActiveOrderDto
+
 @Composable
 fun DashboardActiveOrderCard(
+    activeOrder: ActiveOrderDto,
     onDetailClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -39,12 +42,13 @@ fun DashboardActiveOrderCard(
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "Gg. Kutai Utara No.1",
+                text = activeOrder.destinationAddress,
                 color = WhiteSoft,
                 fontSize = 14.sp
             )
+            val distanceStr = activeOrder.distance?.let { "${it} km" } ?: "-"
             Text(
-                text = "Jarak 3.5 km",
+                text = "Jarak $distanceStr",
                 color = WhiteSoft,
                 fontSize = 14.sp
             )

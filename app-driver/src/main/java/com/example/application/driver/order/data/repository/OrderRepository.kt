@@ -6,6 +6,7 @@ import com.example.application.driver._core.data.model.DriverLocationDto
 import com.example.application.driver.order.data.dto.ActiveOrderDto
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.postgrest
+import io.github.jan.supabase.postgrest.query.Columns
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -40,9 +41,13 @@ class OrderRepository(private val supabase: SupabaseClient) {
         }
     }
 
+    private val orderSelectColumns = Columns.raw(
+        "order_id, order_status, distance, total_price, pickup:LOCATION!pickup_location_id(address), destination:LOCATION!destination_location_id(address), ITEM_ORDER(STORE(store_name))"
+    )
+
     suspend fun getIncomingOrder(driverId: String): ActiveOrderDto? {
         return try {
-            val orders = supabase.postgrest["ORDER"].select {
+            val orders = supabase.postgrest["ORDER"].select(columns = orderSelectColumns) {
                 filter {
                     eq("driver_id", driverId)
                     eq("order_status", "PENDING")
@@ -57,7 +62,7 @@ class OrderRepository(private val supabase: SupabaseClient) {
 
     suspend fun getActiveOrder(driverId: String): ActiveOrderDto? {
         return try {
-            val orders = supabase.postgrest["ORDER"].select {
+            val orders = supabase.postgrest["ORDER"].select(columns = orderSelectColumns) {
                 filter {
                     eq("driver_id", driverId)
                     isIn("order_status", listOf("ACCEPTED", "PICKING_UP", "DELIVERING", "WAITING_PAYMENT"))

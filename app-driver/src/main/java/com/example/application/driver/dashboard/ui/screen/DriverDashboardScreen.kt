@@ -1,5 +1,9 @@
 package com.example.application.driver.dashboard.ui.screen
 
+import android.Manifest
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -14,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.application._core.ui.theme.GrayMedium
 import com.example.application.driver.dashboard.ui.component.statuscard.DashboardActiveOrderCard
@@ -26,6 +31,7 @@ import com.example.application.driver.dashboard.ui.component.statuscard.Dashboar
 import com.example.application.driver.dashboard.ui.component.DashboardProfileCard
 import com.example.application.driver.dashboard.ui.component.statuscard.DashboardWaitingOrderCard
 import com.example.application.driver.dashboard.ui.viewmodel.DashboardViewModel
+import com.example.application._core.data.location.LocationViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -35,11 +41,38 @@ fun DriverDashboardScreen(
     onNavigateToOrderStatus: () -> Unit = {},
     onNavigateToOrderHistory: () -> Unit = {},
     onNavigateToProfile: () -> Unit = {},
-    viewModel: DashboardViewModel = koinViewModel()
+    viewModel: DashboardViewModel = koinViewModel(),
+    locationViewModel: LocationViewModel = koinViewModel()
 ){
     val isOnline by viewModel.isOnline.collectAsState()
     val activeOrder by viewModel.activeOrder.collectAsState()
+    val locationState by locationViewModel.uiState.collectAsState()
     var showLogoutDialog by remember { mutableStateOf(false) }
+
+    val context = LocalContext.current
+
+    val locationPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val isGranted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true ||
+                permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true
+
+        if (isGranted) {
+            locationViewModel.fetchLocation()
+        } else {
+            Toast.makeText(context, "Izin lokasi ditolak! Aplikasi butuh GPS.", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        locationPermissionLauncher.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        )
+        locationViewModel.fetchLocation()
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Scaffold(
@@ -84,9 +117,13 @@ fun DriverDashboardScreen(
                 Box(modifier = Modifier.align(Alignment.BottomCenter).padding(16.dp)) {
                     when {
                         !isOnline -> DashboardOfflineCard()
-                        isOnline && activeOrder == null -> DashboardWaitingOrderCard()
+                        isOnline && activeOrder == null -> {
+                            val locationAddress = locationState.locationName.ifEmpty { "Mencari lokasi..." }
+                            DashboardWaitingOrderCard(locationAddress = locationAddress)
+                        }
                         isOnline && activeOrder != null -> {
                             DashboardActiveOrderCard(
+                                activeOrder = activeOrder!!,
                                 onDetailClick = { onNavigateToOrderDetail() }
                             )
                         }

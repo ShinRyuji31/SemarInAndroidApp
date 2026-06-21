@@ -19,6 +19,7 @@ import com.example.application._core.ui.theme.blueBlueGradient
 
 @Composable
 fun DashboardWaitingOrderCard(
+    locationAddress: String,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -40,7 +41,7 @@ fun DashboardWaitingOrderCard(
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "Pastikan GPS kamu aktif dan menyala.",
+                text = locationAddress,
                 color = GrayMedium,
                 fontSize = 14.sp
             )

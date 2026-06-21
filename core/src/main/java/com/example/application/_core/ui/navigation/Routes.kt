@@ -43,5 +43,8 @@ sealed interface Routes {
     // Driver
     @Serializable data object DriverAuthRoute : Routes
     @Serializable data object DriverDashboardRoute : Routes
-    @Serializable data object DriverSignUpRoute : Routes // TAMBAHAN BARU
+    @Serializable
+    object DriverOrderStatusRoute
+
+    @Serializable data object DriverSignUpRoute : Routes
 }

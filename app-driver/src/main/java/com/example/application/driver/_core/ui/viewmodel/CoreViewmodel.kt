@@ -68,7 +68,38 @@ class CoreViewmodel(
                 _incomingOrder.value = null
 
                 val driverId = userRepository.getCurrentUserId() ?: return@launch
+
+                orderRepository.updateOrderStatus(orderId, "PICKING_UP")
                 _activeOrder.value = orderRepository.getActiveOrder(driverId)
+            }
+        }
+    }
+
+    fun confirmPickup(orderId: String) {
+        viewModelScope.launch {
+            val success = orderRepository.updateOrderStatus(orderId, "DELIVERING")
+            if (success) {
+                val driverId = userRepository.getCurrentUserId() ?: return@launch
+                _activeOrder.value = orderRepository.getActiveOrder(driverId)
+            }
+        }
+    }
+
+    fun arrivedAtDestination(orderId: String) {
+        viewModelScope.launch {
+            val success = orderRepository.updateOrderStatus(orderId, "WAITING_PAYMENT")
+            if (success) {
+                val driverId = userRepository.getCurrentUserId() ?: return@launch
+                _activeOrder.value = orderRepository.getActiveOrder(driverId)
+            }
+        }
+    }
+
+    fun confirmPayment(orderId: String) {
+        viewModelScope.launch {
+            val success = orderRepository.updateOrderStatus(orderId, "COMPLETED")
+            if (success) {
+                _activeOrder.value = null
             }
         }
     }
