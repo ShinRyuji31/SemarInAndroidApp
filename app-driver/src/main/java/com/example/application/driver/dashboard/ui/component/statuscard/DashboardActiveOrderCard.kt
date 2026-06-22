@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.application._core.ui.component.ButtonWhite
@@ -38,13 +39,15 @@ fun DashboardActiveOrderCard(
                 text = "Deliver Food",
                 color = WhiteSoft,
                 fontWeight = FontWeight.Bold,
-                fontSize = 18.sp
+                fontSize = 20.sp
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = activeOrder.destinationAddress,
                 color = WhiteSoft,
-                fontSize = 14.sp
+                fontSize = 14.sp,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
             val distanceStr = activeOrder.distance?.let { "${it} km" } ?: "-"
             Text(

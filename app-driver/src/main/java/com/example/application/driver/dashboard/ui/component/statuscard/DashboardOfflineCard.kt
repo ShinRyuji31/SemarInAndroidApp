@@ -17,8 +17,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.application.core.R
 import com.example.application._core.ui.theme.BlackSoft
+import com.example.application._core.ui.theme.BluePrimary
 import com.example.application._core.ui.theme.GrayMedium
 import com.example.application._core.ui.theme.WhiteSoft
+import com.example.application._core.ui.theme.blueBlueGradient
 
 @Composable
 fun DashboardOfflineCard(
@@ -29,7 +31,7 @@ fun DashboardOfflineCard(
             .fillMaxWidth()
             .height(100.dp)
             .clip(RoundedCornerShape(16.dp))
-            .background(WhiteSoft)
+            .background(blueBlueGradient())
             .border(
                 width = 1.dp,
                 color = GrayMedium,
@@ -42,15 +44,15 @@ fun DashboardOfflineCard(
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = "Kamu Sedang Offline",
-                color = BlackSoft,
+                color = WhiteSoft,
                 fontWeight = FontWeight.Bold,
-                fontSize = 18.sp
+                fontSize = 20.sp
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = "Nyalakan status online untuk mulai menerima pesanan masuk.",
                 color = GrayMedium,
-                fontSize = 13.sp,
+                fontSize = 14.sp,
                 lineHeight = 18.sp
             )
         }
@@ -58,10 +60,9 @@ fun DashboardOfflineCard(
         Spacer(modifier = Modifier.width(16.dp))
 
         Icon(
-            painter = painterResource(id = R.drawable.ic_profile),
+            painter = painterResource(id = R.drawable.logo_coloredleaf),
             contentDescription = "Offline Mode",
-            modifier = Modifier.size(40.dp),
-            tint = Color.LightGray
+            modifier = Modifier.size(60.dp),
         )
     }
 }

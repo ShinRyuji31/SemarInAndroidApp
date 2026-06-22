@@ -37,7 +37,7 @@ fun DashboardWaitingOrderCard(
                 text = "Mencari Pesanan...",
                 color = WhiteSoft,
                 fontWeight = FontWeight.Bold,
-                fontSize = 18.sp
+                fontSize = 20.sp
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(

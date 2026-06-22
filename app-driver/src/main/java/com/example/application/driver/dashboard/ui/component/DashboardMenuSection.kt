@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.application._core.ui.theme.GrayDark
+import com.example.application._core.ui.theme.GrayMedium
 import com.example.application.core.R
 
 @Composable
@@ -21,10 +22,6 @@ fun DashboardMenuSection(
             .fillMaxWidth()
             .background(
                 Color.White,
-                RoundedCornerShape(16.dp))
-            .border(
-                1.dp,
-                GrayDark,
                 RoundedCornerShape(16.dp))
             .padding(vertical = 16.dp)
     ) {
