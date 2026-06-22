@@ -22,13 +22,13 @@ import com.example.application.profile.ui.component.ProfileAvatar
 
 @Composable
 fun DashboardProfileCard(
+    driverName: String,
     isOnline: Boolean,
-    profilePicUrl: String? = null,
+    profilePicUrl: String?,
     onToggleOnline: (Boolean) -> Unit
 ) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
@@ -50,7 +50,7 @@ fun DashboardProfileCard(
 
                 Column {
                     Text(
-                        text = "Driver Aktif",
+                        text = driverName,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
                         color = BlackSoft

@@ -15,7 +15,7 @@ val orderRepositoryModule = module {
 val driverViewModelModule = module {
     viewModel { DriverAuthViewModel(get(), get()) }
     single { CoreViewmodel(get(), get(), get()) }
-    viewModel { DashboardViewModel(get()) }
+    viewModel { DashboardViewModel(get(), get()) }
     viewModel { DriverSignUpViewModel(get()) }
 }
 

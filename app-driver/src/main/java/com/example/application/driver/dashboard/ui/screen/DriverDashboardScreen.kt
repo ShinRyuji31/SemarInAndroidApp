@@ -64,6 +64,12 @@ fun DriverDashboardScreen(
         }
     }
 
+    val dashboardViewModel: DashboardViewModel = koinViewModel()
+    val driverName by viewModel.driverName.collectAsState()
+    val profilePicUrl by viewModel.profilePicUrl.collectAsState()
+
+
+
     LaunchedEffect(Unit) {
         locationPermissionLauncher.launch(
             arrayOf(
@@ -101,9 +107,11 @@ fun DriverDashboardScreen(
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         DashboardProfileCard(
+                            driverName = driverName,
                             isOnline = isOnline,
-                            profilePicUrl = null,
+                            profilePicUrl = profilePicUrl,
                             onToggleOnline = { viewModel.setOnlineStatus(it) }
+
                         )
                         DashboardDriverStat()
                         DashboardMenuSection(
