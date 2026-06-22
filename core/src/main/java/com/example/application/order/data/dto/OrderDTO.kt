@@ -17,6 +17,9 @@ data class StoreDto(
 
 @Serializable
 data class ProductDto(
+    @SerialName("product_name") val productName: String = "Item",
+    @SerialName("product_price") val productPrice: Double = 0.0,
+    @SerialName("product_img") val productImg: String? = null,
     @SerialName("STORE") val store: StoreDto? = null
 )
 

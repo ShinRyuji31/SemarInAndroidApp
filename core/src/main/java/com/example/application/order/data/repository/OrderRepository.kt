@@ -52,7 +52,7 @@ class OrderRepository(private val supabase: SupabaseClient) {
     }
 
     private val orderSelectColumns = Columns.Companion.raw(
-        "order_id, order_status, is_anterin, distance, total_price, pickup:LOCATION!pickup_location_id(address), destination:LOCATION!destination_location_id(address), ORDER_ITEM(PRODUCT(STORE(store_name)))"
+        "order_id, order_status, is_anterin, distance, total_price, pickup:LOCATION!pickup_location_id(address), destination:LOCATION!destination_location_id(address), ORDER_ITEM(PRODUCT(product_name, product_price, product_img, STORE(store_name)))"
     )
 
     suspend fun getIncomingOrder(userId: String, isDriver: Boolean = true): ActiveOrderDto? {
