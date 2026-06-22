@@ -23,7 +23,7 @@ import com.example.application._core.ui.component.MapWebView
 import com.example.application._core.ui.theme.BlackSoft
 import com.example.application._core.ui.theme.GrayMedium
 import com.example.application._core.ui.theme.WhiteSoft
-import com.example.application.globalorderstatus.ui.screen.OrderStatusDriverDetail
+import com.example.application.globalorderstatus.ui.component.OrderStatusDriverDetail
 import com.example.application._core.data.location.LocationViewModel
 import org.koin.androidx.compose.koinViewModel
 import com.example.application.core.R

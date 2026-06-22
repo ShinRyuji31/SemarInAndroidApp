@@ -34,7 +34,6 @@ fun OrderTimelineItem(
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-
             modifier = Modifier.width(32.dp)
         ) {
 
@@ -46,12 +45,10 @@ fun OrderTimelineItem(
                             BluePrimary
                         else
                             GrayMedium,
-
                         CircleShape
                     )
                     .border(
                         2.dp,
-
                         if (isCompleted)
                             BluePrimary
                         else
@@ -67,24 +64,20 @@ fun OrderTimelineItem(
 
                     Icon(
                         painter = painterResource(
-                            id = R.drawable.ic_star
+                            id = R.drawable.ic_check
                         ),
-
                         contentDescription = null,
-
                         modifier = Modifier.size(14.dp),
-
                         tint = WhiteSoft
                     )
                 }
             }
 
             if (!isLast) {
-
                 Box(
                     modifier = Modifier
                         .width(2.dp)
-                        .height(40.dp)
+                        .height(30.dp)
                         .background(
                             if (isCompleted)
                                 BluePrimary
@@ -100,22 +93,21 @@ fun OrderTimelineItem(
         )
 
         Column(
-            modifier = Modifier.padding(
+            modifier = Modifier
+                .padding(
                 bottom =
                     if (isLast)
                         0.dp
                     else
                         24.dp
             )
+                .align(Alignment.CenterVertically)
         ) {
 
             Text(
                 text = title,
-
                 fontSize = 14.sp,
-
                 fontWeight = FontWeight.Bold,
-
                 color =
                     if (isCompleted)
                         BlackSoft
@@ -123,16 +115,6 @@ fun OrderTimelineItem(
                         Color.Gray
             )
 
-            if (time.isNotEmpty()) {
-
-                Text(
-                    text = time,
-
-                    fontSize = 12.sp,
-
-                    color = Color.Gray
-                )
-            }
         }
     }
 }

@@ -1,6 +1,7 @@
-package com.example.application.globalorderstatus.ui.screen
+package com.example.application.globalorderstatus.ui.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -38,7 +39,7 @@ fun OrderStatusDriverDetail(
         shape = RoundedCornerShape(0.dp)
     ) {
         Column(
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(horizontal = 16.dp)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -61,10 +62,10 @@ fun OrderStatusDriverDetail(
 
                 Box(
                     contentAlignment = Alignment.CenterEnd,
-                    modifier = Modifier.width(80.dp)
+                    modifier = Modifier.width(100.dp)
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_bike),
+                        painter = painterResource(id = R.drawable.logo_coloredbike),
                         contentDescription = null,
                         modifier = Modifier
                             .size(60.dp)
@@ -72,14 +73,15 @@ fun OrderStatusDriverDetail(
                     )
 
                     Image(
-                        painter = painterResource(id = CoreR.drawable.dummy),
+                        painter = painterResource(id = R.drawable.logo_coloredhelmet),
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .size(40.dp)
+                            .size(50.dp)
                             .clip(CircleShape)
+                            .background(WhiteSoft)
                             .border(
-                                2.dp,
+                                3.dp,
                                 BluePrimary,
                                 CircleShape
                             )
@@ -119,7 +121,7 @@ fun OrderStatusDriverDetail(
                     onClick = onCallClick
                 ) {
                     Icon(
-                        painter = painterResource(id = CoreR.drawable.ic_orderstatus),
+                        painter = painterResource(id = CoreR.drawable.ic_chat),
                         contentDescription = "Call",
                         tint = BlackSoft,
                         modifier = Modifier.size(28.dp)

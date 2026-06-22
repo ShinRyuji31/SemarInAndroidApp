@@ -19,7 +19,7 @@ fun OrderSummary(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(horizontal = 16.dp)
     ) {
 
         OrderSummaryRow(
@@ -33,7 +33,7 @@ fun OrderSummary(
         )
 
         Spacer(
-            modifier = Modifier.height(16.dp)
+            modifier = Modifier.height(8.dp)
         )
 
         Row(

@@ -10,20 +10,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.application.core.R
 import com.example.application._core.ui.component.Header
+import com.example.application._core.ui.theme.BlackSoft
 import com.example.application._core.ui.theme.WhiteSoft
 import com.example.application.globalorderstatus.ui.viewmodel.OrderStatusGlobalViewmodel
 import com.example.application.dashboard.ui.component.DashboardBottomNavBar
 import com.example.application.globalorderstatus.ui.component.OrderSummary
 import com.example.application.globalorderstatus.ui.component.OrderTimelineItem
-import com.example.application.globalorderstatus.ui.screen.OrderStatusDriverDetail
+import com.example.application.globalorderstatus.ui.component.OrderStatusDriverDetail
 import com.example.application.globalorderstatus.ui.screen.CustomerEmptyOrderScreen
 // Import CartItemComponent lo
 import com.example.application.delivery.ui.component.cart.CartItemComponent
@@ -124,6 +123,7 @@ fun DeliveryOrderStatusPage(
                 Text(
                     text = "Items Ordered",
                     fontWeight = FontWeight.Bold,
+                    color = BlackSoft,
                     fontSize = 16.sp,
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
                 )
@@ -146,6 +146,8 @@ fun DeliveryOrderStatusPage(
                     }
                 }
 
+                Spacer(modifier = Modifier.height(16.dp))
+
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -156,6 +158,8 @@ fun DeliveryOrderStatusPage(
                         deliveryFee = "Rp 7000",
                         total = "Rp ${(order.totalPrice ?: 0.0) + 7000}"
                     )
+
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     OrderStatusDriverDetail(
                         driverName = "Kyle",

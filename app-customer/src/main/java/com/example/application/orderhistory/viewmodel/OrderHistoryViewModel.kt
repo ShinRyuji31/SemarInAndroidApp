@@ -28,7 +28,6 @@ class OrderHistoryViewModel(
         viewModelScope.launch {
             _isLoading.value = true
 
-            // 🚀 AMBIL USER ID DULU
             val userId = userRepository.getCurrentUserId()
 
             if (userId != null) {
