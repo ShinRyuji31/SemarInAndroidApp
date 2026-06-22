@@ -3,7 +3,7 @@ package com.example.application._core.di
 import com.example.application.core.BuildConfig
 import com.example.application.auth.data.repository.UserRepository
 import com.example.application.auth.ui.viewmodel.LoginViewModel
-import com.example.application.auth.ui.viewmodel.SignUpViewModel
+import com.example.application.auth.ui.viewmodel.CustomerSignUpViewModel
 import com.example.application.chat.data.repository.ChatRepository
 import com.example.application.chat.ui.viewmodel.ChatViewModel
 import com.example.application._core.data.maps.repository.MapsRepository
@@ -60,7 +60,7 @@ val coreRepositoryModule = module {
 
 val coreViewModelModule = module {
     viewModel { LoginViewModel(get()) }
-    viewModel { SignUpViewModel(get()) }
+    viewModel { CustomerSignUpViewModel(get()) }
     viewModel { LocationViewModel(get()) }
     viewModel { ChatViewModel(get()) }
 }

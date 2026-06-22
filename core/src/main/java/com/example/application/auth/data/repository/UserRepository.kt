@@ -38,7 +38,6 @@ class UserRepository(supabaseClient: SupabaseClient) {
         return sdf.format(Date())
     }
 
-    // UNTUK CUSTOMER
     suspend fun signUp(
         email: String, password: String, username: String,
         firstName: String, lastName: String, phoneNumber: String
@@ -68,7 +67,6 @@ class UserRepository(supabaseClient: SupabaseClient) {
         }
     }
 
-    // UNTUK DRIVER
     suspend fun signUpDriver(
         email: String,
         password: String,

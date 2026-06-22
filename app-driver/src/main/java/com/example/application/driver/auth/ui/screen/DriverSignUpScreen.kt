@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.sp
 import com.example.application.auth.ui.component.AuthInputField
 import com.example.application.auth.ui.viewmodel.AuthUiState
 import com.example.application._core.ui.component.ButtonBlue
+import com.example.application._core.ui.theme.BlackSoft
 import com.example.application._core.ui.theme.WhiteSoft
 import com.example.application._core.ui.theme.blueWhiteGradient
 import com.example.application.driver.auth.ui.viewmodel.DriverSignUpViewModel
@@ -66,7 +67,12 @@ fun DriverSignUpScreen(
                     .verticalScroll(scrollState),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text("Daftar Driver", fontSize = 24.sp, fontWeight = Bold, color = MaterialTheme.colorScheme.onBackground)
+                Text("Daftar Driver",
+                    fontSize = 24.sp,
+                    fontWeight = Bold,
+                    color = BlackSoft
+                )
+
                 Spacer(modifier = Modifier.height(24.dp))
 
                 AuthInputField(
@@ -132,7 +138,7 @@ fun DriverSignUpScreen(
                         "Tipe Kendaraan",
                         fontSize = 14.sp,
                         fontWeight = Bold,
-                        color = MaterialTheme.colorScheme.onBackground
+                        color = BlackSoft,
                     )
                     Row(
                         verticalAlignment = Alignment.CenterVertically
@@ -141,13 +147,19 @@ fun DriverSignUpScreen(
                             selected = selectedDriverTypeId == uuidMotor,
                             onClick = { selectedDriverTypeId = uuidMotor }
                         )
-                        Text("Motor (Anter-in)")
+                        Text(
+                            "Motor",
+                            color = BlackSoft,
+                        )
                         Spacer(modifier = Modifier.width(16.dp))
                         RadioButton(
                             selected = selectedDriverTypeId == uuidMobil,
                             onClick = { selectedDriverTypeId = uuidMobil }
                         )
-                        Text("Mobil (Titip-in)")
+                        Text(
+                            "Mobil",
+                            color = BlackSoft,
+                        )
                     }
                 }
 
@@ -188,6 +200,7 @@ fun DriverSignUpScreen(
 
                 Text(
                     text = "Sudah punya akun? Login",
+                    color = BlackSoft,
                     modifier = Modifier.clickable { onLoginClick() }
                 )
             }

@@ -32,6 +32,21 @@ class DriverAuthViewModel(
         }
     }
 
+    fun checkSession(onSessionValid: () -> Unit, onSessionInvalid: () -> Unit) {
+        viewModelScope.launch {
+            val userId = userRepository.getCurrentUserId()
+
+            if (userId != null) {
+                verifyDriverStatus(
+                    onSuccess = { onSessionValid() },
+                    onError = { onSessionInvalid() }
+                )
+            } else {
+                onSessionInvalid()
+            }
+        }
+    }
+
     fun logout(onSuccess: () -> Unit) {
         viewModelScope.launch {
             userRepository.signOut()

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class SignUpViewModel(
+class CustomerSignUpViewModel(
     private val repository: UserRepository
 ) : ViewModel() {
 
@@ -16,14 +16,13 @@ class SignUpViewModel(
     val uiState: StateFlow<AuthUiState> = _uiState.asStateFlow()
 
     fun signUp(
-        email: String, 
-        password: String, 
-        username: String, 
-        firstName: String, 
-        lastName: String, 
+        email: String,
+        password: String,
+        username: String,
+        firstName: String,
+        lastName: String,
         phoneNumber: String
     ) {
-        // Local validation check
         if (email.isBlank() || password.isBlank() || username.isBlank() || firstName.isBlank() || phoneNumber.isBlank()) {
             _uiState.value = AuthUiState.Error("Please fill all required fields")
             return
@@ -31,8 +30,7 @@ class SignUpViewModel(
 
         viewModelScope.launch {
             _uiState.value = AuthUiState.Loading
-            
-            // Call the refactored repository signUp which handles Auth + Profile insertion
+
             repository.signUp(
                 email = email,
                 password = password,

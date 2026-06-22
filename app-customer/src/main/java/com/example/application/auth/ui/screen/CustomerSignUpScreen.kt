@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.sp
 import com.example.application.core.R
 import com.example.application.auth.ui.component.AuthInputField
 import com.example.application.auth.ui.viewmodel.AuthUiState
-import com.example.application.auth.ui.viewmodel.SignUpViewModel
+import com.example.application.auth.ui.viewmodel.CustomerSignUpViewModel
 import com.example.application._core.ui.component.ButtonBlue
 import com.example.application._core.ui.component.ButtonSocial
 import com.example.application._core.ui.theme.WhiteSoft
@@ -28,7 +28,7 @@ import org.koin.androidx.compose.koinViewModel
 fun SignUpScreen(
     onRegisterSuccess: () -> Unit,
     onLoginClick: () -> Unit,
-    viewModel: SignUpViewModel = koinViewModel()
+    viewModel: CustomerSignUpViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val scrollState = rememberScrollState()

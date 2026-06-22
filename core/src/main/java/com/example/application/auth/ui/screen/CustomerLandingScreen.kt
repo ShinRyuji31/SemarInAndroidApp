@@ -20,7 +20,7 @@ import com.example.application._core.ui.component.ButtonWhite
 import com.example.application._core.ui.theme.blueWhiteGradient
 
 @Composable
-fun LandingScreen(
+fun CustomerLandingScreen(
     onLoginClick: () -> Unit,
     onSignUpClick: () -> Unit
 ) {

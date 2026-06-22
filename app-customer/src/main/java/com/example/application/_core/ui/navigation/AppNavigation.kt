@@ -54,7 +54,7 @@ fun AppNavigation(
             startDestination = Routes.LandingRoute
         ) {
             composable<Routes.LandingRoute> {
-                LandingScreen(
+                CustomerLandingScreen(
                     onLoginClick = {
                         navController.navigate(Routes.LoginRoute)
                     },

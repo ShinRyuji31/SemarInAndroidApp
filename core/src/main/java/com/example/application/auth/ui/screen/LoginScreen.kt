@@ -22,6 +22,7 @@ import com.example.application.auth.ui.viewmodel.AuthUiState
 import com.example.application.auth.ui.viewmodel.LoginViewModel
 import com.example.application._core.ui.component.ButtonBlue
 import com.example.application._core.ui.component.ButtonSocial
+import com.example.application._core.ui.theme.BlackSoft
 import com.example.application._core.ui.theme.WhiteSoft
 import com.example.application._core.ui.theme.blueWhiteGradient
 import org.koin.androidx.compose.koinViewModel
@@ -64,6 +65,7 @@ fun LoginScreen(
             ) {
                 Text(
                     text = "Login",
+                    color = BlackSoft,
                     fontSize = 24.sp,
                     fontWeight = Bold
                 )
@@ -132,6 +134,7 @@ fun LoginScreen(
                             append("Sign Up")
                         }
                     },
+                    color = BlackSoft,
                     modifier = Modifier.clickable { onGoToSignUp() },
                     fontSize = 13.sp
                 )
