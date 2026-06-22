@@ -1,4 +1,4 @@
-package com.example.application.orderhistory.ui.screen
+package com.example.application._core.orderhistory.ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -10,21 +10,18 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.application.dashboard.ui.component.DashboardBottomNavBar
 import com.example.application._core.ui.component.Header
 import com.example.application._core.ui.theme.WhiteSoft
-import com.example.application.orderhistory.ui.component.OrderHistoryEmptyState
-import com.example.application.orderhistory.ui.component.OrderHistoryItem
-import com.example.application.orderhistory.viewmodel.OrderHistoryViewModel
+import com.example.application._core.orderhistory.ui.component.OrderHistoryEmptyState
+import com.example.application._core.orderhistory.ui.component.OrderHistoryItem
+import com.example.application._core.orderhistory.viewmodel.OrderHistoryViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun OrderHistoryScreen(
     onBack: () -> Unit,
-    onHomeClick: () -> Unit,
-    onOrderStatusClick: () -> Unit,
-    onProfileClick: () -> Unit,
     viewModel: OrderHistoryViewModel = koinViewModel(),
+    bottomBar: @Composable () -> Unit
 ) {
     val orders by viewModel.orders.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
@@ -36,15 +33,7 @@ fun OrderHistoryScreen(
                 onBack = onBack
             )
         },
-        bottomBar = {
-            DashboardBottomNavBar(
-                currentTab = 2,
-                onHomeClick = onHomeClick,
-                onOrderStatusClick = onOrderStatusClick,
-                onOrderHistoryClick = {},
-                onProfileClick = onProfileClick
-            )
-        }
+        bottomBar = bottomBar
     ) { paddingValues ->
         Box(
             modifier = Modifier

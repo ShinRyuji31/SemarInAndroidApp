@@ -21,7 +21,8 @@ import com.example.application.delivery.ui.viewmodel.StoreViewModel
 import com.example.application.globalorderstatus.ui.route.OrderStatusGlobalRoute
 import com.example.application.globalorderstatus.ui.screen.FindingDriverPage
 import com.example.application.globalorderstatus.ui.viewmodel.OrderStatusGlobalViewmodel
-import com.example.application.orderhistory.ui.screen.OrderHistoryScreen
+import com.example.application._core.orderhistory.ui.screen.OrderHistoryScreen
+import com.example.application.dashboard.ui.component.DashboardBottomNavBar
 import com.example.application.profile.ui.screen.ProfileFullScreen
 import com.example.application.profile.ui.screen.ProfileMainScreen
 import org.koin.androidx.compose.koinViewModel
@@ -179,18 +180,24 @@ fun AppNavigation(
                 onBack = {
                     navController.popBackStack()
                 },
-                onHomeClick = {
-                    navController.navigate(Routes.DashBoardRoute) {
-                        popUpTo(Routes.DashBoardRoute) { inclusive = true }
-                    }
-                },
-                onOrderStatusClick = {
-                    navController.navigate(Routes.OrderStatusGlobalRoute) {
-                        launchSingleTop = true
-                    }
-                },
-                onProfileClick = {
-                    navController.navigate(Routes.ProfileRoute)
+                bottomBar = {
+                    DashboardBottomNavBar(
+                        currentTab = 2,
+                        onHomeClick = {
+                            navController.navigate(Routes.DashBoardRoute) {
+                                popUpTo(Routes.DashBoardRoute) { inclusive = true }
+                            }
+                        },
+                        onOrderStatusClick = {
+                            navController.navigate(Routes.OrderStatusGlobalRoute) {
+                                launchSingleTop = true
+                            }
+                        },
+                        onOrderHistoryClick = {},
+                        onProfileClick = {
+                            navController.navigate(Routes.ProfileRoute)
+                        }
+                    )
                 }
             )
         }

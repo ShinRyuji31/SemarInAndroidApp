@@ -13,8 +13,7 @@ import com.example.application.delivery.ui.viewmodel.CartViewModel
 import com.example.application.delivery.ui.viewmodel.StoreViewModel
 import com.example.application.globalorderstatus.ui.viewmodel.OrderStatusGlobalViewmodel
 import com.example.application.order.data.repository.OrderRepository
-import com.example.application.orderhistory.data.repository.OrderHistoryRepository
-import com.example.application.orderhistory.viewmodel.OrderHistoryViewModel
+import com.example.application._core.orderhistory.viewmodel.OrderHistoryViewModel
 import com.example.application.profile.ui.viewmodel.ProfileViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -30,7 +29,6 @@ val customerRepositoryModule = module {
     single { DashboardRepository(get()) }
     single { CartRepository(get(), get(), get()) }
     single { SupabaseStoreRepository(get()) }
-    single { OrderHistoryRepository(get()) }
     single { OrderRepository(get()) }
 }
 
@@ -40,7 +38,7 @@ val customerViewModelModule = module {
     viewModel { DashboardViewModel(get(), get(), get()) }
     viewModel { StoreViewModel(get()) }
     viewModel { CartViewModel(get(), get(), get()) }
-    viewModel { OrderHistoryViewModel(get(), get()) }
+    viewModel { OrderHistoryViewModel(get(), get(), isDriver = false) }
     viewModel { OrderStatusGlobalViewmodel(get(), get()) }
 }
 

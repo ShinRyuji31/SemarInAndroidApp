@@ -1,4 +1,4 @@
-package com.example.application.orderhistory.ui.component
+package com.example.application._core.orderhistory.ui.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*

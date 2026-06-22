@@ -1,4 +1,4 @@
-package com.example.application.orderhistory.ui.component
+package com.example.application._core.orderhistory.ui.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import com.example.application._core.ui.theme.BlackSoft
 import com.example.application._core.ui.theme.GrayMedium
 import com.example.application._core.util.toRupiah
-import com.example.application.orderhistory.data.model.OrderHistory
+import com.example.application._core.orderhistory.data.model.OrderHistory
 
 @Composable
 fun OrderHistoryItem(

@@ -26,6 +26,8 @@ import com.example.application.driver.auth.ui.viewmodel.DriverAuthViewModel
 import com.example.application.driver.dashboard.ui.screen.DriverDashboardScreen
 import com.example.application.driver.order.ui.screen.DriverOrderStatusScreen
 import com.example.application.driver.order.ui.overlay.GlobalOrderNotification
+import com.example.application._core.orderhistory.ui.screen.OrderHistoryScreen
+import com.example.application.driver.dashboard.ui.component.DashboardBottomNavBar
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
@@ -120,6 +122,9 @@ fun DriverAppNavigation() {
                     },
                     onNavigateToOrderStatus = {
                         navController.navigate(Routes.DriverOrderStatusRoute)
+                    },
+                    onNavigateToOrderHistory = {
+                        navController.navigate(Routes.OrderHistoryRoute)
                     }
                 )
             }
@@ -133,7 +138,9 @@ fun DriverAppNavigation() {
                             popUpTo(Routes.DriverDashboardRoute) { inclusive = true }
                         }
                     },
-                    onOrderHistoryClick = { },
+                    onOrderHistoryClick = {
+                        navController.navigate(Routes.OrderHistoryRoute)
+                    },
                     onChatClick = { },
                     onConfirmPickup = {
                         activeOrder?.orderId?.let { coreViewModel.confirmPickup(it) }
@@ -148,6 +155,29 @@ fun DriverAppNavigation() {
                                 popUpTo(Routes.DriverDashboardRoute) { inclusive = true }
                             }
                         }
+                    }
+                )
+            }
+
+            composable<Routes.OrderHistoryRoute> {
+                OrderHistoryScreen(
+                    onBack = { navController.popBackStack() },
+                    bottomBar = {
+                        DashboardBottomNavBar(
+                            currentTab = 2,
+                            onHomeClick = {
+                                navController.navigate(Routes.DriverDashboardRoute) {
+                                    popUpTo(Routes.DriverDashboardRoute) { inclusive = true }
+                                }
+                            },
+                            onOrderStatusClick = {
+                                navController.navigate(Routes.DriverOrderStatusRoute) {
+                                    launchSingleTop = true
+                                }
+                            },
+                            onOrderHistoryClick = {},
+                            onChatClick = {}
+                        )
                     }
                 )
             }

@@ -1,17 +1,18 @@
-package com.example.application.orderhistory.viewmodel
+package com.example.application._core.orderhistory.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.application.auth.data.repository.UserRepository // 🚀 IMPORT USER REPO
-import com.example.application.orderhistory.data.model.OrderHistory
-import com.example.application.orderhistory.data.repository.OrderHistoryRepository
+import com.example.application._core.orderhistory.data.model.OrderHistory
+import com.example.application._core.orderhistory.data.repository.OrderHistoryRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class OrderHistoryViewModel(
     private val repository: OrderHistoryRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val isDriver: Boolean
 ) : ViewModel() {
 
     private val _orders = MutableStateFlow<List<OrderHistory>>(emptyList())
@@ -31,7 +32,7 @@ class OrderHistoryViewModel(
             val userId = userRepository.getCurrentUserId()
 
             if (userId != null) {
-                repository.fetchOrderHistory(userId)
+                repository.fetchOrderHistory(userId, isDriver)
                     .onSuccess {
                         _orders.value = it
                     }

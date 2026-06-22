@@ -1,12 +1,11 @@
-package com.example.application.orderhistory.data.repository
+package com.example.application._core.orderhistory.data.repository
 
 import android.util.Log
 import androidx.compose.ui.graphics.Color
-import com.example.application.R
 import com.example.application.core.R as coreR
 import com.example.application.order.data.dto.ActiveOrderDto
-import com.example.application.orderhistory.data.model.OrderHistory
-import com.example.application.orderhistory.data.model.OrderType
+import com.example.application._core.orderhistory.data.model.OrderHistory
+import com.example.application._core.orderhistory.data.model.OrderType
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.postgrest.query.Columns
@@ -17,12 +16,13 @@ import kotlinx.coroutines.withContext
 class OrderHistoryRepository(
     private val supabase: SupabaseClient
 ) {
-    suspend fun fetchOrderHistory(userId: String): Result<List<OrderHistory>> = withContext(Dispatchers.IO) {
+    suspend fun fetchOrderHistory(userId: String, isDriver: Boolean): Result<List<OrderHistory>> = withContext(Dispatchers.IO) {
         try {
             val dtos = supabase.postgrest["ORDER"]
                 .select(columns = Columns.raw("*, pickup:LOCATION!pickup_location_id(address), destination:LOCATION!destination_location_id(address), ORDER_ITEM(PRODUCT(STORE(*, LOCATION(*))))")) {
                     filter {
-                        eq("customer_id", userId)
+                        val idColumn = if (isDriver) "driver_id" else "customer_id"
+                        eq(idColumn, userId)
                         eq("order_status", "COMPLETED")
                     }
                     order(column = "order_date", order = Order.DESCENDING)
@@ -46,7 +46,7 @@ class OrderHistoryRepository(
                     Color.White
                 }
 
-                val imageRes = if (dto.isAnterin == false && store != null) coreR.drawable.dummy else R.drawable.ic_bike
+                val imageRes = if (dto.isAnterin == false && store != null) coreR.drawable.dummy else coreR.drawable.ic_bike
 
                 val formattedDate = "Waktu Pemesanan Selesai"
 
