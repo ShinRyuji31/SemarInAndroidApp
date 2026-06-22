@@ -21,7 +21,7 @@ import com.example.application.delivery.ui.viewmodel.StoreViewModel
 import com.example.application.globalorderstatus.ui.route.OrderStatusGlobalRoute
 import com.example.application.globalorderstatus.ui.screen.FindingDriverPage
 import com.example.application.globalorderstatus.ui.viewmodel.OrderStatusGlobalViewmodel
-import com.example.application._core.orderhistory.ui.screen.OrderHistoryScreen
+import com.example.application.orderhistory.ui.screen.OrderHistoryScreen
 import com.example.application.dashboard.ui.component.DashboardBottomNavBar
 import com.example.application.profile.ui.screen.ProfileFullScreen
 import com.example.application.profile.ui.screen.ProfileMainScreen

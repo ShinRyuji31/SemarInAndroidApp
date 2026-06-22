@@ -1,4 +1,4 @@
-package com.example.application._core.orderhistory.data.model
+package com.example.application.orderhistory.data.model
 
 import androidx.compose.ui.graphics.Color
 

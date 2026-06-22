@@ -1,4 +1,4 @@
-package com.example.application._core.orderhistory.ui.screen
+package com.example.application.orderhistory.ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -12,9 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.application._core.ui.component.Header
 import com.example.application._core.ui.theme.WhiteSoft
-import com.example.application._core.orderhistory.ui.component.OrderHistoryEmptyState
-import com.example.application._core.orderhistory.ui.component.OrderHistoryItem
-import com.example.application._core.orderhistory.viewmodel.OrderHistoryViewModel
+import com.example.application.orderhistory.ui.component.OrderHistoryEmptyState
+import com.example.application.orderhistory.ui.component.OrderHistoryItem
+import com.example.application.orderhistory.viewmodel.OrderHistoryViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

@@ -1,11 +1,11 @@
-package com.example.application._core.orderhistory.data.repository
+package com.example.application.orderhistory.data.repository
 
 import android.util.Log
 import androidx.compose.ui.graphics.Color
 import com.example.application.core.R as coreR
 import com.example.application.order.data.dto.ActiveOrderDto
-import com.example.application._core.orderhistory.data.model.OrderHistory
-import com.example.application._core.orderhistory.data.model.OrderType
+import com.example.application.orderhistory.data.model.OrderHistory
+import com.example.application.orderhistory.data.model.OrderType
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.postgrest.query.Columns

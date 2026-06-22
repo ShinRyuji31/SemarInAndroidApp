@@ -1,6 +1,5 @@
 package com.example.application._core.di
 
-import com.example.application._core.data.maps.repository.MapsRepository
 import com.example.application.anterin.data.repository.AnterinRepository
 import com.example.application.anterin.ui.viewmodel.AnterinViewModel
 import com.example.application.auth.data.repository.UserRepository
@@ -13,7 +12,7 @@ import com.example.application.delivery.ui.viewmodel.CartViewModel
 import com.example.application.delivery.ui.viewmodel.StoreViewModel
 import com.example.application.globalorderstatus.ui.viewmodel.OrderStatusGlobalViewmodel
 import com.example.application.order.data.repository.OrderRepository
-import com.example.application._core.orderhistory.viewmodel.OrderHistoryViewModel
+import com.example.application.orderhistory.viewmodel.OrderHistoryViewModel
 import com.example.application.profile.ui.viewmodel.ProfileViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel

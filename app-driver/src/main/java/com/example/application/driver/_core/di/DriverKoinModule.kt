@@ -5,7 +5,7 @@ import com.example.application.driver.auth.ui.viewmodel.DriverAuthViewModel
 import com.example.application.driver._core.ui.viewmodel.CoreViewmodel
 import com.example.application.driver.auth.ui.viewmodel.DriverSignUpViewModel
 import com.example.application.driver.dashboard.ui.viewmodel.DashboardViewModel
-import com.example.application._core.orderhistory.viewmodel.OrderHistoryViewModel
+import com.example.application.orderhistory.viewmodel.OrderHistoryViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

@@ -10,7 +10,7 @@ import com.example.application._core.data.maps.repository.MapsRepository
 import com.example.application._core.data.location.LocationRepository
 import com.example.application._core.data.location.LocationService
 import com.example.application._core.data.location.LocationViewModel
-import com.example.application._core.orderhistory.data.repository.OrderHistoryRepository
+import com.example.application.orderhistory.data.repository.OrderHistoryRepository
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.auth.Auth
 import io.github.jan.supabase.postgrest.Postgrest
