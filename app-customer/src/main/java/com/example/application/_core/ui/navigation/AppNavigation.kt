@@ -17,7 +17,8 @@ import com.example.application.delivery.data.model.StoreType
 import com.example.application.delivery.ui.screen.*
 import com.example.application.delivery.ui.viewmodel.CartViewModel
 import com.example.application.delivery.ui.viewmodel.StoreViewModel
-import com.example.application.delivery.ui.screen.FindingDriverPage
+import com.example.application.globalorderstatus.ui.route.OrderStatusGlobalRoute
+import com.example.application.globalorderstatus.ui.screen.FindingDriverPage
 import com.example.application.orderhistory.ui.screen.OrderHistoryScreen
 import com.example.application.profile.ui.screen.ProfileFullScreen
 import com.example.application.profile.ui.screen.ProfileMainScreen
@@ -33,6 +34,19 @@ fun AppNavigation(
         navController = navController,
         startDestination = startDestination
     ) {
+
+        composable<Routes.OrderStatusGlobalRoute> {
+            OrderStatusGlobalRoute(
+                onBack = { navController.popBackStack() },
+                onHomeClick = {
+                    navController.navigate(Routes.DashBoardRoute) {
+                        popUpTo(Routes.DashBoardRoute) { inclusive = true }
+                    }
+                },
+                onProfileClick = { navController.navigate(Routes.ProfileRoute) },
+                onOrderHistoryClick = { navController.navigate(Routes.OrderHistoryRoute) }
+            )
+        }
 
         navigation<Routes.AuthGraph>(
             startDestination = Routes.LandingRoute
@@ -76,8 +90,6 @@ fun AppNavigation(
         }
 
         composable<Routes.DashBoardRoute> {
-            // Menggunakan Activity sebagai ViewModelStoreOwner agar data tersinkronisasi
-            // dengan layar di dalam DeliveryGraph tanpa menyebabkan crash
             val context = LocalContext.current as ComponentActivity
             val storeViewModel: StoreViewModel = koinViewModel(
                 viewModelStoreOwner = context
@@ -99,16 +111,8 @@ fun AppNavigation(
                 onSearchClick = {
                     navController.navigate(Routes.GlobalSearchRoute)
                 },
-                onOrderStatusClick = {
-                    navController.navigate(
-                        Routes.AnterOrderStatusRoute
-                    )
-                },
-                onOrderHistoryClick = {
-                    navController.navigate(
-                        Routes.OrderHistoryRoute
-                    )
-                },
+                onOrderStatusClick = { navController.navigate(Routes.OrderStatusGlobalRoute) },
+                onOrderHistoryClick = { navController.navigate(Routes.OrderHistoryRoute) },
                 onStoreClick = { store ->
                     storeViewModel.selectStore(store)
                     navController.navigate(
@@ -463,7 +467,7 @@ fun AppNavigation(
                 val cartViewModel: CartViewModel = koinViewModel(
                     viewModelStoreOwner = parentEntry
                 )
-                JajaninOrderStatusPage(
+                DeliveryOrderStatusPage(
                     onBack = {
                         navController.popBackStack()
                     },

@@ -8,14 +8,27 @@ import com.example.application.auth.data.repository.UserRepository
 import com.example.application.dashboard.data.model.PromoBanner
 import com.example.application.dashboard.data.repository.DashboardRepository
 import com.example.application.delivery.data.model.Store
+import com.example.application.order.data.repository.OrderRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class DashboardViewModel(
     private val dashboardRepository: DashboardRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val orderRepository: OrderRepository
 ) : ViewModel() {
+
+    private val _hasActiveOrder = MutableStateFlow(false)
+    val hasActiveOrder: StateFlow<Boolean> = _hasActiveOrder
+
+    private fun checkStatus() {
+        viewModelScope.launch {
+            val userId = userRepository.getCurrentUserId() ?: return@launch
+            val order = orderRepository.getActiveOrder(userId, isDriver = false)
+            _hasActiveOrder.value = order != null
+        }
+    }
 
     private val _user = MutableStateFlow<User?>(null)
     val user: StateFlow<User?> = _user
@@ -41,6 +54,7 @@ class DashboardViewModel(
 
     init {
         loadDashboard()
+        checkStatus()
     }
 
     private fun loadDashboard() {

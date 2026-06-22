@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.application.auth.data.repository.UserRepository
 import com.example.application.delivery.data.model.CartItem
 import com.example.application.delivery.data.repository.CartRepository
+import com.example.application.order.data.repository.OrderRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
@@ -14,7 +15,8 @@ import java.util.UUID
 
 class CartViewModel(
     private val cartRepository: CartRepository,
-    private val userRepository: UserRepository // Tambahan
+    private val userRepository: UserRepository,
+    private val orderRepository: OrderRepository
 ) : ViewModel() {
 
     private val _cartItems = MutableStateFlow<List<CartItem>>(emptyList())
@@ -49,15 +51,22 @@ class CartViewModel(
         onError: (String) -> Unit
     ) {
         viewModelScope.launch {
-            if (_cartItems.value.isEmpty()) return@launch
-            _isCheckingOut.value = true
-
             val userId = userRepository.getCurrentUserId()
             if (userId == null) {
                 onError("User tidak ditemukan, silakan login ulang.")
-                _isCheckingOut.value = false
                 return@launch
             }
+
+            // 2. Cek apakah ada order aktif pakai orderRepository
+            val existingOrder = orderRepository.getActiveOrder(userId, isDriver = false)
+            if (existingOrder != null) {
+                onError("Gagal: Anda sudah memiliki pesanan yang sedang berjalan!")
+                return@launch
+            }
+
+            // 3. Lanjut proses checkout kalau aman
+            if (_cartItems.value.isEmpty()) return@launch
+            _isCheckingOut.value = true
 
             val currentSubtotal = _cartItems.value.sumOf { it.price * it.quantity }
             val currentTotal = currentSubtotal + deliveryFee.value

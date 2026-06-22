@@ -1,4 +1,4 @@
-package com.example.application.delivery.ui.screen
+package com.example.application.globalorderstatus.ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -49,7 +49,7 @@ fun FindingDriverPage(
             imageRes = R.drawable.logo_coloredbike
         }
         DriverState.FOUND -> {
-            title = "Hooray!" // Typo Horay dibenerin
+            title = "Hooray!"
             subtitle = "We have found you a driver"
             imageRes = R.drawable.logo_coloredhelmet
         }

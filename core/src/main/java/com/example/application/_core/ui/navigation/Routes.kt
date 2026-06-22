@@ -35,6 +35,8 @@ sealed interface Routes {
     // CART
     @Serializable data object CartRoute : Routes
 
+    @Serializable data object OrderStatusGlobalRoute : Routes
+
     // ─── NESTED GRAPH ROOT MARKERS ───
     @Serializable data object AuthGraph : Routes
     @Serializable data object AnterinGraph : Routes

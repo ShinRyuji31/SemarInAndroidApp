@@ -1,4 +1,4 @@
-package com.example.application.delivery.ui.screen
+package com.example.application.globalorderstatus.ui.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
