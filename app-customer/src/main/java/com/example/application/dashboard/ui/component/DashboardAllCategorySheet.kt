@@ -83,7 +83,7 @@ fun DashboardAllCategorySheet(
 
                 ButtonIcon(
                     title = "Survei-In",
-                    icon = R.drawable.ic_star,
+                    icon = R.drawable.ic_eye,
                     modifier = Modifier.weight(1f),
                     containerColor = WhiteSoft,
                     contentColor = BluePrimary
@@ -97,7 +97,7 @@ fun DashboardAllCategorySheet(
 
                 ButtonIcon(
                     title = "Bersih-In",
-                    icon = R.drawable.ic_star,
+                    icon = R.drawable.ic_mop,
                     modifier = Modifier.weight(1f),
                     containerColor = WhiteSoft,
                     contentColor = BluePrimary
@@ -105,7 +105,7 @@ fun DashboardAllCategorySheet(
 
                 ButtonIcon(
                     title = "Cetak-In",
-                    icon = R.drawable.ic_star,
+                    icon = R.drawable.ic_printer,
                     modifier = Modifier.weight(1f),
                     containerColor = WhiteSoft,
                     contentColor = BluePrimary

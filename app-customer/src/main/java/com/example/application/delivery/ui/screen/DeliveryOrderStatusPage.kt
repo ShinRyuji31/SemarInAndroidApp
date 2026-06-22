@@ -4,22 +4,21 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.application._core.ui.component.Header
 import com.example.application._core.ui.theme.WhiteSoft
-import com.example.application.delivery.ui.component.cart.CartItemComponent
 import com.example.application.globalorderstatus.ui.viewmodel.OrderStatusGlobalViewmodel
 import com.example.application.dashboard.ui.component.DashboardBottomNavBar
 import com.example.application.globalorderstatus.ui.component.OrderSummary
 import com.example.application.globalorderstatus.ui.component.OrderTimelineItem
 import com.example.application.globalorderstatus.ui.screen.OrderStatusDriverDetail
-import com.example.application.globalorderstatus.ui.screen.CustomerEmptyOrderScreen // <-- Jangan lupa import ini
+import com.example.application.globalorderstatus.ui.screen.CustomerEmptyOrderScreen
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -39,8 +38,8 @@ fun DeliveryOrderStatusPage(
     val status = realtimeStatus ?: activeOrder?.orderStatus
 
     LaunchedEffect(activeOrder?.orderId) {
-        activeOrder?.orderId?.let { id ->
-            viewModel.startListening(id)
+        activeOrder?.orderId?.let {
+            viewModel.startListening(it)
         }
     }
 
@@ -74,16 +73,25 @@ fun DeliveryOrderStatusPage(
                 )
             }
         ) { padding ->
-            LazyColumn(
+
+            Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding)
                     .background(WhiteSoft)
             ) {
 
-                item {
-                    Column(modifier = Modifier.padding(16.dp)) {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(
+                        start = 16.dp,
+                        end = 16.dp,
+                        top = 16.dp,
+                        bottom = 180.dp
+                    )
+                ) {
 
+                    item {
                         OrderTimelineItem(
                             title = "Driver is on the way to the restaurant",
                             time = "",
@@ -94,7 +102,8 @@ fun DeliveryOrderStatusPage(
                         OrderTimelineItem(
                             title = "Your order is on the way to you",
                             time = "",
-                            isCompleted = status == "DELIVERING" || status == "WAITING_PAYMENT",
+                            isCompleted = status == "DELIVERING" ||
+                                    status == "WAITING_PAYMENT",
                             isLast = false
                         )
 
@@ -105,45 +114,28 @@ fun DeliveryOrderStatusPage(
                             isLast = true
                         )
                     }
+
                 }
 
-                item {
+                Column(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .fillMaxWidth()
+                        .background(WhiteSoft)
+                ) {
+
                     OrderSummary(
                         subtotal = "Rp ${order.totalPrice}",
                         deliveryFee = "Rp 7000",
                         total = "Rp ${(order.totalPrice ?: 0.0) + 7000}"
                     )
-                    Spacer(modifier = Modifier.height(8.dp))
-                }
 
-                item {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Text(
-                            text = "Store: ${order.storeName ?: "Unknown Store"}"
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-
-                        order.orderItems?.forEach { item ->
-                            CartItemComponent(
-                                name = item.product?.store?.storeName ?: "Item",
-                                price = "From store",
-                                imageUrl = null,
-                                imageRes = com.example.application.core.R.drawable.dummy,
-                                quantity = 1,
-                                showQuantitySelector = false
-                            )
-                        }
-                    }
-                }
-
-                item {
                     OrderStatusDriverDetail(
                         driverName = "Kyle",
                         vehicleInfo = "AD 6767 SP (Honda Beat)",
                         onCallClick = onChatClick,
                         onChatClick = onChatClick
                     )
-                    Spacer(modifier = Modifier.height(24.dp))
                 }
             }
         }

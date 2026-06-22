@@ -11,7 +11,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.application.core.R
+import com.example.application.R
 
 @Composable
 fun CartEmpty(
@@ -23,7 +23,7 @@ fun CartEmpty(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(id = R.drawable.logo_coloredleaf),
+            painter = painterResource(id = R.drawable.ic_empty_cart),
             contentDescription = "Empty Cart",
             modifier = Modifier.size(100.dp)
         )
