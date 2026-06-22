@@ -30,33 +30,37 @@ fun DriverOrderStatusScreen(
     onPaymentCompleted: () -> Unit,
     onNavigationClick: () -> Unit = {}
 ) {
-    Scaffold(
-        topBar = {
-            Header(
-                title = "Order Status",
-                onBack = onBack
-            )
-        },
-        bottomBar = {
-            DashboardBottomNavBar(
-                currentTab = 1,
-                onHomeClick = onHomeClick,
-                onOrderStatusClick = {},
-                onOrderHistoryClick = onOrderHistoryClick,
-                onChatClick = onChatClick
-            )
-        }
-    ) { inner ->
-        if (activeOrder == null) {
-            OrderEmptyScreen(modifier = Modifier.padding(inner))
-        } else {
+    if (activeOrder == null) {
+        OrderEmptyScreen(
+            onBack = onBack,
+            onHomeClick = onHomeClick,
+            onOrderHistoryClick = onOrderHistoryClick,
+            onChatClick = onChatClick
+        )
+    } else {
+        Scaffold(
+            topBar = {
+                Header(
+                    title = "Order Status",
+                    onBack = onBack
+                )
+            },
+            bottomBar = {
+                DashboardBottomNavBar(
+                    currentTab = 1,
+                    onHomeClick = onHomeClick,
+                    onOrderStatusClick = {},
+                    onOrderHistoryClick = onOrderHistoryClick,
+                    onChatClick = onChatClick
+                )
+            }
+        ) { inner ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(inner)
                     .background(GrayMedium)
             ) {
-                // Dummy map area
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -92,7 +96,7 @@ fun DriverOrderStatusScreen(
                     "WAITING_PAYMENT" -> {
                         OrderDeliveryContent(
                             order = activeOrder,
-                            onArrived = {} // disabled
+                            onArrived = {}
                         )
                         PaymentCompletedPopup(
                             totalPrice = activeOrder.totalPrice,
