@@ -1,5 +1,6 @@
 package com.example.application.globalorderstatus.ui.route
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -18,7 +19,9 @@ fun OrderStatusGlobalRoute(
     val activeOrder by globalViewModel.activeOrder.collectAsState()
 
     when {
-        activeOrder == null || activeOrder?.orderStatus in listOf("COMPLETED", "CANCELLED") -> {
+        activeOrder == null ||
+                activeOrder?.orderStatus in listOf("COMPLETED", "CANCELLED") -> {
+
             CustomerEmptyOrderScreen(
                 onBack = onBack,
                 onHomeClick = onHomeClick,
@@ -26,9 +29,13 @@ fun OrderStatusGlobalRoute(
                 onOrderHistoryClick = onOrderHistoryClick
             )
         }
+
         activeOrder?.isAnterin == true -> {
+            Text("Anterin Order Status")
         }
+
         else -> {
+            Text("Delivery Order Status")
         }
     }
 }

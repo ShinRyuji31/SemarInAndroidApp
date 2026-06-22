@@ -138,8 +138,8 @@ fun AppNavigation(
                     }
                 },
                 onOrderStatusClick = {
-                    navController.navigate(Routes.AnterOrderStatusRoute) {
-                        restoreState = true
+                    navController.navigate(Routes.OrderStatusGlobalRoute) {
+                        launchSingleTop = true
                     }
                 },
                 onOrderHistoryClick = {
@@ -162,7 +162,9 @@ fun AppNavigation(
                     }
                 },
                 onOrderStatusClick = {
-                    navController.navigate(Routes.AnterOrderStatusRoute)
+                    navController.navigate(Routes.OrderStatusGlobalRoute) {
+                        launchSingleTop = true
+                    }
                 },
                 onOrderHistoryClick = {
                     navController.navigate(Routes.OrderHistoryRoute)
@@ -181,8 +183,8 @@ fun AppNavigation(
                     }
                 },
                 onOrderStatusClick = {
-                    navController.navigate(Routes.AnterOrderStatusRoute) {
-                        restoreState = true
+                    navController.navigate(Routes.OrderStatusGlobalRoute) {
+                        launchSingleTop = true
                     }
                 },
                 onProfileClick = {
