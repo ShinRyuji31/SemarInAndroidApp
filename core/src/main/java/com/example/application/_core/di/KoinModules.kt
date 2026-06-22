@@ -13,6 +13,7 @@ import com.example.application._core.data.location.LocationViewModel
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.auth.Auth
 import io.github.jan.supabase.postgrest.Postgrest
+import io.github.jan.supabase.realtime.Realtime
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -30,6 +31,7 @@ val coreAppModule = module {
         ) {
             install(Auth)
             install(Postgrest)
+            install(Realtime)
         }
     }
     

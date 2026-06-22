@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import androidx.navigation.toRoute
 import com.example.application.anterin.ui.screen.*
 import com.example.application.anterin.ui.viewmodel.AnterinViewModel
 import com.example.application.auth.ui.screen.*
@@ -19,6 +20,7 @@ import com.example.application.delivery.ui.viewmodel.CartViewModel
 import com.example.application.delivery.ui.viewmodel.StoreViewModel
 import com.example.application.globalorderstatus.ui.route.OrderStatusGlobalRoute
 import com.example.application.globalorderstatus.ui.screen.FindingDriverPage
+import com.example.application.globalorderstatus.ui.viewmodel.OrderStatusGlobalViewmodel
 import com.example.application.orderhistory.ui.screen.OrderHistoryScreen
 import com.example.application.profile.ui.screen.ProfileFullScreen
 import com.example.application.profile.ui.screen.ProfileMainScreen
@@ -295,27 +297,26 @@ fun AppNavigation(
                     onBack = {
                         navController.popBackStack()
                     },
-                    onFindDriver = {
-                        navController.navigate(Routes.AnterFindingDriverRoute)
+                    onFindDriver = { orderId ->
+                        navController.navigate(Routes.AnterFindingDriverRoute(orderId = orderId))
                     },
                     viewModel = anterinViewModel
                 )
             }
 
-            composable<Routes.AnterFindingDriverRoute> {
+            composable<Routes.AnterFindingDriverRoute> { backStackEntry ->
+                val args = backStackEntry.toRoute<Routes.AnterFindingDriverRoute>()
                 FindingDriverPage(
+                    orderId = args.orderId,
                     serviceName = "Anter-In",
-                    onBack = {
-                        navController.popBackStack()
-                    },
+                    onBack = { navController.popBackStack() },
                     onFinished = {
                         navController.navigate(Routes.AnterOrderStatusRoute) {
-                            popUpTo(Routes.AnterFindingDriverRoute) { inclusive = true }
+                            popUpTo<Routes.AnterFindingDriverRoute> { inclusive = true }
                         }
                     }
                 )
             }
-
             composable<Routes.AnterOrderStatusRoute> { backStackEntry ->
                 val parentEntry = remember(backStackEntry) {
                     navController.getBackStackEntry(Routes.AnterinGraph)
@@ -441,22 +442,22 @@ fun AppNavigation(
                     onBack = {
                         navController.popBackStack()
                     },
-                    onCheckout = {
-                        navController.navigate(Routes.JajaninFindingDriverRoute)
+                    onCheckout = { orderId ->
+                        navController.navigate(Routes.JajaninFindingDriverRoute(orderId = orderId))
                     },
                     viewModel = cartViewModel
                 )
             }
 
-            composable<Routes.JajaninFindingDriverRoute> {
+            composable<Routes.JajaninFindingDriverRoute> { backStackEntry ->
+                val args = backStackEntry.toRoute<Routes.JajaninFindingDriverRoute>()
                 FindingDriverPage(
+                    orderId = args.orderId,
                     serviceName = "Jajan-In",
-                    onBack = {
-                        navController.popBackStack()
-                    },
+                    onBack = { navController.popBackStack() },
                     onFinished = {
                         navController.navigate(Routes.JajaninOrderStatusRoute) {
-                            popUpTo(Routes.JajaninFindingDriverRoute) { inclusive = true }
+                            popUpTo<Routes.JajaninFindingDriverRoute> { inclusive = true }
                         }
                     }
                 )
@@ -466,9 +467,11 @@ fun AppNavigation(
                 val parentEntry = remember(backStackEntry) {
                     navController.getBackStackEntry(Routes.DeliveryGraph)
                 }
-                val cartViewModel: CartViewModel = koinViewModel(
+
+                val orderStatusViewModel: OrderStatusGlobalViewmodel = koinViewModel(
                     viewModelStoreOwner = parentEntry
                 )
+
                 DeliveryOrderStatusPage(
                     onBack = {
                         navController.popBackStack()
@@ -492,7 +495,7 @@ fun AppNavigation(
                     onOrderHistoryClick = {
                         navController.navigate(Routes.OrderHistoryRoute)
                     },
-                    viewModel = cartViewModel
+                    viewModel = orderStatusViewModel
                 )
             }
         }

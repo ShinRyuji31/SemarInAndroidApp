@@ -30,7 +30,7 @@ class CartRepository(
         userLat: Double,
         userLon: Double,
         userAddress: String
-    ): Result<Unit> {
+    ): Result<String> {
         return try {
             val storeId = items.firstOrNull()?.storeId ?: throw Exception("Cart is empty")
             val storeType = items.firstOrNull()?.storeType ?: "FOOD"
@@ -102,7 +102,7 @@ class CartRepository(
             // 7. BERSIHKAN KERANJANG
             saveCartItems(emptyList())
 
-            Result.success(Unit)
+            Result.success(orderId)
         } catch (e: Exception) {
             android.util.Log.e("CartRepository", "Checkout failed: ${e.message}")
             Result.failure(e)

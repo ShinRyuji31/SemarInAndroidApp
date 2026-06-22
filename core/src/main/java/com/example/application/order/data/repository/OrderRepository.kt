@@ -7,10 +7,20 @@ import com.example.application.order.data.dto.DriverLocationDto
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.postgrest.query.Columns
+import io.github.jan.supabase.realtime.realtime
+import io.github.jan.supabase.realtime.channel
+import io.github.jan.supabase.realtime.postgresChangeFlow
+import io.github.jan.supabase.realtime.PostgresAction
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
+import kotlinx.serialization.json.jsonPrimitive
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import java.util.UUID
 
 class OrderRepository(private val supabase: SupabaseClient) {
 
@@ -94,5 +104,36 @@ class OrderRepository(private val supabase: SupabaseClient) {
             Log.e("OrderRepository", "Gagal update status order", e)
             false
         }
+    }
+
+    fun listenOrderStatus(orderId: String): Flow<String?> {
+        val uniqueChannelName = "order-$orderId-${UUID.randomUUID()}"
+        val channel = supabase.realtime.channel(uniqueChannelName)
+
+        return channel
+            .postgresChangeFlow<PostgresAction.Update>(schema = "public") {
+                table = "ORDER"
+            }
+            .onStart {
+                channel.subscribe()
+            }
+            .onCompletion {
+                try {
+                    channel.unsubscribe()
+                } catch (e: Exception) {
+                    Log.e("OrderRepository", "Gagal unsubscribe channel", e)
+                }
+            }
+            .mapNotNull { change ->
+                Log.d("RT_DEBUG", "RAW: ${change.record}")
+
+                val record = change.record
+                val id = record["order_id"]?.jsonPrimitive?.content
+                if (id == orderId) {
+                    record["order_status"]?.jsonPrimitive?.content
+                } else {
+                    null
+                }
+            }
     }
 }

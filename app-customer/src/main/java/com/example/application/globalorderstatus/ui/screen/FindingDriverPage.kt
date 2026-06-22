@@ -17,6 +17,8 @@ import com.example.application._core.ui.theme.BluePrimary
 import com.example.application._core.ui.theme.WhiteSoft
 import kotlinx.coroutines.delay
 import com.example.application.R
+import com.example.application.globalorderstatus.ui.viewmodel.OrderStatusGlobalViewmodel
+import org.koin.androidx.compose.koinViewModel
 
 enum class DriverState {
     FINDING,
@@ -25,17 +27,28 @@ enum class DriverState {
 
 @Composable
 fun FindingDriverPage(
+    orderId: String,
     serviceName: String = "Anter-In",
     onBack: () -> Unit,
     onFinished: () -> Unit,
+    viewModel: OrderStatusGlobalViewmodel = koinViewModel()
 ) {
     var currentState by remember { mutableStateOf(DriverState.FINDING) }
 
-    LaunchedEffect(Unit) {
-        delay(3000)
-        currentState = DriverState.FOUND
-        delay(2000)
-        onFinished()
+    val status by viewModel.orderStatus.collectAsState()
+
+    LaunchedEffect(orderId) {
+        viewModel.startListening(orderId = orderId)
+    }
+
+    LaunchedEffect(status) {
+        when (status) {
+            "ACCEPTED" -> {
+                currentState = DriverState.FOUND
+                delay(1500)
+                onFinished()
+            }
+        }
     }
 
     val title: String
@@ -48,6 +61,7 @@ fun FindingDriverPage(
             subtitle = "We are finding a driver for you"
             imageRes = R.drawable.logo_coloredbike
         }
+
         DriverState.FOUND -> {
             title = "Hooray!"
             subtitle = "We have found you a driver"

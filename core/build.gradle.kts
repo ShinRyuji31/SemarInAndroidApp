@@ -57,6 +57,7 @@ dependencies {
     api("io.github.jan-tennert.supabase:supabase-kt:3.6.0")
     api("io.github.jan-tennert.supabase:postgrest-kt:3.6.0")
     api("io.github.jan-tennert.supabase:auth-kt:3.6.0")
+    api("io.github.jan-tennert.supabase:realtime-kt:3.6.0")
 
     api("io.ktor:ktor-client-okhttp:3.5.0")
 

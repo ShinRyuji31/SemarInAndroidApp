@@ -23,7 +23,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun AnterinDestinationSetPage(
     onBack: () -> Unit,
-    onFindDriver: () -> Unit,
+    onFindDriver: (String) -> Unit,
     viewModel: AnterinViewModel,
     locationViewModel: LocationViewModel = koinViewModel()
 ) {
@@ -96,7 +96,9 @@ fun AnterinDestinationSetPage(
                 ) {
                     ButtonBlue(
                         text = "Find Driver",
-                        onClick = onFindDriver,
+                        onClick = {
+                            onFindDriver("dummy-order-id")
+                        },
                         modifier = Modifier
                             .padding(horizontal = 16.dp, vertical = 12.dp)
                             .fillMaxWidth()

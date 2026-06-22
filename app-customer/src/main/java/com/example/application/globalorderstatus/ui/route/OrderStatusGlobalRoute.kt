@@ -4,6 +4,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import com.example.application.delivery.ui.screen.DeliveryOrderStatusPage
 import com.example.application.globalorderstatus.ui.screen.CustomerEmptyOrderScreen
 import com.example.application.globalorderstatus.ui.viewmodel.OrderStatusGlobalViewmodel
 import org.koin.androidx.compose.koinViewModel
@@ -31,11 +32,27 @@ fun OrderStatusGlobalRoute(
         }
 
         activeOrder?.isAnterin == true -> {
-            Text("Anterin Order Status")
+
+            com.example.application.anterin.ui.screen.AnterinOrderStatusPage(
+                onBack = onBack,
+                onHomeClick = onHomeClick,
+                onProfileClick = onProfileClick,
+                onChatClick = onHomeClick,
+                onOrderHistoryClick = onOrderHistoryClick,
+                viewModel = koinViewModel()
+            )
         }
 
         else -> {
-            Text("Delivery Order Status")
+
+            DeliveryOrderStatusPage(
+                onBack = onBack,
+                onHomeClick = onHomeClick,
+                onProfileClick = onProfileClick,
+                onChatClick = onHomeClick,
+                onOrderHistoryClick = onOrderHistoryClick,
+                viewModel = globalViewModel
+            )
         }
     }
 }

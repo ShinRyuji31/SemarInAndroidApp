@@ -34,7 +34,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun CartPage(
     onBack: () -> Unit,
-    onCheckout: () -> Unit,
+    onCheckout: (String) -> Unit,
     viewModel: CartViewModel = koinViewModel(),
     locationViewModel: LocationViewModel = koinViewModel()
 ) {
@@ -141,7 +141,9 @@ fun CartPage(
                                     userLat = currentLat,
                                     userLon = currentLon,
                                     userAddress = currentAddress,
-                                    onSuccess = { onCheckout() },
+                                    onSuccess = { orderId ->
+                                        onCheckout(orderId)
+                                    },
                                     onError = { errorMsg ->
                                         Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
                                     }

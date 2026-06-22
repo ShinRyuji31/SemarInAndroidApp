@@ -1,5 +1,6 @@
 package com.example.application.delivery.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.application.auth.data.repository.UserRepository
@@ -47,7 +48,7 @@ class CartViewModel(
         userLat: Double,
         userLon: Double,
         userAddress: String,
-        onSuccess: () -> Unit,
+        onSuccess: (String) -> Unit,
         onError: (String) -> Unit
     ) {
         viewModelScope.launch {
@@ -57,14 +58,12 @@ class CartViewModel(
                 return@launch
             }
 
-            // 2. Cek apakah ada order aktif pakai orderRepository
             val existingOrder = orderRepository.getActiveOrder(userId, isDriver = false)
             if (existingOrder != null) {
                 onError("Gagal: Anda sudah memiliki pesanan yang sedang berjalan!")
                 return@launch
             }
 
-            // 3. Lanjut proses checkout kalau aman
             if (_cartItems.value.isEmpty()) return@launch
             _isCheckingOut.value = true
 
@@ -81,7 +80,9 @@ class CartViewModel(
             )
 
             if (result.isSuccess) {
-                onSuccess()
+                val newOrderId = result.getOrNull()?.toString() ?: "fallback-id"
+                Log.d("CHECKOUT", "Order ID: $newOrderId")
+                onSuccess(newOrderId)
             } else {
                 onError("Gagal melakukan checkout: ${result.exceptionOrNull()?.message}")
             }
