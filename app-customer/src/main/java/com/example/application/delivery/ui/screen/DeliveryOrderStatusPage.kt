@@ -11,12 +11,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.application.delivery.ui.component.orderstatus.*
 import com.example.application._core.ui.component.Header
 import com.example.application._core.ui.theme.WhiteSoft
 import com.example.application.delivery.ui.component.cart.CartItemComponent
 import com.example.application.globalorderstatus.ui.viewmodel.OrderStatusGlobalViewmodel
 import com.example.application.dashboard.ui.component.DashboardBottomNavBar
+import com.example.application.globalorderstatus.ui.component.OrderSummary
+import com.example.application.globalorderstatus.ui.component.OrderTimelineItem
 import com.example.application.globalorderstatus.ui.screen.OrderStatusDriverDetail
 import com.example.application.globalorderstatus.ui.screen.CustomerEmptyOrderScreen // <-- Jangan lupa import ini
 import org.koin.androidx.compose.koinViewModel

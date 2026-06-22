@@ -1,4 +1,4 @@
-package com.example.application.delivery.ui.component.orderstatus
+package com.example.application.globalorderstatus.ui.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

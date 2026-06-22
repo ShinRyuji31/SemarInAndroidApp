@@ -1,4 +1,4 @@
-package com.example.application.delivery.ui.component.orderstatus
+package com.example.application.globalorderstatus.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
