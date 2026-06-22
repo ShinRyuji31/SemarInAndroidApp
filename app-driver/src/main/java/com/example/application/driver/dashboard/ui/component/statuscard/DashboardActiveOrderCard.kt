@@ -15,7 +15,7 @@ import com.example.application._core.ui.component.ButtonWhite
 import com.example.application._core.ui.theme.WhiteSoft
 import com.example.application._core.ui.theme.blueBlueGradient
 
-import com.example.application.driver.order.data.dto.ActiveOrderDto
+import com.example.application.order.data.dto.ActiveOrderDto
 
 @Composable
 fun DashboardActiveOrderCard(

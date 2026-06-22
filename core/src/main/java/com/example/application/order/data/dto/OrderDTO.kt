@@ -1,4 +1,4 @@
-package com.example.application.driver.order.data.dto
+package com.example.application.order.data.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -13,23 +13,33 @@ data class StoreDto(
     @SerialName("store_name") val storeName: String
 )
 
+// 🚀 Tambahan buat jembatan dari ORDER_ITEM ke STORE
 @Serializable
-data class ItemOrderDto(
+data class ProductDto(
     @SerialName("STORE") val store: StoreDto? = null
+)
+
+@Serializable
+data class OrderItemDto(
+    @SerialName("PRODUCT") val product: ProductDto? = null
 )
 
 @Serializable
 data class ActiveOrderDto(
     @SerialName("order_id") val orderId: String,
     @SerialName("order_status") val orderStatus: String,
+    @SerialName("is_anterin") val isAnterin: Boolean? = null,
     @SerialName("distance") val distance: Double? = null,
     @SerialName("total_price") val totalPrice: Double? = null,
     @SerialName("pickup") val pickupLocation: LocationDto? = null,
     @SerialName("destination") val destinationLocation: LocationDto? = null,
-    @SerialName("ITEM_ORDER") val itemOrders: List<ItemOrderDto>? = emptyList()
+    @SerialName("ORDER_ITEM") val orderItems: List<OrderItemDto>? = emptyList()
 ) {
+    val orderType: String
+        get() = if (isAnterin == true) "ANTERIN" else "DELIVERY"
+
     val storeName: String
-        get() = itemOrders?.firstOrNull()?.store?.storeName ?: "Unknown Store"
+        get() = orderItems?.firstOrNull()?.product?.store?.storeName ?: "Unknown Store"
 
     val pickupAddress: String
         get() = pickupLocation?.address ?: "Unknown Pickup Address"

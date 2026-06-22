@@ -19,7 +19,7 @@ import com.example.application._core.ui.component.ButtonBlue
 import com.example.application._core.ui.theme.BlackSoft
 import com.example.application._core.ui.theme.BluePrimary
 import com.example.application._core.ui.theme.WhiteSoft
-import com.example.application.driver.order.data.dto.ActiveOrderDto
+import com.example.application.order.data.dto.ActiveOrderDto
 
 @Composable
 fun OrderDeliveryContent(

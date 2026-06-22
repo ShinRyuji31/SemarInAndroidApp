@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.example.application._core.ui.component.Header
 import com.example.application._core.ui.theme.GrayMedium
 import com.example.application.driver.dashboard.ui.component.DashboardBottomNavBar
-import com.example.application.driver.order.data.dto.ActiveOrderDto
+import com.example.application.order.data.dto.ActiveOrderDto
 import com.example.application.driver.order.ui.component.OrderDeliveryContent
 import com.example.application.driver.order.ui.component.OrderEmptyScreen
 import com.example.application.driver.order.ui.component.OrderPickupContent

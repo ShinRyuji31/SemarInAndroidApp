@@ -19,7 +19,8 @@ import com.example.application._core.ui.component.ButtonBlue
 import com.example.application._core.ui.theme.BlackSoft
 import com.example.application._core.ui.theme.BluePrimary
 import com.example.application._core.ui.theme.WhiteSoft
-import com.example.application.driver.order.data.dto.ActiveOrderDto
+import com.example.application.order.data.dto.ActiveOrderDto
+import com.example.application._core.util.toRupiah
 
 @Composable
 fun OrderPickupContent(
@@ -71,7 +72,8 @@ fun OrderPickupContent(
 
         Spacer(Modifier.height(24.dp))
 
-        val priceDisplay = if (order.totalPrice != null) "Rp${order.totalPrice.toLong()}" else "Rp-"
+        val priceDisplay = order.totalPrice?.toLong()?.toRupiah() ?: "Rp-"
+
         Text(
             text = priceDisplay,
             fontWeight = FontWeight.ExtraBold,

@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.application._core.data.location.LocationRepository
 import com.example.application.auth.data.repository.UserRepository
-import com.example.application.driver.order.data.dto.ActiveOrderDto
-import com.example.application.driver.order.data.repository.OrderRepository
+import com.example.application.order.data.dto.ActiveOrderDto
+import com.example.application.order.data.repository.OrderRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,9 +1,9 @@
-package com.example.application.driver.order.data.repository
+package com.example.application.order.data.repository
 
 import android.util.Log
-import com.example.application.driver._core.data.model.DriverDto
-import com.example.application.driver._core.data.model.DriverLocationDto
-import com.example.application.driver.order.data.dto.ActiveOrderDto
+import com.example.application.order.data.dto.ActiveOrderDto
+import com.example.application.order.data.dto.DriverDto
+import com.example.application.order.data.dto.DriverLocationDto
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.postgrest.query.Columns
@@ -27,7 +27,7 @@ class OrderRepository(private val supabase: SupabaseClient) {
                 .decodeSingleOrNull<DriverDto>()
             driver != null
         } catch (e: Exception) {
-            Log.e("DriverRepository", "Error checking driver status", e)
+            Log.e("OrderRepository", "Error checking driver status", e)
             false
         }
     }
@@ -37,40 +37,47 @@ class OrderRepository(private val supabase: SupabaseClient) {
             val locationData = DriverLocationDto(driverId, lat, lon, getCurrentIsoTimestamp())
             supabase.postgrest["DRIVER_LOCATION"].upsert(locationData)
         } catch (e: Exception) {
-            Log.e("DriverRepository", "Gagal update lokasi driver", e)
+            Log.e("OrderRepository", "Gagal update lokasi driver", e)
         }
     }
 
-    private val orderSelectColumns = Columns.raw(
-        "order_id, order_status, distance, total_price, pickup:LOCATION!pickup_location_id(address), destination:LOCATION!destination_location_id(address), ITEM_ORDER(STORE(store_name))"
+    private val orderSelectColumns = Columns.Companion.raw(
+        "order_id, order_status, is_anterin, distance, total_price, pickup:LOCATION!pickup_location_id(address), destination:LOCATION!destination_location_id(address), ORDER_ITEM(PRODUCT(STORE(store_name)))"
     )
 
-    suspend fun getIncomingOrder(driverId: String): ActiveOrderDto? {
+    suspend fun getIncomingOrder(userId: String, isDriver: Boolean = true): ActiveOrderDto? {
+        val column = if (isDriver) "driver_id" else "customer_id"
         return try {
             val orders = supabase.postgrest["ORDER"].select(columns = orderSelectColumns) {
                 filter {
-                    eq("driver_id", driverId)
+                    eq(column, userId)
                     eq("order_status", "PENDING")
                 }
             }.decodeList<ActiveOrderDto>()
             orders.firstOrNull()
         } catch (e: Exception) {
-            Log.e("DriverRepository", "Gagal narik incoming order", e)
+            Log.e("OrderRepository", "Gagal narik incoming order", e)
             null
         }
     }
 
-    suspend fun getActiveOrder(driverId: String): ActiveOrderDto? {
+    suspend fun getActiveOrder(userId: String, isDriver: Boolean = true): ActiveOrderDto? {
+        val column = if (isDriver) "driver_id" else "customer_id"
         return try {
             val orders = supabase.postgrest["ORDER"].select(columns = orderSelectColumns) {
                 filter {
-                    eq("driver_id", driverId)
-                    isIn("order_status", listOf("ACCEPTED", "PICKING_UP", "DELIVERING", "WAITING_PAYMENT"))
+                    eq(column, userId)
+                    val statuses = if (isDriver) {
+                        listOf("ACCEPTED", "PICKING_UP", "DELIVERING", "WAITING_PAYMENT")
+                    } else {
+                        listOf("PENDING", "ACCEPTED", "PICKING_UP", "DELIVERING", "WAITING_PAYMENT")
+                    }
+                    isIn("order_status", statuses)
                 }
             }.decodeList<ActiveOrderDto>()
             orders.firstOrNull()
         } catch (e: Exception) {
-            Log.e("DriverRepository", "Gagal narik active order", e)
+            Log.e("OrderRepository", "Gagal narik active order", e)
             null
         }
     }
@@ -84,7 +91,7 @@ class OrderRepository(private val supabase: SupabaseClient) {
             }
             true
         } catch (e: Exception) {
-            Log.e("DriverRepository", "Gagal update status order", e)
+            Log.e("OrderRepository", "Gagal update status order", e)
             false
         }
     }

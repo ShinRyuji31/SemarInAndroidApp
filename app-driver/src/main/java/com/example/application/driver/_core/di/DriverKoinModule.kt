@@ -1,6 +1,6 @@
 package com.example.application.driver._core.di
 
-import com.example.application.driver.order.data.repository.OrderRepository
+import com.example.application.order.data.repository.OrderRepository
 import com.example.application.driver.auth.ui.viewmodel.DriverAuthViewModel
 import com.example.application.driver._core.ui.viewmodel.CoreViewmodel
 import com.example.application.driver.auth.ui.viewmodel.DriverSignUpViewModel

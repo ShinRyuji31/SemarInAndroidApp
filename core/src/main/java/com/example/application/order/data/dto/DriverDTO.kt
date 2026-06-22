@@ -1,4 +1,4 @@
-package com.example.application.driver._core.data.model
+package com.example.application.order.data.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

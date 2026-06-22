@@ -3,7 +3,7 @@ package com.example.application.driver.auth.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.application.auth.data.repository.UserRepository
-import com.example.application.driver.order.data.repository.OrderRepository
+import com.example.application.order.data.repository.OrderRepository
 import kotlinx.coroutines.launch
 
 class DriverAuthViewModel(
