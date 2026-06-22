@@ -1,8 +1,6 @@
 package com.example.application.delivery.data.repository
 
-import android.util.Log
 import com.example.application._core.data.maps.repository.MapsRepository
-import com.example.application.delivery.data.dto.ItemOrderInsertDto
 import com.example.application.delivery.data.dto.LocationInsertDto
 import com.example.application.delivery.data.dto.OrderInsertDto
 import com.example.application.delivery.data.dto.OrderItemInsertDto
@@ -12,10 +10,6 @@ import com.example.application.delivery.data.model.CartItem
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.postgrest
 import kotlinx.coroutines.flow.Flow
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import java.util.TimeZone
 import java.util.UUID
 
 class CartRepository(
@@ -86,17 +80,11 @@ class CartRepository(
                 customerId = userId,
                 pickupLocationId = pickupLocationId,
                 destinationLocationId = destinationLocationId,
-                distance = distanceInKm
+                distance = distanceInKm,
+                isAnterin = false
             )
             supabase.postgrest["ORDER"].insert(orderDto)
 
-            // 5. INSERT ITEM_ORDER
-            val itemOrderDto = ItemOrderInsertDto(
-                orderId = orderId,
-                orderType = storeType,
-                storeId = storeId
-            )
-            supabase.postgrest["ITEM_ORDER"].insert(itemOrderDto)
 
             // 6. INSERT ORDER_ITEM
             val orderItems = items.flatMap { cartItem ->

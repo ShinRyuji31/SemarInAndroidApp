@@ -35,7 +35,7 @@ val customerViewModelModule = module {
     viewModel { DashboardViewModel(get(), get()) }
     viewModel { StoreViewModel(get()) }
     viewModel { CartViewModel(get(), get()) }
-    viewModel { OrderHistoryViewModel(get()) }
+    viewModel { OrderHistoryViewModel(get(), get()) }
 }
 
 val customerKoinModules = listOf(

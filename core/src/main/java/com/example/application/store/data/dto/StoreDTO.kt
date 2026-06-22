@@ -1,4 +1,4 @@
-package com.example.application.delivery.data.model.dto
+package com.example.application.store.data.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

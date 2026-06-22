@@ -3,8 +3,8 @@ package com.example.application.delivery.data.repository
 import com.example.application.delivery.data.model.Store
 import com.example.application.delivery.data.model.StoreInventory
 import com.example.application.delivery.data.model.StoreType
-import com.example.application.delivery.data.model.dto.StoreDto
-import com.example.application.delivery.data.model.dto.ProductDto
+import com.example.application.store.data.dto.ProductDto
+import com.example.application.store.data.dto.StoreDto
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.postgrest.query.Columns

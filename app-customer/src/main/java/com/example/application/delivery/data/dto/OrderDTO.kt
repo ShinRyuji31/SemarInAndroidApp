@@ -20,14 +20,8 @@ data class OrderInsertDto(
     @SerialName("customer_id") val customerId: String,
     @SerialName("pickup_location_id") val pickupLocationId: String,
     @SerialName("destination_location_id") val destinationLocationId: String,
-    @SerialName("distance") val distance: Double? = null
-)
-
-@Serializable
-data class ItemOrderInsertDto(
-    @SerialName("order_id") val orderId: String,
-    @SerialName("order_type") val orderType: String,
-    @SerialName("store_id") val storeId: String
+    @SerialName("distance") val distance: Double? = null,
+    @SerialName("is_anterin") val isAnterin: Boolean = false
 )
 
 @Serializable

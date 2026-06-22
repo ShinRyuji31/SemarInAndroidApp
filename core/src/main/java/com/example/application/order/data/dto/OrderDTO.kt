@@ -10,10 +10,11 @@ data class LocationDto(
 
 @Serializable
 data class StoreDto(
-    @SerialName("store_name") val storeName: String
+    @SerialName("store_name") val storeName: String,
+    @SerialName("store_type") val storeType: String? = null,
+    @SerialName("LOCATION") val location: LocationDto? = null
 )
 
-// 🚀 Tambahan buat jembatan dari ORDER_ITEM ke STORE
 @Serializable
 data class ProductDto(
     @SerialName("STORE") val store: StoreDto? = null

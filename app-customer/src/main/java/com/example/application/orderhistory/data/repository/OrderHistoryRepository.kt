@@ -2,11 +2,11 @@ package com.example.application.orderhistory.data.repository
 
 import android.util.Log
 import androidx.compose.ui.graphics.Color
-import com.example.application.core.R as coreR
 import com.example.application.R
+import com.example.application.core.R as coreR
+import com.example.application.order.data.dto.ActiveOrderDto
 import com.example.application.orderhistory.data.model.OrderHistory
 import com.example.application.orderhistory.data.model.OrderType
-import com.example.application.orderhistory.data.dto.OrderDto
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.postgrest.query.Columns
@@ -17,42 +17,45 @@ import kotlinx.coroutines.withContext
 class OrderHistoryRepository(
     private val supabase: SupabaseClient
 ) {
-    suspend fun fetchOrderHistory(): Result<List<OrderHistory>> = withContext(Dispatchers.IO) {
+    suspend fun fetchOrderHistory(userId: String): Result<List<OrderHistory>> = withContext(Dispatchers.IO) {
         try {
             val dtos = supabase.postgrest["ORDER"]
-                .select(columns = Columns.raw("*, ITEM_ORDER(*, STORE(*, LOCATION(*)))")) {
+                .select(columns = Columns.raw("*, pickup:LOCATION!pickup_location_id(address), destination:LOCATION!destination_location_id(address), ORDER_ITEM(PRODUCT(STORE(*, LOCATION(*))))")) {
+                    filter {
+                        eq("customer_id", userId)
+                        eq("order_status", "COMPLETED")
+                    }
                     order(column = "order_date", order = Order.DESCENDING)
                 }
-                .decodeList<OrderDto>()
+                .decodeList<ActiveOrderDto>()
 
             val histories = dtos.map { dto ->
-                val itemOrder = dto.itemOrders?.firstOrNull()
-                val store = itemOrder?.store
+                val store = dto.orderItems?.firstOrNull()?.product?.store
 
-                val isFood = itemOrder?.orderType?.contains("FOOD", ignoreCase = true) == true
+                val type = if (dto.isAnterin == true) OrderType.ANTERIN else OrderType.FOOD
+
+                val isFood = store?.storeType?.equals("FOOD", ignoreCase = true) == true
 
                 val name = store?.storeName ?: "Anter-In Ride"
 
                 val details = store?.location?.address ?: "Jarak: ${dto.distance ?: 0.0} km"
 
-                val type = if (store != null) OrderType.FOOD else OrderType.ANTERIN
-
-                val themeColor = if (store != null) {
+                val themeColor = if (dto.isAnterin == false && store != null) {
                     if (isFood) Color(0xFFFFD600) else Color(0xFF008938)
                 } else {
                     Color.White
                 }
 
-                val imageRes = if (store != null) coreR.drawable.dummy else R.drawable.ic_bike
+                val imageRes = if (dto.isAnterin == false && store != null) coreR.drawable.dummy else R.drawable.ic_bike
 
-                val formattedDate = dto.orderDate.replace("T", ", ").substringBeforeLast(":") + " WIB"
+                val formattedDate = "Waktu Pemesanan Selesai"
 
                 OrderHistory(
                     id = dto.orderId,
                     name = name,
                     details = details,
                     dateTime = formattedDate,
-                    price = dto.totalPrice.toInt(),
+                    price = dto.totalPrice?.toInt() ?: 0,
                     imageRes = imageRes,
                     type = type,
                     themeColor = themeColor
