@@ -134,7 +134,7 @@ fun DriverAppNavigation() {
                         }
                     },
                     onOrderHistoryClick = { },
-                    onProfileClick = { },
+                    onChatClick = { },
                     onConfirmPickup = {
                         activeOrder?.orderId?.let { coreViewModel.confirmPickup(it) }
                     },

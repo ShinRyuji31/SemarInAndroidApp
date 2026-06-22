@@ -24,7 +24,7 @@ fun DriverOrderStatusScreen(
     onBack: () -> Unit,
     onHomeClick: () -> Unit,
     onOrderHistoryClick: () -> Unit,
-    onProfileClick: () -> Unit,
+    onChatClick: () -> Unit,
     onConfirmPickup: () -> Unit,
     onArrivedAtDestination: () -> Unit,
     onPaymentCompleted: () -> Unit,
@@ -43,7 +43,7 @@ fun DriverOrderStatusScreen(
                 onHomeClick = onHomeClick,
                 onOrderStatusClick = {},
                 onOrderHistoryClick = onOrderHistoryClick,
-                onProfileClick = onProfileClick
+                onChatClick = onChatClick
             )
         }
     ) { inner ->

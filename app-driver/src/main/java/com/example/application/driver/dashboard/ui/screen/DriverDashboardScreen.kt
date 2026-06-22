@@ -88,7 +88,7 @@ fun DriverDashboardScreen(
                     onHomeClick = { },
                     onOrderStatusClick = onNavigateToOrderStatus,
                     onOrderHistoryClick = onNavigateToOrderHistory,
-                    onProfileClick = onNavigateToProfile
+                    onChatClick = {},
                 )
             }
         ) { innerPadding ->

@@ -21,15 +21,15 @@ fun DashboardBottomNavBar(
     onHomeClick: () -> Unit,
     onOrderStatusClick: () -> Unit = {},
     onOrderHistoryClick: () -> Unit = {},
-    onProfileClick: () -> Unit
+    onChatClick: () -> Unit
 ) {
 
-    val items = listOf("Home", "Order Status", "Order History", "Profile")
+    val items = listOf("Home", "Order Status", "Order History", "Chat")
     val icons = listOf(
         R.drawable.ic_home,
         R.drawable.ic_orderstatus,
         R.drawable.ic_history,
-        R.drawable.ic_profile
+        R.drawable.ic_chat
     )
 
     NavigationBar(
@@ -47,7 +47,7 @@ fun DashboardBottomNavBar(
                         0 -> onHomeClick()   
                         1 -> onOrderStatusClick()
                         2 -> onOrderHistoryClick()
-                        3 -> onProfileClick()
+                        3 -> onChatClick()
                     }
                 },
                 icon = {
