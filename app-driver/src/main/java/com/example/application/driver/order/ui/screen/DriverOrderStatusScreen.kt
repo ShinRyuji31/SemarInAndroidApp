@@ -13,9 +13,8 @@ import com.example.application._core.ui.component.Header
 import com.example.application._core.ui.theme.GrayMedium
 import com.example.application.driver.dashboard.ui.component.DashboardBottomNavBar
 import com.example.application.order.data.dto.ActiveOrderDto
-import com.example.application.driver.order.ui.component.OrderDeliveryContent
+import com.example.application.driver.order.ui.component.OrderActionContent // 🚀 Import komponen baru
 import com.example.application.driver.order.ui.component.OrderEmptyScreen
-import com.example.application.driver.order.ui.component.OrderPickupContent
 import com.example.application.driver.order.ui.component.PaymentCompletedPopup
 
 @Composable
@@ -82,21 +81,30 @@ fun DriverOrderStatusScreen(
 
                 when (activeOrder.orderStatus) {
                     "PICKING_UP" -> {
-                        OrderPickupContent(
-                            order = activeOrder,
-                            onConfirm = onConfirmPickup
+                        OrderActionContent(
+                            title = if (activeOrder.isAnterin == true) "Picking Up Passenger" else "Picking Up Food",
+                            locationName = if (activeOrder.isAnterin == true) "Pickup Point" else activeOrder.storeName,
+                            address = activeOrder.pickupAddress,
+                            buttonText = "Confirm Pick Up",
+                            onButtonClick = onConfirmPickup
                         )
                     }
                     "DELIVERING" -> {
-                        OrderDeliveryContent(
-                            order = activeOrder,
-                            onArrived = onArrivedAtDestination
+                        OrderActionContent(
+                            title = if (activeOrder.isAnterin == true) "Dropping Off" else "Delivering Food",
+                            locationName = "Customer Destination",
+                            address = activeOrder.destinationAddress,
+                            buttonText = "Arrived at destination",
+                            onButtonClick = onArrivedAtDestination
                         )
                     }
                     "WAITING_PAYMENT" -> {
-                        OrderDeliveryContent(
-                            order = activeOrder,
-                            onArrived = {}
+                        OrderActionContent(
+                            title = if (activeOrder.isAnterin == true) "Dropping Off" else "Delivering Food",
+                            locationName = "Customer Destination",
+                            address = activeOrder.destinationAddress,
+                            buttonText = "Arrived at destination",
+                            onButtonClick = {}
                         )
                         PaymentCompletedPopup(
                             totalPrice = activeOrder.totalPrice,
@@ -104,9 +112,12 @@ fun DriverOrderStatusScreen(
                         )
                     }
                     else -> {
-                        OrderPickupContent(
-                            order = activeOrder,
-                            onConfirm = onConfirmPickup
+                        OrderActionContent(
+                            title = "Picking Up",
+                            locationName = activeOrder.storeName,
+                            address = activeOrder.pickupAddress,
+                            buttonText = "Confirm",
+                            onButtonClick = onConfirmPickup
                         )
                     }
                 }

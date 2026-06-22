@@ -11,20 +11,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.application._core.ui.component.ButtonBlue
 import com.example.application._core.ui.theme.BlackSoft
 import com.example.application._core.ui.theme.BluePrimary
+import com.example.application._core.ui.theme.GrayDark
 import com.example.application._core.ui.theme.WhiteSoft
-import com.example.application.order.data.dto.ActiveOrderDto
 
 @Composable
-fun OrderDeliveryContent(
-    order: ActiveOrderDto,
-    onArrived: () -> Unit
+fun OrderActionContent(
+    title: String,
+    locationName: String,
+    address: String,
+    buttonText: String,
+    onButtonClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -32,51 +34,38 @@ fun OrderDeliveryContent(
             .background(WhiteSoft)
             .padding(20.dp)
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column(
-                modifier = Modifier.weight(1f)
-            ) {
-                Text(
-                    text = "Delivering Food",
-                    color = BluePrimary,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
-                )
+        Text(
+            text = title,
+            color = BluePrimary,
+            fontWeight = FontWeight.Bold,
+            fontSize = 24.sp
+        )
 
-                Spacer(Modifier.height(4.dp))
-
-                Text(
-                    text = "Jajan-In",
-                    color = BlackSoft
-                )
-            }
-        }
-
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.height(16.dp))
 
         Text(
-            text = "Customer Destination",
+            text = locationName,
             fontWeight = FontWeight.Bold,
-            fontSize = 22.sp
+            color = BlackSoft,
+            fontSize = 16.sp
         )
 
         Spacer(Modifier.height(8.dp))
 
         Text(
-            text = order.destinationAddress,
-            color = Color.DarkGray
+            text = address,
+            color = GrayDark,
+            fontSize = 14.sp
         )
 
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.height(16.dp))
 
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
             ButtonBlue(
-                text = "Arrived at destination",
-                onClick = onArrived,
+                text = buttonText,
+                onClick = onButtonClick,
                 modifier = Modifier
                     .weight(1f)
                     .height(52.dp)
