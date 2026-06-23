@@ -15,26 +15,11 @@ fun GlobalOrderNotification(
 
     val incomingOrder by viewModel.incomingOrder.collectAsState()
 
-    incomingOrder?.let { order -> OrderIncomingNotification(
-            price =
-                order.totalPrice?.toInt()
-                    ?: 0,
-
-            distanceKm =
-                order.distance
-                    ?: 0.0,
-
-            onAccept = {
-                viewModel.acceptOrder(
-                    order.orderId
-                )
-            },
-
-            onDecline = {
-                viewModel.declineOrder(
-                    order.orderId
-                )
-            }
+    incomingOrder?.let { order ->
+        OrderIncomingNotification(
+            order = order,
+            onAccept = { viewModel.acceptOrder(order.orderId) },
+            onDecline = { viewModel.declineOrder(order.orderId) }
         )
     }
 

@@ -15,15 +15,28 @@ import androidx.compose.ui.window.DialogProperties
 import com.example.application._core.ui.component.ButtonBlue
 import com.example.application._core.ui.component.ButtonWhite
 import com.example.application._core.ui.theme.BlackSoft
+import com.example.application._core.ui.theme.BluePrimary
 import com.example.application._core.ui.theme.WhiteSoft
+import com.example.application._core.util.toRupiah
+import com.example.application.order.data.dto.ActiveOrderDto
 
 @Composable
 fun OrderIncomingNotification(
-    price: Int = 15000,
-    distanceKm: Double = 2.5,
+    order: ActiveOrderDto,
     onAccept: () -> Unit,
     onDecline: () -> Unit
 ) {
+    val isAnterin = order.isAnterin == true
+
+    val serviceLabel = if (isAnterin) "Layanan: Anter-In Ride" else "Layanan: Jajan-In Delivery"
+    val pickupLabel = if (isAnterin) "Lokasi Jemput:" else "Lokasi Resto/Toko:"
+    val destinationLabel = if (isAnterin) "Lokasi Tujuan:" else "Tujuan Pengiriman:"
+
+    val pickupText = if (isAnterin) order.pickupAddress else (order.storeName.takeIf { it != "Unknown Store" } ?: order.pickupAddress)
+    val destinationText = order.destinationAddress
+    val distanceText = String.format("%.1f km", order.distance ?: 0.0)
+    val priceText = (order.totalPrice?.toInt() ?: 0).toRupiah()
+
     Dialog(
         onDismissRequest = { },
         properties = DialogProperties(
@@ -33,38 +46,61 @@ fun OrderIncomingNotification(
     ) {
         Card(
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(24.dp),
+            shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(containerColor = WhiteSoft),
-            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
         ) {
-            Column(modifier = Modifier.padding(24.dp)) {
+            Column(modifier = Modifier.padding(20.dp)) {
                 Text(
-                    text = "Pesanan Baru Masuk! 🛵",
-                    fontSize = 20.sp,
+                    text = "Pesanan Baru Masuk!",
+                    fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     color = BlackSoft
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
-
-                HorizontalDivider(color = Color.LightGray)
-
-                Spacer(modifier = Modifier.height(16.dp))
-
+                Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "Lokasi Jemput: Jl. Dummy Pickup No. 1",
-                    fontSize = 14.sp, color = Color.Gray
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Text(
-                    text = "Lokasi Antar: Gedung Dummy UNS",
-                    fontSize = 14.sp, color =
-                        Color.Gray
+                    text = serviceLabel,
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = BluePrimary
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
+                HorizontalDivider(color = Color.LightGray.copy(alpha = 0.6f))
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Text(
+                    text = pickupLabel,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.Gray
+                )
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = pickupText,
+                    fontSize = 14.sp,
+                    color = BlackSoft
+                )
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Text(
+                    text = destinationLabel,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.Gray
+                )
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = destinationText,
+                    fontSize = 14.sp,
+                    color = BlackSoft
+                )
+
+                Spacer(modifier = Modifier.height(14.dp))
+                HorizontalDivider(color = Color.LightGray.copy(alpha = 0.4f))
+                Spacer(modifier = Modifier.height(10.dp))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -73,19 +109,18 @@ fun OrderIncomingNotification(
                 ) {
                     Text(
                         text = "Estimasi Jarak:",
-                        fontSize = 14.sp,
+                        fontSize = 13.sp,
                         color = Color.Gray
                     )
-
                     Text(
-                        text = "$distanceKm km",
-                        fontSize = 16.sp,
+                        text = distanceText,
+                        fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                         color = BlackSoft
                     )
                 }
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(6.dp))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -94,32 +129,32 @@ fun OrderIncomingNotification(
                 ) {
                     Text(
                         text = "Pendapatan:",
-                        fontSize = 14.sp,
+                        fontSize = 13.sp,
                         color = Color.Gray
                     )
                     Text(
-                        text = "Rp $price",
-                        fontSize = 20.sp,
+                        text = priceText,
+                        fontSize = 18.sp,
                         fontWeight = FontWeight.ExtraBold,
-                        color = Color(0xFF008938)
+                        color = BluePrimary
                     )
                 }
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(20.dp))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     ButtonWhite(
                         text = "Tolak",
                         onClick = onDecline,
-                        modifier = Modifier.weight(1f).height(50.dp)
+                        modifier = Modifier.weight(1f).height(48.dp)
                     )
                     ButtonBlue(
                         text = "Terima",
                         onClick = onAccept,
-                        modifier = Modifier.weight(1f).height(50.dp)
+                        modifier = Modifier.weight(1f).height(48.dp)
                     )
                 }
             }
