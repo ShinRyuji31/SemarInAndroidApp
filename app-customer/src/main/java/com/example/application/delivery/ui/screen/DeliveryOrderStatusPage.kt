@@ -106,7 +106,7 @@ fun DeliveryOrderStatusPage(
                     OrderTimelineItem(
                         title = "Your order is on the way to you",
                         time = "",
-                        isCompleted = status == "DELIVERING",
+                        isCompleted = status == "DELIVERING" || status == "WAITING_PAYMENT",
                         isLast = false
                     )
 
