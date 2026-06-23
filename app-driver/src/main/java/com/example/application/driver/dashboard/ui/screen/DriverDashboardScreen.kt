@@ -41,6 +41,7 @@ fun DriverDashboardScreen(
     onNavigateToOrderStatus: () -> Unit = {},
     onNavigateToOrderHistory: () -> Unit = {},
     onNavigateToProfile: () -> Unit = {},
+    onNavigateToChat: () -> Unit = {},
     viewModel: DashboardViewModel = koinViewModel(),
     locationViewModel: LocationViewModel = koinViewModel()
 ){
@@ -88,7 +89,7 @@ fun DriverDashboardScreen(
                     onHomeClick = { },
                     onOrderStatusClick = onNavigateToOrderStatus,
                     onOrderHistoryClick = onNavigateToOrderHistory,
-                    onChatClick = {},
+                    onChatClick = onNavigateToChat,
                 )
             }
         ) { innerPadding ->

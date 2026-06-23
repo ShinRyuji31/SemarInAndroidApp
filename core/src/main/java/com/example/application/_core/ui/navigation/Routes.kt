@@ -52,4 +52,5 @@ sealed interface Routes {
     @Serializable data class JajaninFindingDriverRoute(val orderId: String) : Routes
 
     @Serializable data object DriverSignUpRoute : Routes
+    @Serializable data object DriverChatRoute : Routes
 }

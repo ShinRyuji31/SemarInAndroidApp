@@ -26,6 +26,7 @@ import com.example.application.driver.order.ui.screen.DriverOrderStatusScreen
 import com.example.application.driver.order.ui.overlay.GlobalOrderNotification
 import com.example.application.orderhistory.ui.screen.OrderHistoryScreen
 import com.example.application.driver.dashboard.ui.component.DashboardBottomNavBar
+import com.example.application.chat.ui.screen.ChatWithDriverPage
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
@@ -123,6 +124,9 @@ fun DriverAppNavigation() {
                     },
                     onNavigateToOrderHistory = {
                         navController.navigate(Routes.OrderHistoryRoute)
+                    },
+                    onNavigateToChat = {
+                        navController.navigate(Routes.DriverChatRoute)
                     }
                 )
             }
@@ -139,7 +143,9 @@ fun DriverAppNavigation() {
                     onOrderHistoryClick = {
                         navController.navigate(Routes.OrderHistoryRoute)
                     },
-                    onChatClick = { },
+                    onChatClick = {
+                        navController.navigate(Routes.DriverChatRoute) { launchSingleTop = true }
+                    },
                     onConfirmPickup = {
                         activeOrder?.orderId?.let { coreViewModel.confirmPickup(it) }
                     },
@@ -174,9 +180,17 @@ fun DriverAppNavigation() {
                                 }
                             },
                             onOrderHistoryClick = {},
-                            onChatClick = {}
+                            onChatClick = {
+                                navController.navigate(Routes.DriverChatRoute) { launchSingleTop = true }
+                            }
                         )
                     }
+                )
+            }
+
+            composable<Routes.DriverChatRoute> {
+                ChatWithDriverPage(
+                    onBack = { navController.popBackStack() }
                 )
             }
         }
