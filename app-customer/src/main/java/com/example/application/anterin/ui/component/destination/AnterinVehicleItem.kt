@@ -14,6 +14,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.application._core.ui.theme.BluePrimary
+import com.example.application._core.ui.theme.GrayMedium
+import com.example.application._core.ui.theme.WhiteSoft
 
 @Composable
 fun AnterinVehicleItem(
@@ -28,8 +31,8 @@ fun AnterinVehicleItem(
         modifier = Modifier
             .fillMaxWidth()
             .background(
-                if (isSelected) Color.White.copy(alpha = 0.2f)
-                else Color.Transparent,
+                if (isSelected) BluePrimary
+                else WhiteSoft,
                 RoundedCornerShape(12.dp)
             )
             .clickable { onClick() }
@@ -47,20 +50,24 @@ fun AnterinVehicleItem(
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = name,
-                color = Color.White,
+                color =
+                    if (isSelected) WhiteSoft
+                    else BluePrimary,
                 fontWeight = FontWeight.Bold,
                 fontSize = 16.sp
             )
             Text(
                 text = capacity,
-                color = Color.White.copy(alpha = 0.8f),
+                color = GrayMedium,
                 fontSize = 12.sp
             )
         }
 
         Text(
             text = price,
-            color = Color.White,
+            color =
+                if (isSelected) WhiteSoft
+                else BluePrimary,
             fontWeight = FontWeight.Bold,
             fontSize = 16.sp
         )

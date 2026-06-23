@@ -32,7 +32,7 @@ class AnterinRepository {
                 name = "Car",
                 capacity = 4,
                 price = 40320,
-                icon = R.drawable.ic_bike
+                icon = R.drawable.logo_coloredcar
             ),
 
             VehicleType(
@@ -40,7 +40,7 @@ class AnterinRepository {
                 name = "Bike",
                 capacity = 1,
                 price = 20160,
-                icon = R.drawable.ic_bike
+                icon = R.drawable.logo_coloredbike
             )
         )
     }

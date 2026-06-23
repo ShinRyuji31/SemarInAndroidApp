@@ -17,6 +17,7 @@ import com.example.application._core.ui.component.MapWebView
 import com.example.application._core.ui.theme.BluePrimary
 import com.example.application.anterin.ui.viewmodel.AnterinViewModel
 import com.example.application._core.data.location.LocationViewModel
+import com.example.application._core.ui.theme.blueBlueGradient
 import com.example.application._core.util.toRupiah
 import org.koin.androidx.compose.koinViewModel
 
@@ -58,7 +59,7 @@ fun AnterinDestinationSetPage(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
-                .background(BluePrimary)
+                .background(blueBlueGradient())
         ) {
             Column {
                 AnterinLocationCard(
@@ -66,9 +67,9 @@ fun AnterinDestinationSetPage(
                     destination = destination
                 )
 
-                Spacer(modifier = Modifier.height(12.dp))
-
-                Column {
+                Column(
+                    modifier = Modifier.padding (16.dp)
+                ) {
                     uiState.vehicleTypes.forEach { vehicle ->
                         val distance = uiState.route?.distanceKm ?: 0.0
                         val totalPrice = (vehicle.price.toDouble() * distance).toLong()
@@ -83,10 +84,10 @@ fun AnterinDestinationSetPage(
                                 viewModel.selectVehicleType(vehicle.id)
                             }
                         )
+
+                        Spacer(modifier = Modifier.height(12.dp))
                     }
                 }
-
-                Spacer(modifier = Modifier.height(12.dp))
 
                 Box(
                     modifier = Modifier
