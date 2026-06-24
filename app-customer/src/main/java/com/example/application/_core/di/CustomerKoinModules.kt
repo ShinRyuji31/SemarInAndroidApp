@@ -33,7 +33,7 @@ val customerRepositoryModule = module {
 
 val customerViewModelModule = module {
     viewModel { ProfileViewModel(get()) }
-    viewModel { AnterinViewModel(get(), get()) }
+    viewModel { AnterinViewModel(get(), get(), get(), get()) }
     viewModel { DashboardViewModel(get(), get(), get()) }
     viewModel { StoreViewModel(get()) }
     viewModel { CartViewModel(get(), get(), get()) }
