@@ -102,28 +102,23 @@ fun AnterinOrderStatusPage(
                 )
             }
 
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = WhiteSoft),
-                shape = RoundedCornerShape(0.dp)
-            ) {
-                OrderStatusDriverDetail(
-                    driverName = "Kyle",
-                    vehicleInfo = "AD 6767 SP (Honda Beat)",
-                    onCallClick = onChatClick,
-                    onChatClick = onChatClick
-                )
-            }
+            AnterinLocationCard(
+                pickup = pickup,
+                destination = destination
+            )
 
             HorizontalDivider(
                 color = GrayMedium,
                 thickness = 1.dp
             )
 
-            AnterinLocationCard(
-                pickup = pickup,
-                destination = destination
+            OrderStatusDriverDetail(
+                driverName = "Kyle",
+                vehicleInfo = "AD 6767 SP (Honda Beat)",
+                onCallClick = onChatClick,
+                onChatClick = onChatClick
             )
+
         }
     }
 }
