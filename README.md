@@ -4,11 +4,11 @@
 <!--                        BANNER IMAGE                         -->
 <!-- ============================================================ -->
 
-![Semar-In Banner](link_to_your_banner_image_here)
+![Semar-In Banner](images/readme_banner.png)
 
 <br/>
 
-# 🛵 Semar-In
+# Semar-In
 ### *Food Delivery & On-Demand Service Platform*
 #### *For the Sivitas Akademika Universitas Sebelas Maret*
 
