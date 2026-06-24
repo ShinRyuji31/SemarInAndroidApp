@@ -98,7 +98,6 @@ This project ships as **two separate Android applications** sharing a common `:c
 ## 👥 The Team
 
 <div align="center">
-  <h2>Tim Kami</h2>
   <table>
     <tr>
       <td align="center">
