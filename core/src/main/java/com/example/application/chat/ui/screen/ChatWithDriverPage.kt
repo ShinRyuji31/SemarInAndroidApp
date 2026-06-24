@@ -31,7 +31,7 @@ fun ChatWithDriverPage(
         topBar = {
             ChatHeader(
                 driverName = "Kyle",
-                vehicleInfo = "AD 6767 SP (Honda Beat)",
+                vehicleInfo = "",
                 onBack = onBack
             )
         },

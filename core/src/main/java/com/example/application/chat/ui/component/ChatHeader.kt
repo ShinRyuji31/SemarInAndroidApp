@@ -39,7 +39,7 @@ fun ChatHeader(
             BackButton(onClick = onBack)
             Spacer(modifier = Modifier.width(12.dp))
             Image(
-                painter = painterResource(id = R.drawable.dummy),
+                painter = painterResource(id = R.drawable.ic_profile),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -47,6 +47,7 @@ fun ChatHeader(
                     .clip(CircleShape)
             )
             Spacer(modifier = Modifier.width(12.dp))
+
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = driverName,
@@ -62,7 +63,7 @@ fun ChatHeader(
             }
             IconButton(onClick = {}) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_orderstatus),
+                    painter = painterResource(id = R.drawable.ic_phone),
                     contentDescription = "Call",
                     tint = WhiteSoft,
                     modifier = Modifier.size(24.dp)

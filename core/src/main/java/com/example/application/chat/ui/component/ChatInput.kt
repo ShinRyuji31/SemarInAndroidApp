@@ -40,7 +40,7 @@ fun ChatInput(
                 shape = RoundedCornerShape(25.dp),
                 leadingIcon = {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_profile),
+                        painter = painterResource(id = R.drawable.ic_smile),
                         contentDescription = null,
                         tint = Color.Gray,
                         modifier = Modifier.size(24.dp)
@@ -53,7 +53,7 @@ fun ChatInput(
                             messageText = ""
                         }) {
                             Icon(
-                                painter = painterResource(id = R.drawable.ic_orderstatus), // Using placeholder for send
+                                painter = painterResource(id = R.drawable.ic_orderstatus),
                                 contentDescription = "Send",
                                 tint = Color.Blue,
                                 modifier = Modifier.size(24.dp)
