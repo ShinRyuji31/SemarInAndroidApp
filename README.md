@@ -101,27 +101,27 @@ This project ships as **two separate Android applications** sharing a common `:c
   <table>
     <tr>
       <td align="center">
-        <a href="https://github.com/ApriliiaWulandari">
+        <a href="https://github.com/aprliwln">
           <img src="https://github.com/aprliwln.png" width="80" style="border-radius: 50%;" alt="Apriliia Wulandari"/><br />
-          <b>@ApriliiaWulandari</b>
+          <b>@aprliwln</b>
         </a>
       </td>
       <td align="center">
-        <a href="https://github.com/BaihaqiHakimAbdullah">
+        <a href="https://github.com/baihaqihakim77">
           <img src="https://github.com/baihaqihakim77.png" width="80" style="border-radius: 50%;" alt="Baihaqi Hakim"/><br />
-          <b>@BaihaqiHakimAbdullah</b>
+          <b>@baihaqihakim77</b>
         </a>
       </td>
       <td align="center">
-        <a href="https://github.com/BenedithJeffiersonTanujaya">
+        <a href="https://github.com/ShinRyuji31">
           <img src="https://github.com/ShinRyuji31.png" width="80" style="border-radius: 50%;" alt="Benedith Jeffierson"/><br />
-          <b>@BenedithJeffiersonTanujaya</b>
+          <b>@ShinRyuji31</b>
         </a>
       </td>
       <td align="center">
-        <a href="https://github.com/ErikaNurAmalia">
+        <a href="https://github.com/knlvess.png">
           <img src="https://github.com/knlvess.png" width="80" style="border-radius: 50%;" alt="Erika Nur Amalia"/><br />
-          <b>@ErikaNurAmalia</b>
+          <b>@knlvess</b>
         </a>
       </td>
     </tr>
