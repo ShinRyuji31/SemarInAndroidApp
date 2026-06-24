@@ -1,5 +1,6 @@
 package com.example.application.driver.order.ui.screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -8,14 +9,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.application._core.ui.component.Header
 import com.example.application._core.ui.theme.GrayMedium
 import com.example.application.driver.dashboard.ui.component.DashboardBottomNavBar
 import com.example.application.order.data.dto.ActiveOrderDto
-import com.example.application.driver.order.ui.component.OrderActionContent // 🚀 Import komponen baru
+import com.example.application.driver.order.ui.component.OrderActionContent
 import com.example.application.driver.order.ui.component.OrderEmptyScreen
 import com.example.application.driver.order.ui.component.PaymentCompletedPopup
+import com.example.application.driver.R
 
 @Composable
 fun DriverOrderStatusScreen(
@@ -64,8 +68,15 @@ fun DriverOrderStatusScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f)
-                        .background(Color(0xFFE7E7E7))
                 ) {
+
+                    Image(
+                        painter = painterResource(id = R.drawable.dummy_map),
+                        contentDescription = "Map Background",
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop
+                    )
+
                     Text(
                         text = "Dummy Map",
                         color = Color.Gray,
