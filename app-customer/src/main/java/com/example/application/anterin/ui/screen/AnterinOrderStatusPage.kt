@@ -100,28 +100,6 @@ fun AnterinOrderStatusPage(
                     isInteractionEnabled = false,
                     modifier = Modifier.fillMaxSize()
                 )
-
-                Column(
-                    modifier = Modifier.align(Alignment.Center),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_location),
-                        contentDescription = null,
-                        tint = Color.Red,
-                        modifier = Modifier.size(40.dp)
-                    )
-
-                    Text(
-                        text = "Gedung B FMIPA UNS",
-                        color = Color.Red,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .background(WhiteSoft.copy(alpha = 0.7f), RoundedCornerShape(4.dp))
-                            .padding(horizontal = 4.dp, vertical = 2.dp)
-                    )
-                }
             }
 
             Card(
