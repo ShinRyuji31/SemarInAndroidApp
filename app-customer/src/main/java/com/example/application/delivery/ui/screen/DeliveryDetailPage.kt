@@ -53,6 +53,12 @@ fun DeliveryDetailPage(
 
     var conflictInventory by remember { mutableStateOf<StoreInventory?>(null) }
 
+    val headerTitle = when (storeToShow?.type) {
+        com.example.application.delivery.data.model.StoreType.FOOD -> "Jajan-In"
+        com.example.application.delivery.data.model.StoreType.RETAIL -> "Titip-In"
+        else -> "Store Detail"
+    }
+
     Box(modifier = Modifier.fillMaxSize().background(Color.White)) {
         LazyColumn(
             modifier = Modifier.fillMaxSize()
@@ -152,7 +158,7 @@ fun DeliveryDetailPage(
         )
 
         Header(
-            title = "Jajan-In",
+            title = headerTitle,
             onBack = onBack,
             modifier = Modifier.align(Alignment.TopCenter)
         )
