@@ -4,6 +4,10 @@ import android.util.Log
 import com.example.application.order.data.dto.ActiveOrderDto
 import com.example.application.order.data.dto.DriverDto
 import com.example.application.order.data.dto.DriverLocationDto
+import com.example.application.order.data.dto.LocationIdResponseDto
+import com.example.application.order.data.dto.LocationInsertRequestDto
+import com.example.application.order.data.dto.OrderIdResponseDto
+import com.example.application.order.data.dto.OrderInsertRequestDto
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.postgrest.query.Columns
@@ -135,5 +139,60 @@ class OrderRepository(private val supabase: SupabaseClient) {
                     null
                 }
             }
+    }
+
+    suspend fun createAnterinOrder(
+        customerId: String,
+        pickupAddress: String,
+        pickupLat: Double,
+        pickupLng: Double,
+        destinationAddress: String,
+        destinationLat: Double,
+        destinationLng: Double,
+        distanceKm: Double,
+        totalPrice: Double,
+        vehicleType: String
+    ): String? {
+        return try {
+            val pickupDto = LocationInsertRequestDto(
+                address = pickupAddress,
+                latitude = pickupLat,
+                longitude = pickupLng
+            )
+            val pickupId = supabase.postgrest["LOCATION"]
+                .insert(pickupDto) { select() }
+                .decodeSingle<LocationIdResponseDto>()
+                .locationId
+
+            val destinationDto = LocationInsertRequestDto(
+                address = destinationAddress,
+                latitude = destinationLat,
+                longitude = destinationLng
+            )
+            val destinationId = supabase.postgrest["LOCATION"]
+                .insert(destinationDto) { select() }
+                .decodeSingle<LocationIdResponseDto>()
+                .locationId
+
+            val orderDto = OrderInsertRequestDto(
+                customerId = customerId,
+                pickupLocationId = pickupId,
+                destinationLocationId = destinationId,
+                distance = distanceKm,
+                totalPrice = totalPrice,
+                vehicleType = vehicleType,
+                isAnterin = true,
+                orderStatus = "PENDING"
+            )
+            val orderId = supabase.postgrest["ORDER"]
+                .insert(orderDto) { select() }
+                .decodeSingle<OrderIdResponseDto>()
+                .orderId
+
+            orderId
+        } catch (e: Exception) {
+            Log.e("OrderRepository", "createAnterinOrder failed", e)
+            null
+        }
     }
 }

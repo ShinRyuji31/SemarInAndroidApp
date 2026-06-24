@@ -2,7 +2,11 @@ package com.example.application.anterin.ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -30,13 +34,19 @@ fun AnterinDestinationSetPage(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val locationState by locationViewModel.uiState.collectAsState()
-    
+
     val destination = uiState.destination?.address ?: "Unknown destination"
     val pickup = uiState.pickup?.address ?: "Unknown pickup"
 
     val userLatLng = if (locationState.latitude != null && locationState.longitude != null) {
         Pair(locationState.latitude!!, locationState.longitude!!)
     } else null
+
+    LaunchedEffect(Unit) {
+        viewModel.orderCreatedEvent.collect { orderId ->
+            onFindDriver(orderId)
+        }
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -68,7 +78,7 @@ fun AnterinDestinationSetPage(
                 )
 
                 Column(
-                    modifier = Modifier.padding (16.dp)
+                    modifier = Modifier.padding(16.dp)
                 ) {
                     uiState.vehicleTypes.forEach { vehicle ->
                         val distance = uiState.route?.distanceKm ?: 0.0
@@ -89,26 +99,44 @@ fun AnterinDestinationSetPage(
                     }
                 }
 
+                uiState.orderCreationError?.let { errorMsg ->
+                    Snackbar(
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
+                    ) {
+                        Text(text = errorMsg, color = Color.White)
+                    }
+                }
+
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(Color.White)
                         .navigationBarsPadding()
                 ) {
-                    ButtonBlue(
-                        text = "Find Driver",
-                        onClick = {
-                            onFindDriver("dummy-order-id")
-                        },
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp, vertical = 12.dp)
-                            .fillMaxWidth()
-                            .height(50.dp),
-                        enabled = uiState.selectedVehicleType != null
-                    )
+                    if (uiState.isCreatingOrder) {
+                        CircularProgressIndicator(
+                            color = BluePrimary,
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .padding(vertical = 14.dp)
+                        )
+                    } else {
+                        ButtonBlue(
+                            text = "Find Driver",
+                            onClick = {
+                                viewModel.createOrder()
+                            },
+                            modifier = Modifier
+                                .padding(horizontal = 16.dp, vertical = 12.dp)
+                                .fillMaxWidth()
+                                .height(50.dp),
+                            enabled = uiState.selectedVehicleType != null && uiState.route != null
+                        )
+                    }
                 }
                 Spacer(modifier = Modifier.height(12.dp))
             }
         }
     }
 }
+

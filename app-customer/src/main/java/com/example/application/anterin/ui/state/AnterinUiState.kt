@@ -13,5 +13,9 @@ data class AnterinUiState(
     val histories: List<HistoryLocation> = emptyList(),
     val vehicleTypes: List<VehicleType> = emptyList(),
 
-    val route: DrivingRoute? = null
+    val route: DrivingRoute? = null,
+
+    val isCreatingOrder: Boolean = false,
+
+    val orderCreationError: String? = null
 )
