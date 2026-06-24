@@ -74,6 +74,7 @@ This project ships as **two separate Android applications** sharing a common `:c
 | **Semar-In Driver** | The driver companion app for managing and fulfilling orders in real time. |
 
 <br/>
+
 ---
 
 ## 🛠️ Tech Stack
@@ -100,16 +101,33 @@ This project ships as **two separate Android applications** sharing a common `:c
 
 <div align="center">
 
-|                                               Avatar                                                | Name | Role |
-|:---------------------------------------------------------------------------------------------------:|------|------|
-|    <img src="https://github.com/aprliwln.png" width="60" height="60" style="border-radius:50%"/>    | [**Aprilia Wulandari**](https://github.com/ApriliiaWulandari) |
-| <img src="https://github.com/baihaqihakim77.png" width="60" height="60" style="border-radius:50%"/> | [**Baihaqi Hakim Abdullah**](https://github.com/BaihaqiHakimAbdullah) |
-|  <img src="https://github.com/ShinRyuji31.png" width="60" height="60" style="border-radius:50%"/>   | [**Benedith Jeffierson Tanujaya**](https://github.com/BenedithJeffiersonTanujaya) |
-|                 <img src="https://github.com/knlvess.png" width="60" height="60" style="border-radius:50%"/>                  | [**Erika Nur Amalia**](https://github.com/ErikaNurAmalia) |
+<!-- ROW 1 -->
+<a href="https://github.com/ApriliiaWulandari" style="text-decoration:none; display:inline-block; margin: 0 40px;">
+  <img src="https://github.com/aprliwln.png" width="100" height="100" style="border-radius: 50%; object-fit: cover;"/>
+  <br />
+  <b>@ApriliiaWulandari</b>
+</a>
+<a href="https://github.com/BaihaqiHakimAbdullah" style="text-decoration:none; display:inline-block; margin: 0 40px;">
+  <img src="https://github.com/baihaqihakim77.png" width="100" height="100" style="border-radius: 50%; object-fit: cover;"/>
+  <br />
+  <b>@BaihaqiHakimAbdullah</b>
+</a>
+
+<br/><br/><br/>
+
+<!-- ROW 2 -->
+<a href="https://github.com/BenedithJeffiersonTanujaya" style="text-decoration:none; display:inline-block; margin: 0 40px;">
+  <img src="https://github.com/ShinRyuji31.png" width="100" height="100" style="border-radius: 50%; object-fit: cover;"/>
+  <br />
+  <b>@BenedithJeffiersonTanujaya</b>
+</a>
+<a href="https://github.com/ErikaNurAmalia" style="text-decoration:none; display:inline-block; margin: 0 40px;">
+  <img src="https://github.com/knlvess.png" width="100" height="100" style="border-radius: 50%; object-fit: cover;"/>
+  <br />
+  <b>@ErikaNurAmalia</b>
+</a>
 
 </div>
-
-<br/>
 
 <br/>
 
@@ -126,10 +144,9 @@ This project ships as **two separate Android applications** sharing a common `:c
 ### Setup
 
 1. **Clone the repository**
-   ```bash
-   git clone https://github.com/your-org/SemarinAndroidApp.git
+```bash
+   git clone [https://github.com/your-org/SemarinAndroidApp.git](https://github.com/your-org/SemarinAndroidApp.git)
    cd SemarinAndroidApp
-   ```
 
 2. **Configure environment variables**
 
@@ -150,6 +167,7 @@ This project ships as **two separate Android applications** sharing a common `:c
    Select your target device and hit **Run**!
 
 <br/>
+
 ---
 
 ## 📚 Documentation & Resources
