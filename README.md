@@ -97,40 +97,37 @@ This project ships as **two separate Android applications** sharing a common `:c
 
 ## 👥 The Team
 
-<br/>
-
 <div align="center">
-  <div style="margin-bottom: 25px;">
-    <a href="https://github.com/ApriliiaWulandari" style="text-decoration: none; color: inherit;">
-      <img src="https://github.com/aprliwln.png" width="60" height="60" style="border-radius: 50%; margin-bottom: 8px;"/><br/>
-      <b>@ApriliiaWulandari</b>
-    </a>
-  </div>
-
-  <div style="margin-bottom: 25px;">
-    <a href="https://github.com/BaihaqiHakimAbdullah" style="text-decoration: none; color: inherit;">
-      <img src="https://github.com/baihaqihakim77.png" width="60" height="60" style="border-radius: 50%; margin-bottom: 8px;"/><br/>
-      <b>@BaihaqiHakimAbdullah</b>
-    </a>
-  </div>
-
-  <div style="margin-bottom: 25px;">
-    <a href="https://github.com/BenedithJeffiersonTanujaya" style="text-decoration: none; color: inherit;">
-      <img src="https://github.com/ShinRyuji31.png" width="60" height="60" style="border-radius: 50%; margin-bottom: 8px;"/><br/>
-      <b>@BenedithJeffiersonTanujaya</b>
-    </a>
-  </div>
-
-  <div style="margin-bottom: 25px;">
-    <a href="https://github.com/ErikaNurAmalia" style="text-decoration: none; color: inherit;">
-      <img src="https://github.com/knlvess.png" width="60" height="60" style="border-radius: 50%; margin-bottom: 8px;"/><br/>
-      <b>@ErikaNurAmalia</b>
-    </a>
-  </div>
+  <h2>Tim Kami</h2>
+  <table>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/ApriliiaWulandari">
+          <img src="https://github.com/aprliwln.png" width="80" style="border-radius: 50%;" alt="Apriliia Wulandari"/><br />
+          <b>@ApriliiaWulandari</b>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/BaihaqiHakimAbdullah">
+          <img src="https://github.com/baihaqihakim77.png" width="80" style="border-radius: 50%;" alt="Baihaqi Hakim"/><br />
+          <b>@BaihaqiHakimAbdullah</b>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/BenedithJeffiersonTanujaya">
+          <img src="https://github.com/ShinRyuji31.png" width="80" style="border-radius: 50%;" alt="Benedith Jeffierson"/><br />
+          <b>@BenedithJeffiersonTanujaya</b>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/ErikaNurAmalia">
+          <img src="https://github.com/knlvess.png" width="80" style="border-radius: 50%;" alt="Erika Nur Amalia"/><br />
+          <b>@ErikaNurAmalia</b>
+        </a>
+      </td>
+    </tr>
+  </table>
 </div>
-
-<br/>
-
 ---
 
 ## 🚀 Getting Started
