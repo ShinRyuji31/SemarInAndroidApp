@@ -102,10 +102,10 @@ This project ships as **two separate Android applications** sharing a common `:c
 
 |                                               Avatar                                                | Name | Role |
 |:---------------------------------------------------------------------------------------------------:|------|------|
-|    <img src="https://github.com/aprliwln.png" width="60" height="60" style="border-radius:50%"/>    | [**Aprilia Wulandari**](https://github.com/ApriliiaWulandari) | Team Member |
-| <img src="https://github.com/baihaqihakim77.png" width="60" height="60" style="border-radius:50%"/> | [**Baihaqi Hakim Abdullah**](https://github.com/BaihaqiHakimAbdullah) | Team Member |
-|  <img src="https://github.com/ShinRyuji31.png" width="60" height="60" style="border-radius:50%"/>   | [**Benedith Jeffierson Tanujaya**](https://github.com/BenedithJeffiersonTanujaya) | Team Member |
-|                 <img src="https://github.com/knlvess.png" width="60" height="60" style="border-radius:50%"/>                  | [**Erika Nur Amalia**](https://github.com/ErikaNurAmalia) | Team Member |
+|    <img src="https://github.com/aprliwln.png" width="60" height="60" style="border-radius:50%"/>    | [**Aprilia Wulandari**](https://github.com/ApriliiaWulandari) |
+| <img src="https://github.com/baihaqihakim77.png" width="60" height="60" style="border-radius:50%"/> | [**Baihaqi Hakim Abdullah**](https://github.com/BaihaqiHakimAbdullah) |
+|  <img src="https://github.com/ShinRyuji31.png" width="60" height="60" style="border-radius:50%"/>   | [**Benedith Jeffierson Tanujaya**](https://github.com/BenedithJeffiersonTanujaya) |
+|                 <img src="https://github.com/knlvess.png" width="60" height="60" style="border-radius:50%"/>                  | [**Erika Nur Amalia**](https://github.com/ErikaNurAmalia) |
 
 </div>
 
@@ -150,12 +150,34 @@ This project ships as **two separate Android applications** sharing a common `:c
    Select your target device and hit **Run**!
 
 <br/>
+---
+
+## 📚 Documentation & Resources
+
+Need a walkthrough? Explore the user manuals and presentation materials below.
+
+### 📘 User Manuals
+
+- **SEMAR-IN User Manual (Customer App)**  
+  https://heyzine.com/flip-book/6e946ef2be.html
+
+- **SEMAR-IN for DRIVER User Manual**  
+  https://heyzine.com/flip-book/742403bae7.html
+
+### 🎥 Video Presentation
+
+Watch the full project presentation here:
+
+- **YouTube Presentation**  
+  https://youtu.be/O53BOQX-z98
+
+<br/>
 
 ---
 
 ## 📄 License
 
-```
+```text
 MIT License
 
 Copyright (c) 2026 Semar-In Team — Universitas Sebelas Maret
@@ -172,7 +194,7 @@ copies or substantial portions of the Software.
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-```
+````
 
 <br/>
 
@@ -185,3 +207,5 @@ Made with ❤️ for **Sivitas Akademika UNS**
 *Semar-In — Satu Platform, Segala Kebutuhan Kampus.*
 
 </div>
+```
+
