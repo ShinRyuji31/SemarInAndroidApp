@@ -127,6 +127,9 @@ This project ships as **two separate Android applications** sharing a common `:c
     </tr>
   </table>
 </div>
+
+<br/>
+
 ---
 
 ## 🚀 Getting Started
