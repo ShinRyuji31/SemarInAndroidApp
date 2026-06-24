@@ -99,35 +99,10 @@ This project ships as **two separate Android applications** sharing a common `:c
 
 <br/>
 
-<div align="center">
-
-<!-- ROW 1 -->
-<a href="https://github.com/ApriliiaWulandari" style="text-decoration:none; display:inline-block; margin: 0 40px;">
-  <img src="https://github.com/aprliwln.png" width="100" height="100" style="border-radius: 50%; object-fit: cover;"/>
-  <br />
-  <b>@ApriliiaWulandari</b>
-</a>
-<a href="https://github.com/BaihaqiHakimAbdullah" style="text-decoration:none; display:inline-block; margin: 0 40px;">
-  <img src="https://github.com/baihaqihakim77.png" width="100" height="100" style="border-radius: 50%; object-fit: cover;"/>
-  <br />
-  <b>@BaihaqiHakimAbdullah</b>
-</a>
-
-<br/><br/><br/>
-
-<!-- ROW 2 -->
-<a href="https://github.com/BenedithJeffiersonTanujaya" style="text-decoration:none; display:inline-block; margin: 0 40px;">
-  <img src="https://github.com/ShinRyuji31.png" width="100" height="100" style="border-radius: 50%; object-fit: cover;"/>
-  <br />
-  <b>@BenedithJeffiersonTanujaya</b>
-</a>
-<a href="https://github.com/ErikaNurAmalia" style="text-decoration:none; display:inline-block; margin: 0 40px;">
-  <img src="https://github.com/knlvess.png" width="100" height="100" style="border-radius: 50%; object-fit: cover;"/>
-  <br />
-  <b>@ErikaNurAmalia</b>
-</a>
-
-</div>
+* <img src="https://github.com/aprliwln.png" width="45" height="45" style="border-radius: 50%; vertical-align: middle; margin-right: 8px;"/> [**@ApriliiaWulandari**](https://github.com/ApriliiaWulandari)
+* <img src="https://github.com/baihaqihakim77.png" width="45" height="45" style="border-radius: 50%; vertical-align: middle; margin-right: 8px;"/> [**@BaihaqiHakimAbdullah**](https://github.com/BaihaqiHakimAbdullah)
+* <img src="https://github.com/ShinRyuji31.png" width="45" height="45" style="border-radius: 50%; vertical-align: middle; margin-right: 8px;"/> [**@BenedithJeffiersonTanujaya**](https://github.com/BenedithJeffiersonTanujaya)
+* <img src="https://github.com/knlvess.png" width="45" height="45" style="border-radius: 50%; vertical-align: middle; margin-right: 8px;"/> [**@ErikaNurAmalia**](https://github.com/ErikaNurAmalia)
 
 <br/>
 
