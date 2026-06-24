@@ -74,33 +74,6 @@ This project ships as **two separate Android applications** sharing a common `:c
 | **Semar-In Driver** | The driver companion app for managing and fulfilling orders in real time. |
 
 <br/>
-
----
-
-## 🎨 Gallery & Demo
-
-> 📸 *Screenshots coming soon! Contributions welcome.*
-
-<br/>
-
-<div align="center">
-
-| Home Screen | Service Selection | Order Tracking | Driver Dashboard |
-|:-----------:|:-----------------:|:--------------:|:----------------:|
-| ![Home](link) | ![Services](link) | ![Tracking](link) | ![Driver](link) |
-
-</div>
-
-<br/>
-
-<div align="center">
-
-🎬 **[Watch the Full Demo Video →](link_to_demo_video)**
-
-</div>
-
-<br/>
-
 ---
 
 ## 🛠️ Tech Stack
