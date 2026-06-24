@@ -28,7 +28,7 @@ fun DashboardServiceSection(
             onJajaninClick()
         }
 
-        ButtonIcon("Jastip-in", R.drawable.ic_bag) {
+        ButtonIcon("Titip-in", R.drawable.ic_bag) {
             onJastipinClick()
         }
 

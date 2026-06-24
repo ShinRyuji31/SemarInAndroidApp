@@ -81,7 +81,7 @@ fun DeliveryMainPage(
         Header(
             title = when (type) {
                 StoreType.FOOD -> "Jajan-In"
-                StoreType.RETAIL -> "Jastip-In"
+                StoreType.RETAIL -> "Titip-In"
                 StoreType.SEARCH -> "Pencarian"
             },
             onBack = onBack,
