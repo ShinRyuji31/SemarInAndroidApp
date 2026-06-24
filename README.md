@@ -100,25 +100,33 @@ This project ships as **two separate Android applications** sharing a common `:c
 <br/>
 
 <div align="center">
-  <a href="https://github.com/ApriliiaWulandari" style="text-decoration: none; display: inline-block; margin: 0 15px; color: inherit;">
-    <img src="https://github.com/aprliwln.png" width="45" height="45" style="border-radius: 50%; vertical-align: middle; margin-right: 8px;"/>
-    <span style="vertical-align: middle;"><b>@ApriliiaWulandari</b></span>
-  </a>
+  <div style="margin-bottom: 12px;">
+    <a href="https://github.com/ApriliiaWulandari" style="text-decoration: none; color: inherit;">
+      <img src="https://github.com/aprliwln.png" width="45" height="45" style="border-radius: 50%; vertical-align: middle; margin-right: 8px;"/>
+      <span style="vertical-align: middle;"><b>@ApriliiaWulandari</b></span>
+    </a>
+  </div>
 
-  <a href="https://github.com/BaihaqiHakimAbdullah" style="text-decoration: none; display: inline-block; margin: 0 15px; color: inherit;">
-    <img src="https://github.com/baihaqihakim77.png" width="45" height="45" style="border-radius: 50%; vertical-align: middle; margin-right: 8px;"/>
-    <span style="vertical-align: middle;"><b>@BaihaqiHakimAbdullah</b></span>
-  </a>
+  <div style="margin-bottom: 12px;">
+    <a href="https://github.com/BaihaqiHakimAbdullah" style="text-decoration: none; color: inherit;">
+      <img src="https://github.com/baihaqihakim77.png" width="45" height="45" style="border-radius: 50%; vertical-align: middle; margin-right: 8px;"/>
+      <span style="vertical-align: middle;"><b>@BaihaqiHakimAbdullah</b></span>
+    </a>
+  </div>
 
-  <a href="https://github.com/BenedithJeffiersonTanujaya" style="text-decoration: none; display: inline-block; margin: 0 15px; color: inherit;">
-    <img src="https://github.com/ShinRyuji31.png" width="45" height="45" style="border-radius: 50%; vertical-align: middle; margin-right: 8px;"/>
-    <span style="vertical-align: middle;"><b>@BenedithJeffiersonTanujaya</b></span>
-  </a>
+  <div style="margin-bottom: 12px;">
+    <a href="https://github.com/BenedithJeffiersonTanujaya" style="text-decoration: none; color: inherit;">
+      <img src="https://github.com/ShinRyuji31.png" width="45" height="45" style="border-radius: 50%; vertical-align: middle; margin-right: 8px;"/>
+      <span style="vertical-align: middle;"><b>@BenedithJeffiersonTanujaya</b></span>
+    </a>
+  </div>
 
-  <a href="https://github.com/ErikaNurAmalia" style="text-decoration: none; display: inline-block; margin: 0 15px; color: inherit;">
-    <img src="https://github.com/knlvess.png" width="45" height="45" style="border-radius: 50%; vertical-align: middle; margin-right: 8px;"/>
-    <span style="vertical-align: middle;"><b>@ErikaNurAmalia</b></span>
-  </a>
+  <div style="margin-bottom: 12px;">
+    <a href="https://github.com/ErikaNurAmalia" style="text-decoration: none; color: inherit;">
+      <img src="https://github.com/knlvess.png" width="45" height="45" style="border-radius: 50%; vertical-align: middle; margin-right: 8px;"/>
+      <span style="vertical-align: middle;"><b>@ErikaNurAmalia</b></span>
+    </a>
+  </div>
 </div>
 
 <br/>
